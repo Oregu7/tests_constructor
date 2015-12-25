@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+	<div class="ui grid">
+		<div class="two wide column"></div>
+		<div class="twelve wide column">
+			<div class="ui items">
+			{% for test in tests %}
+			    <div class="item">
+			      <div class="content">
+			        <div class="name">{{test.title}}</div>
+			        <p class="description">
+			        	{{test.description}}
+			        	<button class="ui button">Нажми</button>
+			        </p>
+			      </div>
+			    </div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="two wide column"></div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$('.ui.button').click(function(){
+			$.confirm({
+    		title: 'Confirm!',
+    		theme: 'supervan',
+    		columnClass: 'col-md-4',
+		    content: 'Simple confirm!'
+			});
+		});
+	</script>
+{% endblock %}

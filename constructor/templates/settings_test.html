@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+	<div class="ui grid">
+		<div class="two wide column"></div>
+		<div class="twelve wide column">
+
+			<h4 class="ui top medium attached header">
+			  Тест: "{{test.title}}"
+			</h4>
+			<div class="ui attached segment" id = 'query_settings'>
+				{% include 'create_query.html' %}
+			</div>	
+		</div>
+		<div class="two wide column"></div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script type = 'underscore_template' id = 'answerTemplate'>
+		<td>
+			<div class="ui toggle checkbox">
+			<input type="checkbox">
+			<label></label>
+			</div>
+		</td>
+		<td>
+			<div class="field">
+			<input type="text">
+			</div>
+		</td>
+		<td>
+			<div class="circular ui icon button">
+			<i class="icon remove"></i>
+			</div>
+		</td>
+	</script>
+	{% load static %}
+	<script src = '{% static "application/query_settings.js" %}'></script>
+{% endblock %}

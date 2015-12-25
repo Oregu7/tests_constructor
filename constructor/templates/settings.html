@@ -1,0 +1,46 @@
+<div class="ui secondary segment">
+  <div class="ui form relaxed divided list">
+    <div class="item">
+      <div class="content">
+        <div class="header">Название</div>
+        <div class="field">
+          <input type="text" name = 'title' placeholder="Название теста">
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <div class="header">Описание</div>
+        <div class="field">
+          <textarea name="description" placeholder = 'Краткое описание теста'></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <div class="header">Подсказки</div>
+        <div class="ui slider checkbox">
+          <input type="checkbox" name="help">
+          <label>Возможность добавлять пояснения к вопросам</label>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <div class="header">Временные рамки</div>
+        <div class="ui slider checkbox">
+          <input type="checkbox" name="time">
+          <label>Ограниченное время сдачи теста</label>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <div class="header">Расчет результатов</div>
+        <div class="field">
+          {% include 'table_results.html'%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/lobibox.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+
+	<script src = "{% static 'library/jquery-2.1.4.min.js' %}"></script>
+	<script src = "{% static 'library/underscore-min.js' %}"></script>
+	<script src = "{% static 'library/backbone-min.js' %}"></script>
+	<script src = "{% static 'library/semantic.min.js' %}"></script>
+	<script src = "{% static 'library/Lobibox.js' %}"></script>
+	<script src = "{% static 'library/jquery-confirm.min.js' %}"></script>
+</head>
+<body>
+	{% include 'includes/header.html' %}
+	{% block content %}{% endblock %}
+	
+	{% block scripts %}{% endblock %}
+	<script>
+		$('#login').popup({
+			on: 'hover',
+			position: 'right center',
+    		content: 'Авторизироваться в системе'
+		});
+
+		$('.ui.checkbox').checkbox();
+		$('.ui.dropdown').dropdown();
+	</script>
+</body>
+</html>

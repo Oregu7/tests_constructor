@@ -1,0 +1,31 @@
+from django.db import models
+from users.models import Users
+# Create your models here.
+class Test(models.Model):
+	title = models.CharField(max_length=200)
+	description = models.TextField(blank=True)
+	helps = models.BooleanField()
+	time_completion = models.IntegerField()
+	public_access = models.BooleanField(default=False)
+	creator = models.ForeignKey(Users)
+	date = models.DateTimeField(auto_now=True)
+	two_mark = models.IntegerField()
+	three_mark = models.IntegerField()
+	four_mark = models.IntegerField()
+
+	def __str__(self):
+		return '%s' % self.title
+
+class Query(models.Model):
+	text = models.TextField()
+	test = models.ForeignKey(Test)
+	helps = models.TextField(blank=True)
+	point = models.IntegerField(default=0)
+
+	def __str__(self):
+		return self.test.title + ' Вопрос #' + str(self.id)
+
+class Answer(models.Model):
+	query = models.ForeignKey(Query)
+	text = models.TextField()
+	correct = models.BooleanField(default=False)
