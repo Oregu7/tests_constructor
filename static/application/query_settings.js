@@ -91,7 +91,7 @@ App.Views.Query = Backbone.View.extend({
 	},
 
 	saveQuery: function(){
-		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/';
+		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/add/';
 		data = this.model.toJSON();
 		data['answers'] = JSON.stringify(this.collection.toJSON());
 
@@ -102,13 +102,6 @@ App.Views.Query = Backbone.View.extend({
 				this.collection.reset();
 
 				this.$el.find('textarea').val('');
-
-				Lobibox.notify('success', {
-					sound:false,
-					size: 'mini',
-					icon: false,
-					msg: 'Данные успешно сохранены'
-				});
 			}
 		},this))
 	}

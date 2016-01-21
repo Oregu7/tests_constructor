@@ -84,3 +84,7 @@ def add_query(request, id):
 			raise Http404('Теста с таким id не существует!')
 	else:
 		return redirect('/')
+
+def delete_query(request, t_id, q_id):
+	Query.objects.get(test=t_id, id=q_id).delete()
+	return redirect('/constructor/test/' + t_id + '/')
