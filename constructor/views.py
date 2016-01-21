@@ -6,6 +6,19 @@ from constructor.models import Test, Query, Answer
 from users.models import Users
 import json
 
+def get_answers(query):
+	answers = Answer.objects.filter(query=query)
+
+	result = {
+		'query': query,
+		'answers': {
+			'all': len(answers),
+			'correct': len(list(filter(lambda answer: answer.correct, answers)))
+		}
+	}
+
+	return result
+
 def create_test(request):
 	if request.is_ajax():
 		try:
@@ -32,6 +45,13 @@ def create_test(request):
 		return redirect('/')
 
 def settings_test(request, id):
+	sign_in = check_sign_in(request)
+	test = Test.objects.get(id=id)
+	queries = map(get_answers, Query.objects.filter(test = test))
+
+	return render_to_response('test/queries.html', {'login': sign_in, 'test': test, 'queries': queries})
+
+def add_query(request, id):
 	login = check_sign_in(request)
 	if login:
 		try:
@@ -57,7 +77,7 @@ def settings_test(request, id):
 
 					return JsonResponse({'complite': True})
 				else:	
-					return render_to_response('settings_test.html', {'login': login, 'test': test})
+					return render_to_response('add_query.html', {'login': login, 'test': test})
 			else:
 				raise Http404('Вы не являетесь создателем данного теста!')
 		except:

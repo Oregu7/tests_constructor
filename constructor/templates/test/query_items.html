@@ -1,0 +1,45 @@
+<div class = 'ui animated list'>
+	<div class="item">
+		<div class="content">
+			<div class="header">
+				<i class="bookmark empty icon"></i>
+				Ответы(количество): 
+				<a class = 'ui red circular label'>{{item.answers.all}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="item">
+		<div class="content">
+			<div class="header">
+				<i class="checkmark sign icon"></i>
+				Правильных: 
+				<a class = 'ui green circular label'>{{item.answers.correct}}</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="item">
+		<div class="content">
+			<div class="header">
+				<i class="star icon"></i>
+				Баллы за ответ: 
+				<a class = 'ui black circular label'>{{item.query.point}}</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="item">
+		<div class="content">
+			<div class="header">
+				<i class="help icon"></i>
+				Подсказка:
+				{% if item.query.helps %}
+				<a class = 'ui teal circular label'>ДА</a>
+				{% else %}
+				<a class = 'ui purple circular label'>НЕТ</a>
+				{% endif %} 
+			</div>
+		</div>
+	</div>
+
+</div>	
