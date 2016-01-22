@@ -24,6 +24,7 @@ App.Views.Settings = Backbone.View.extend({
 			name: this.$el.find('input[name="title"]'),
 			helps: this.$el.find('input[name="help"]'),
 			timeCompl: this.$el.find('input[name="time"]'),
+			description: this.$el.find('textarea[name="description"]'),
 			marks: {
 				two: this.$el.find('input[name="two_mark"]'),
 				three: [this.$el.find('input[name="three_mark_b"]'), this.$el.find('input[name="three_mark"]')],
@@ -33,6 +34,7 @@ App.Views.Settings = Backbone.View.extend({
 		};
 
 		this.$el.find('.ui.header').transition('tada');
+		this.fields.description.val(this.fields.description.attr('data-desc'))
 	},
 
 	events: {
@@ -40,7 +42,9 @@ App.Views.Settings = Backbone.View.extend({
 		'click #create_test': 'create_test',
 		'change input[name="two_mark"]': 'changeTwoMark',
 		'change input[name="three_mark"]': 'changeThreeMark',
-		'change input[name="four_mark"]': 'changeFourMark'
+		'change input[name="four_mark"]': 'changeFourMark',
+		'click #questions' : 'questions_step',
+		'click #edit_test' : 'edit_test'
 	},
 
 	changeTwoMark: function(){
@@ -83,18 +87,12 @@ App.Views.Settings = Backbone.View.extend({
 
 	create_test: function(){
 		if (this.fields.name.val().length <= 4){
-			Lobibox.notify('error', {
-				icon: false,
-				sound: false,
-				delay: 7000,
-				title:'Ошибка',
-				msg: 'Название теста слишком короткое, должно быть больше 4 символов'
-			});
+			swal("Ошибка!", 'Название теста слишком короткое, должно быть больше 4 символов', 'error')
 		}else{
 			this.model.set({
 				title: this.fields.name.val(),
-				description: this.$el.find('textarea[name="description"]').val(),
-				timeCompl: this.fields.timeCompl.prop('checked') ? 1 : 0,
+				description: this.fields.description.val(),
+				timeCompl: this.fields.timeCompl.prop('checked'),
 				helps: this.fields.helps.prop('checked')
 			});
 
@@ -104,6 +102,51 @@ App.Views.Settings = Backbone.View.extend({
 				}
 			});
 		}
+	},
+
+	questions_step:function(){
+		var testID = $('#questions').attr('data-testID')
+		swal({
+			title: 'Переход к вопросам',
+			text: 'Вы точно хотите перейти к вопросам теста?',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: 'Да, перейти!',
+			cancelButtonText: 'Нет, не надо!',
+			closeOnConfirm: false,   
+			closeOnCancel: false
+			},
+
+			function(isConfirm){
+				if(isConfirm){
+					window.location.assign('/constructor/test/' + testID + '/queries/')
+				}else{
+					swal("Отмена", "Вы остаетесь в настройках", "success");
+				}
+			});
+	},
+
+	edit_test:function(){
+		var testID = $('#edit_test').attr('testID');
+
+		if (this.fields.name.val().length <= 4){
+			swal("Ошибка!", 'Название теста слишком короткое, должно быть больше 4 символов', 'error')
+		}else{
+			this.model.set({
+				title: this.fields.name.val(),
+				description: this.fields.description.val(),
+				timeCompl: this.fields.timeCompl.prop('checked'),
+				helps: this.fields.helps.prop('checked'),
+				two_mark: this.fields.marks.two.val(),
+				three_mark: this.fields.marks.three[1].val(),
+				four_mark: this.fields.marks.four[1].val()
+			});
+
+			$.post('', this.model.toJSON(), function(data){
+				swal('Выполено!', data.success, 'success')
+			});
+		}	
 	}
 });
 

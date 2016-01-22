@@ -71,7 +71,10 @@ App.Views.Query = Backbone.View.extend({
 	events: {
 		'click #add_answ' : 'addAnswer',
 		'click #save_query' : 'saveQuery',
-		'change textarea' : 'setQueryText'
+		'change textarea[name="text_query"]' : 'setQueryText',
+		'change textarea[name="text_helps"]' : 'setHelp',
+		'change input[name="point"]' : 'setPoint',
+		'change input[name="time"]' : 'setTime'
 	},
 
 	addAnswer: function(){
@@ -87,7 +90,19 @@ App.Views.Query = Backbone.View.extend({
 	},
 
 	setQueryText: function(){
-		this.model.set({text: this.$el.find('textarea').val()})
+		this.model.set({text: this.$el.find('textarea[name="text_query"]').val()})
+	},
+
+	setHelp: function(){
+		this.model.set({help: this.$el.find('textarea[name="text_helps"]').val()})
+	},
+
+	setPoint: function(){
+		this.model.set({point: this.$el.find('input[name="point"]').val()})
+	},
+
+	setTime: function(){
+		this.model.set({time: this.$el.find('input[name="time"]').val()})
 	},
 
 	saveQuery: function(){
@@ -102,6 +117,7 @@ App.Views.Query = Backbone.View.extend({
 				this.collection.reset();
 
 				this.$el.find('textarea').val('');
+				this.$el.find('input').val('');
 			}
 		},this))
 	}

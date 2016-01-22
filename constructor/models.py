@@ -4,8 +4,8 @@ from users.models import Users
 class Test(models.Model):
 	title = models.CharField(max_length=200)
 	description = models.TextField(blank=True)
-	helps = models.BooleanField()
-	time_completion = models.IntegerField()
+	helps = models.BooleanField(default=False)
+	time_completion = models.BooleanField(default=False)
 	public_access = models.BooleanField(default=False)
 	creator = models.ForeignKey(Users)
 	date = models.DateTimeField(auto_now=True)
@@ -20,7 +20,8 @@ class Query(models.Model):
 	text = models.TextField()
 	test = models.ForeignKey(Test)
 	helps = models.TextField(blank=True)
-	point = models.IntegerField(default=0)
+	time = models.IntegerField(default=5)
+	point = models.IntegerField(default=1)
 
 	def __str__(self):
 		return self.test.title + ' Вопрос #' + str(self.id)

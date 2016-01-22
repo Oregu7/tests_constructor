@@ -4,7 +4,7 @@
 			<div class="header">
 				<i class="bookmark empty icon"></i>
 				Ответы(количество): 
-				<a class = 'ui red circular label'>{{item.answers.all}}</a>
+				<a class = 'ui red label'>{{item.answers.all}}</a>
 			</div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 			<div class="header">
 				<i class="checkmark sign icon"></i>
 				Правильных: 
-				<a class = 'ui green circular label'>{{item.answers.correct}}</a>
+				<a class = 'ui green label'>{{item.answers.correct}}</a>
 			</div>
 		</div>
 	</div>
@@ -23,7 +23,17 @@
 			<div class="header">
 				<i class="star icon"></i>
 				Баллы за ответ: 
-				<a class = 'ui black circular label'>{{item.query.point}}</a>
+				<a class = 'ui black label'>{{item.query.point}}</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="item">
+		<div class="content">
+			<div class="header">
+				<i class="time icon"></i>
+				Время на ответ: 
+				<a class = 'ui blue label'>{{item.query.time}} мин</a>
 			</div>
 		</div>
 	</div>
@@ -34,9 +44,9 @@
 				<i class="help icon"></i>
 				Подсказка:
 				{% if item.query.helps %}
-				<a class = 'ui teal circular label'>ДА</a>
+				<a class = 'ui teal label'>ДА</a>
 				{% else %}
-				<a class = 'ui purple circular label'>НЕТ</a>
+				<a class = 'ui purple label'>НЕТ</a>
 				{% endif %} 
 			</div>
 		</div>

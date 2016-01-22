@@ -4,10 +4,21 @@
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="fourteen wide column">
+
+			<h1 class="ui inverted black block header">
+				Тест : "{{test.title}}"
+			</h1>
+
+			<div class="ui steps">
+				<div class="ui step" data-testID = "{{test.id}}" id = 'settings'>
+					Настройки
+				</div>
+				<div class="ui active step">
+					Вопросы
+				</div>
+			</div>
+
 			<div class="ui segment">
-				<h1 class="ui header">
-					Тест : "{{test.title}}"
-				</h1>
 
 				<div class="ui items">
 				{% for item in queries %}
@@ -29,8 +40,15 @@
 						</div>	
 					</div>
 				{% endfor %}
+				<div class="item">
+					<div class="content">
+						<div class="ui icon center aligned header">
+							<i class="circular question icon"></i>Вопрос
+						</div>
+						<a href="add/" class="ui button fluid">Добавить</a>
+					</div>	
 				</div>
-
+				</div>
 			</div>	
 		</div>
 	</div>
@@ -59,6 +77,11 @@
 					swal("Отмена", "Данный вопрос не будет удален :)", "error");
 				}
 			});
-	});	
+	});
+
+	$('#settings').on('click', function(){
+		testID = $(this).attr('data-testID');
+		window.location.assign('/constructor/test/' + testID + '/settings/')
+	})
 </script>
 {% endblock %}

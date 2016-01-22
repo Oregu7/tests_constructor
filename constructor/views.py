@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from testsConstructor.helpers import check_sign_in
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, Http404
@@ -45,6 +45,28 @@ def create_test(request):
 		return redirect('/')
 
 def settings_test(request, id):
+	test = get_object_or_404(Test, id=id)
+	login = check_sign_in(request)
+	if test.creator == get_object_or_404(Users, login=login):
+		if request.is_ajax():
+
+			test.title = request.POST['title']
+			test.description = request.POST['description']
+			test.helps = request.POST['helps']
+			test.time_completion = request.POST['timeCompl']
+			test.two_mark = request.POST['two_mark']
+			test.three_mark = request.POST['three_mark']
+			test.four_mark = request.POST['four_mark']
+
+			test.save()
+
+			return JsonResponse({'success': 'Данные сохранены'})
+		else:
+			return render_to_response('create_test.html', {'login': login, 'test': test})
+	else:
+		return redirect('/')
+
+def queries_test(request, id):
 	sign_in = check_sign_in(request)
 	test = Test.objects.get(id=id)
 	queries = map(get_answers, Query.objects.filter(test = test))
@@ -62,7 +84,9 @@ def add_query(request, id):
 					query = Query(
 						test = test,
 						text = request.POST['text'],
-						point = request.POST['point']
+						point = request.POST['point'],
+						helps = request.POST['help'],
+						time = request.POST['']
 					)
 
 					query.save()

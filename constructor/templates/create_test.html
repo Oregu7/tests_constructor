@@ -6,9 +6,32 @@
 	<div class="twelve wide column">
 		<div class="ui segment red" id = 'test_settings'>
 			<div class="ui ribbon teal label">Beta версия</div>
-			<h2 class="ui center aligned icon header"><i class="circular settings icon"></i> Конструктор тестов </h2>
+			<h2 class="ui center aligned icon header">
+				<i class="circular settings icon"></i>
+				Конструктор тестов
+				{% if test %}
+				<div class="sub header">Тест "{{test.title}}"</div>
+				{% endif %}
+			</h2>
+			
+			{% if test %}
+			<div class="ui steps">
+				<div class="ui active step">
+					Настройки
+				</div>
+				<div class="ui step" data-testID = "{{test.id}}" id = "questions">
+					Вопросы
+				</div>
+			</div>
+			{% endif %}
+			
 			{% include 'settings.html' %}
+			{% if test %}
+			<button class="ui button" id = 'edit_test' data-testID = "{{test.id}}">Сохранить</button>
+			{% else %}
 			<button class="ui button" id = 'create_test'>Создать</button>
+			{% endif %}
+			
 		</div>
 	</div>
 	<div class="two wide column"></div>

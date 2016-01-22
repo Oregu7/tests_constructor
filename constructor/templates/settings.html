@@ -4,7 +4,7 @@
       <div class="content">
         <div class="header">Название</div>
         <div class="field">
-          <input type="text" name = 'title' placeholder="Название теста">
+          <input type="text" name = 'title' placeholder="Название теста" value = "{{test.title}}">
         </div>
       </div>
     </div>
@@ -12,7 +12,7 @@
       <div class="content">
         <div class="header">Описание</div>
         <div class="field">
-          <textarea name="description" placeholder = 'Краткое описание теста'></textarea>
+          <textarea name="description" placeholder = 'Краткое описание теста' data-desc = "{{test.description}}"></textarea>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
       <div class="content">
         <div class="header">Подсказки</div>
         <div class="ui slider checkbox">
-          <input type="checkbox" name="help">
+          <input type="checkbox" name="help" {% if test.helps %} checked {% endif %}>
           <label>Возможность добавлять пояснения к вопросам</label>
         </div>
       </div>
@@ -29,7 +29,7 @@
       <div class="content">
         <div class="header">Временные рамки</div>
         <div class="ui slider checkbox">
-          <input type="checkbox" name="time">
+          <input type="checkbox" name="time" {% if test.time_completion %} checked {% endif %}>
           <label>Ограниченное время сдачи теста</label>
         </div>
       </div>
