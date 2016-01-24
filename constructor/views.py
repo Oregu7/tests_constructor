@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from testsConstructor.helpers import check_sign_in
+from testsConstructor.helpers import check_sign_in, str_to_bool
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse, Http404
 from constructor.models import Test, Query, Answer
@@ -26,8 +26,8 @@ def create_test(request):
 			test = Test(
 				title = request.POST['title'],
 				description = request.POST['description'],
-				helps = request.POST['helps'],
-				time_completion = request.POST['timeCompl'],
+				helps = str_to_bool(request.POST['helps']),
+				time_completion = str_to_bool(request.POST['timeCompl']),
 				creator = user,
 				two_mark = request.POST['two_mark'],
 				three_mark = request.POST['three_mark'],
@@ -52,15 +52,15 @@ def settings_test(request, id):
 
 			test.title = request.POST['title']
 			test.description = request.POST['description']
-			test.helps = request.POST['helps']
-			test.time_completion = request.POST['timeCompl']
+			test.helps = str_to_bool(request.POST['helps'])
+			test.time_completion = str_to_bool(request.POST['timeCompl'])
 			test.two_mark = request.POST['two_mark']
 			test.three_mark = request.POST['three_mark']
 			test.four_mark = request.POST['four_mark']
 
 			test.save()
 
-			return JsonResponse({'success': 'Данные сохранены'})
+			return JsonResponse({'success': 'Данные сохранены!'})
 		else:
 			return render_to_response('create_test.html', {'login': login, 'test': test})
 	else:
@@ -77,7 +77,7 @@ def add_query(request, id):
 	login = check_sign_in(request)
 	if login:
 		try:
-			test = Test.objects.get(id=id)
+			test = Test.objects.get(id=int(id))
 			if test.creator.login == login:
 				#кодим тут (когда все True)
 				if request.is_ajax():
@@ -86,7 +86,7 @@ def add_query(request, id):
 						text = request.POST['text'],
 						point = request.POST['point'],
 						helps = request.POST['help'],
-						time = request.POST['']
+						time = request.POST['time']
 					)
 
 					query.save()
@@ -111,4 +111,4 @@ def add_query(request, id):
 
 def delete_query(request, t_id, q_id):
 	Query.objects.get(test=t_id, id=q_id).delete()
-	return redirect('/constructor/test/' + t_id + '/')
+	return redirect('/constructor/test/' + t_id + '/questions/')

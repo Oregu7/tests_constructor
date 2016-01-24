@@ -106,14 +106,13 @@ App.Views.Query = Backbone.View.extend({
 	},
 
 	saveQuery: function(){
-		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/add/';
+		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/questions/add/';
 		data = this.model.toJSON();
 		data['answers'] = JSON.stringify(this.collection.toJSON());
 
-		console.log(data)
 		$.post(url, data, $.proxy(function(response){
 			if (response.complite){
-
+				swal('Сохранено!', 'Данный вопрос был успешно сохранен', 'success');
 				this.collection.reset();
 
 				this.$el.find('textarea').val('');

@@ -98,7 +98,7 @@ App.Views.Settings = Backbone.View.extend({
 
 			$.post('/constructor/', this.model.toJSON(), function(data){
 				if (!data.error){
-					window.location.assign('/constructor/test/' + data.testID + '/');
+					window.location.assign('/constructor/test/' + data.testID + '/questions/');
 				}
 			});
 		}
@@ -120,7 +120,7 @@ App.Views.Settings = Backbone.View.extend({
 
 			function(isConfirm){
 				if(isConfirm){
-					window.location.assign('/constructor/test/' + testID + '/queries/')
+					window.location.assign('/constructor/test/' + testID + '/questions/')
 				}else{
 					swal("Отмена", "Вы остаетесь в настройках", "success");
 				}
