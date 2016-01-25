@@ -28,5 +28,5 @@ class Query(models.Model):
 
 class Answer(models.Model):
 	query = models.ForeignKey(Query)
-	text = models.TextField()
+	text = models.CharField(max_length=200, blank=True)
 	correct = models.BooleanField(default=False)

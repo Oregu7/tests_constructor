@@ -1,7 +1,8 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from testsConstructor.helpers import check_sign_in, str_to_bool
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse, Http404
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from constructor.models import Test, Query, Answer
 from users.models import Users
 import json
@@ -112,3 +113,55 @@ def add_query(request, id):
 def delete_query(request, t_id, q_id):
 	Query.objects.get(test=t_id, id=q_id).delete()
 	return redirect('/constructor/test/' + t_id + '/questions/')
+
+def edit_question(request, t_id, q_id):
+	test = get_object_or_404(Test, id=t_id)
+	question = get_object_or_404(Query, id=q_id)
+	answers = Answer.objects.filter(query=question)
+	login = check_sign_in(request)
+
+	if test.creator.login == login:
+		if request.is_ajax():
+			response = []
+			#получаем поля модели в json формате и сразу парсим
+			answers = json.loads(serializers.serialize('json', answers))
+			#формируем модели
+			for answer in answers:
+				data = answer.get('fields')
+				data['id'] = answer.get('pk')
+				response.append(data)
+			#возвращаем модели в JSON формате
+			return HttpResponse(json.dumps(response))
+		else:
+			return render_to_response('add_query.html', 
+				{
+					'login': login, 
+					'test': test, 
+					'question': question,
+					'answers': answers
+				}
+			)
+	else:
+		return Http404('Вы не являетесь создателем данного теста!')
+
+def question_actions(request, qid, aid):
+	if request.method == 'DELETE':
+		answer = get_object_or_404(Answer, query=qid, id=aid)
+		answer.delete()
+		return JsonResponse({'msg':'delete'})
+	elif request.method == 'PUT':
+		answer = get_object_or_404(Answer, query=qid, id=aid)
+		#парсим put запрос
+		put = json.loads(list(QueryDict(request.body).dict().keys())[0])
+		#обновляем данные
+		answer.text = put.get('text')
+		answer.correct = put.get('correct')
+		answer.save()
+
+		return JsonResponse({'msg':'success'})
+	elif request.method == 'POST':
+		question = get_object_or_404(Query, id=qid)
+		answer = Answer(query=question)
+
+		answer.save()
+		return JsonResponse({'id': answer.id})
