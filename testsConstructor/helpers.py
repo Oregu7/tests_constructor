@@ -1,3 +1,6 @@
+from django.http import QueryDict
+import json
+
 def check_sign_in(request):
 	if "user" in request.session:
 		result = request.session.get('user')
@@ -10,3 +13,6 @@ def str_to_bool(item):
 		return True
 	else:
 		return False
+
+def put(request):
+	return json.loads(list(QueryDict(request.body).dict().keys())[0])

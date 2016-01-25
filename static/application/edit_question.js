@@ -70,20 +70,30 @@ App.Views.Answer = Backbone.View.extend({
 App.Views.Query = Backbone.View.extend({
 	el: '#query_settings',
 	initialize: function(){
+		var that = this;
 		this.question = Number(this.$el.attr('data-question'));
 		this.test = Number(this.$el.attr('data-test'));
 
 		this.collection.on('add', this.addItem, this);
 		this.collection.on('reset', this.tbodyEmpty, this);
-		this.collection.url = '/constructor/test/'+this.test+'/questions/edit/'+this.question+'/';
+		//Подтягиваем ответы
+		this.collection.url = '/constructor/question/'+this.question+'/';
 		this.collection.fetch();
-
-	
+		//Подтягиваем вопрос
+		this.model.url = '/constructor/test/'+this.test+'/questions/edit/'+this.question+'/'
+		this.model.save(null,{
+			success:function(model, response){
+				that.$el.find('textarea[name="text_query"]').val(model.get('text'));
+				that.$el.find('textarea[name="text_helps"]').val(model.get('help'));
+				that.$el.find('input[name="point"]').val(model.get('point'));
+				that.$el.find('input[name="time"]').val(model.get('time'));
+			}
+		});
 	},
 
 	events: {
 		'click #add_answ' : 'addAnswer',
-		'click #save_query' : 'saveQuery',
+		'click #back' : 'back_to_test',
 		'change textarea[name="text_query"]' : 'setQueryText',
 		'change textarea[name="text_helps"]' : 'setHelp',
 		'change input[name="point"]' : 'setPoint',
@@ -105,36 +115,26 @@ App.Views.Query = Backbone.View.extend({
 	},
 
 	setQueryText: function(){
-		this.model.set({text: this.$el.find('textarea[name="text_query"]').val()})
+		this.model.save({text: this.$el.find('textarea[name="text_query"]').val()})
 	},
 
 	setHelp: function(){
-		this.model.set({help: this.$el.find('textarea[name="text_helps"]').val()})
+		this.model.save({help: this.$el.find('textarea[name="text_helps"]').val()})
 	},
 
 	setPoint: function(){
-		this.model.set({point: this.$el.find('input[name="point"]').val()})
+		this.model.save({point: this.$el.find('input[name="point"]').val()})
 	},
 
 	setTime: function(){
-		this.model.set({time: this.$el.find('input[name="time"]').val()})
+		this.model.save({time: this.$el.find('input[name="time"]').val()})
 	},
 
-	saveQuery: function(){
-		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/questions/add/';
-		data = this.model.toJSON();
-		data['answers'] = JSON.stringify(this.collection.toJSON());
-
-		$.post(url, data, $.proxy(function(response){
-			if (response.complite){
-				swal('Сохранено!', 'Данный вопрос был успешно сохранен', 'success');
-				this.collection.reset();
-
-				this.$el.find('textarea').val('');
-				this.$el.find('input').val('');
-			}
-		},this))
+	back_to_test:function(){
+		window.location.assign('/constructor/test/'+this.test+'/questions/')
 	}
+
+	
 });
 
 var answersView = new App.Views.Query({

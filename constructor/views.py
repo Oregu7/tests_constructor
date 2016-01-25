@@ -1,8 +1,9 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from testsConstructor.helpers import check_sign_in, str_to_bool
+from testsConstructor.helpers import check_sign_in, str_to_bool, put
 from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
+from django.forms.models import model_to_dict
 from constructor.models import Test, Query, Answer
 from users.models import Users
 import json
@@ -86,7 +87,7 @@ def add_query(request, id):
 						test = test,
 						text = request.POST['text'],
 						point = request.POST['point'],
-						helps = request.POST['help'],
+						help = request.POST['help'],
 						time = request.POST['time']
 					)
 
@@ -117,28 +118,29 @@ def delete_query(request, t_id, q_id):
 def edit_question(request, t_id, q_id):
 	test = get_object_or_404(Test, id=t_id)
 	question = get_object_or_404(Query, id=q_id)
-	answers = Answer.objects.filter(query=question)
 	login = check_sign_in(request)
 
 	if test.creator.login == login:
-		if request.is_ajax():
-			response = []
-			#получаем поля модели в json формате и сразу парсим
-			answers = json.loads(serializers.serialize('json', answers))
-			#формируем модели
-			for answer in answers:
-				data = answer.get('fields')
-				data['id'] = answer.get('pk')
-				response.append(data)
-			#возвращаем модели в JSON формате
-			return HttpResponse(json.dumps(response))
-		else:
+		if request.method == 'POST':
+			#отправляем model
+			return HttpResponse(json.dumps(model_to_dict(question)))
+		elif request.method == 'PUT':
+			#парсим put запрос
+			data = put(request)
+			#обновляем данные
+			question.help = data.get('help')
+			question.point = int(data.get('point'))
+			question.time = int(data.get('time'))
+			question.text = data.get('text')
+			question.save()
+
+			return HttpResponse(json.dumps(data))	
+		elif request.method == 'GET':
 			return render_to_response('add_query.html', 
 				{
 					'login': login, 
 					'test': test, 
-					'question': question,
-					'answers': answers
+					'question': question
 				}
 			)
 	else:
@@ -152,10 +154,10 @@ def question_actions(request, qid, aid):
 	elif request.method == 'PUT':
 		answer = get_object_or_404(Answer, query=qid, id=aid)
 		#парсим put запрос
-		put = json.loads(list(QueryDict(request.body).dict().keys())[0])
+		data = put(request)
 		#обновляем данные
-		answer.text = put.get('text')
-		answer.correct = put.get('correct')
+		answer.text = data.get('text')
+		answer.correct = data.get('correct')
 		answer.save()
 
 		return JsonResponse({'msg':'success'})
@@ -165,3 +167,18 @@ def question_actions(request, qid, aid):
 
 		answer.save()
 		return JsonResponse({'id': answer.id})
+
+	#достаем коллекцию овтетов данного вопроса
+	elif request.method == 'GET':
+		question = get_object_or_404(Query, id=qid)
+		answers = Answer.objects.filter(query=question)
+		response = []
+		#получаем поля модели в json формате и сразу парсим
+		answers = json.loads(serializers.serialize('json', answers))
+		#формируем модели
+		for answer in answers:
+			data = answer.get('fields')
+			data['id'] = answer.get('pk')
+			response.append(data)
+		#возвращаем модели в JSON формате
+		return HttpResponse(json.dumps(response))

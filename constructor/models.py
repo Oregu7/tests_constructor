@@ -19,7 +19,7 @@ class Test(models.Model):
 class Query(models.Model):
 	text = models.TextField()
 	test = models.ForeignKey(Test)
-	helps = models.TextField(blank=True)
+	help = models.TextField(blank=True)
 	time = models.IntegerField(default=5)
 	point = models.IntegerField(default=1)
 

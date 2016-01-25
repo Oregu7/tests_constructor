@@ -51,7 +51,14 @@
 	    </th>
 	  </tr></tfoot>
 	</table>
+	{% if question %}
+	<div class="ui purple labeled icon button" id = "back" data-testID = "{{test.id}}">
+		<i class="left icon"></i>Назад
+	</div>
+	{% else %}
 	<div class="ui green labeled icon button" id = "save_query" data-testID = "{{test.id}}">
 		<i class="save icon"></i>Сохранить
 	</div>
+	{% endif%}
+	
 </div>
