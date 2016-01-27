@@ -39,7 +39,7 @@ App.Views.Answer = Backbone.View.extend({
 	},
 
 	render: function(){
-		this.$el.html(this.template());
+		this.$el.html(this.template(this.model.toJSON()));
 		this.$el.find('.ui.checkbox').checkbox();
 		return this
 	},
@@ -114,6 +114,12 @@ App.Views.Query = Backbone.View.extend({
 			if (response.complite){
 				swal('Сохранено!', 'Данный вопрос был успешно сохранен', 'success');
 				this.collection.reset();
+				this.model.set({
+					text: '',
+					help: '',
+					point: 1,
+					time: 5
+				});
 
 				this.$el.find('textarea').val('');
 				this.$el.find('input').val('');

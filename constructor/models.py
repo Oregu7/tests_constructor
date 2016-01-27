@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import Users
+from users.models import User
 # Create your models here.
 class Test(models.Model):
 	title = models.CharField(max_length=200)
@@ -7,7 +7,7 @@ class Test(models.Model):
 	helps = models.BooleanField(default=False)
 	time_completion = models.BooleanField(default=False)
 	public_access = models.BooleanField(default=False)
-	creator = models.ForeignKey(Users)
+	creator = models.ForeignKey(User)
 	date = models.DateTimeField(auto_now=True)
 	two_mark = models.IntegerField()
 	three_mark = models.IntegerField()

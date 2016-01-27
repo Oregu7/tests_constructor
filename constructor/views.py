@@ -5,7 +5,7 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
 from constructor.models import Test, Query, Answer
-from users.models import Users
+from users.models import User
 import json
 
 def get_answers(query):
@@ -24,7 +24,7 @@ def get_answers(query):
 def create_test(request):
 	if request.is_ajax():
 		try:
-			user = Users.objects.get(login=request.session.get('user'))
+			user = User.objects.get(login=request.session.get('user'))
 			test = Test(
 				title = request.POST['title'],
 				description = request.POST['description'],
@@ -49,7 +49,7 @@ def create_test(request):
 def settings_test(request, id):
 	test = get_object_or_404(Test, id=id)
 	login = check_sign_in(request)
-	if test.creator == get_object_or_404(Users, login=login):
+	if test.creator == get_object_or_404(User, login=login):
 		if request.is_ajax():
 
 			test.title = request.POST['title']

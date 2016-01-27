@@ -4,19 +4,22 @@
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column">
-			<div class="ui items">
-			{% for test in tests %}
+			<div class="ui big icon fluid input">
+				<input type="text" placeholder="Поиск по названию..." id = 'search'>
+				<i class="search icon"></i>
+			</div>
+			{% for tests in data %}
+			<div class="ui five connected items">
+				{% for test in tests %}
 			    <div class="item">
 			      <div class="content">
-			        <div class="name">{{test.title}}</div>
-			        <p class="description">
-			        	{{test.description}}
-			        	<button class="ui button">Нажми</button>
-			        </p>
+			        <div class="header">{{test.title}}</div>
+			        <p class="description">{{test.description}}</p>
 			      </div>
 			    </div>
-			{% endfor %}
+			    {% endfor %}
 			</div>
+			{% endfor %}
 		</div>
 		<div class="two wide column"></div>
 	</div>
@@ -24,12 +27,19 @@
 
 {% block scripts %}
 	<script>
-		$('.ui.button').click(function(){
-			$.confirm({
-    		title: 'Confirm!',
-    		theme: 'supervan',
-    		columnClass: 'col-md-4',
-		    content: 'Simple confirm!'
+		$(document).ready(function(){
+			$('#search').keypress(function(e){
+				var search_text = $(this).val();
+
+				if(e.keyCode==13){
+					if (search_text.length === 0){
+						swal('Внимание!', 'Вы ничего не ввели в поисковое поле', 'warning')
+					}else{
+						$.get('/tests/search/', {search_text: search_text}, function(response){
+							console.log(JSON.parse(response))
+						});
+					}
+				}
 			});
 		});
 	</script>

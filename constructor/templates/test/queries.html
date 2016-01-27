@@ -32,7 +32,7 @@
 							<div class="name">
 								Вопрос
 							</div>
-							{{item.query.text}}
+							{{item.query.text|slice:":20"}}...?
 							{% include 'test/query_items.html' %}
 							<a href = "edit/{{item.query.id}}/" class="ui button green fluid">
 								Подробнее

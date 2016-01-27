@@ -1,4 +1,5 @@
 from django.http import QueryDict
+from django.forms.models import model_to_dict
 import json
 
 def check_sign_in(request):
@@ -16,3 +17,9 @@ def str_to_bool(item):
 
 def put(request):
 	return json.loads(list(QueryDict(request.body).dict().keys())[0])
+
+def models_to_dict(data):
+	result = []
+	for item in data:
+		result.append(model_to_dict(item))
+	return result

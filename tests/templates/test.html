@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="ui grid">
+	<div class="two wide column"></div>
+	<div class="twelve wide column">
+		<div class="ui vertical center aligned segment">	
+			<div class="ui huge header">
+				{{test.title}}
+				<div class="sub header">{{test.description}}</div>
+			</div>
+		</div>
+		<div  id = "content">
+			<div class="ui grid">
+				<div class="six wide column"></div>
+				<div class="four wide column">
+					<a class="ui green button fluid" id = "start" data-test = "{{test.id}}">
+						Начать
+					</a>
+				</div>
+				<div class="six wide column"></div>
+			</div>
+		</div>
+	</div>
+	<div class="two wide column"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	{% load static %}
+	<script type="tmpl/underscore" id ="answer_tmpl">
+		<div class="content">
+			<div class="ui toggle checkbox">
+				<input type="checkbox">
+				<label><%- text %></label>
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript" src = "{% static 'application/test.js' %}"></script>
+{% endblock %}
