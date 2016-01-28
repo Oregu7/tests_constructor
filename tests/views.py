@@ -13,11 +13,11 @@ def tests(request):
 	return render_to_response('tests.html', {'data': data, 'login': login})
 
 def search(request):
-	login = check_sign_in(request)
-	tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
-	data = models_to_dict(tests)
-
-	return HttpResponse(json.dumps(data))
+	#login = check_sign_in(request)
+	#tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
+	#data = models_to_dict(tests)
+	return JsonResponse(request.session['test'])
+	#return HttpResponse(json.dumps(data))
 
 def test(request, id):
 	login = check_sign_in(request)
@@ -41,3 +41,26 @@ def test(request, id):
 	else:
 		return render_to_response('test.html', {'login': login, 'test': test})
 
+def test_next_quest(request):
+	if request.is_ajax():
+		if 'test' in request.session:
+			#Включаем возможность модификации сесии
+			request.session.modified = True
+			#сохраняем ответы
+			answers = list(map(lambda answer: {'id': answer['id'], 'selection': answer['selection']},json.loads(request.POST['answers'])))
+			request.session['test']['answers'].append(answers)
+			#отдаем следующий вопрос или завершаем тест
+			next_question = request.session['test']['current_quset'] + 1
+			if next_question <= len(request.session['test']['questions']) - 1:
+				request.session['test']['current_quset'] = next_question
+				quest = Query.objects.get(id=request.session['test']['questions'][next_question])
+				answers = models_to_dict(Answer.objects.filter(query=quest))
+
+				return HttpResponse(json.dumps({'quest': model_to_dict(quest), 'answers': answers}))
+			else:
+				#расчитываем результаты
+				return JsonResponse({'msg': 'test is complite'})
+		else:
+			raise Http404('Отсутствует сессия')
+	else:
+		raise Http404('Такая страница не существует!')

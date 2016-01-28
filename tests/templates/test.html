@@ -11,14 +11,16 @@
 			</div>
 		</div>
 		<div  id = "content">
-			<div class="ui grid">
-				<div class="six wide column"></div>
-				<div class="four wide column">
-					<a class="ui green button fluid" id = "start" data-test = "{{test.id}}">
-						Начать
-					</a>
+			<div id="test">
+				<div class="ui grid">
+					<div class="six wide column"></div>
+					<div class="four wide column">
+						<a class="ui green button fluid" id = "start" data-test = "{{test.id}}">
+							Начать
+						</a>
+					</div>
+					<div class="six wide column"></div>
 				</div>
-				<div class="six wide column"></div>
 			</div>
 		</div>
 	</div>
@@ -33,6 +35,17 @@
 			<div class="ui toggle checkbox">
 				<input type="checkbox">
 				<label><%- text %></label>
+			</div>
+		</div>
+	</script>
+	<script type="tmpl/underscore" id = 'next_tmpl'>
+		<div class="ui grid">
+			<div class="six wide column"></div>
+			<div class="six wide column"></div>
+			<div class="four wide column">
+				<a class="ui blue button fluid" id = "next_quest">
+					Дальше
+				</a>
 			</div>
 		</div>
 	</script>
