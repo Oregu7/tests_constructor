@@ -51,7 +51,6 @@ App.Views.Answer = Backbone.View.extend({
 	setAnswer: function(){
 		var answer = this.$el.find('input[type="checkbox"]').prop('checked')
 		this.model.set('selection',answer)
-		console.log(this.model.toJSON())
 	},
 
 	render: function(){
@@ -83,6 +82,8 @@ App.Views.Answers = Backbone.View.extend({
 App.Views.Test = Backbone.View.extend({
 	el: '#content',
 	template: _.template($('#next_tmpl').html()),
+	result_template: _.template($('#result_tmpl').html()),
+
 	initialize: function(){
 		this.questionModel =  new App.Models.Question,
 		this.answersCollection =  new App.Collections.Answers
@@ -147,8 +148,14 @@ App.Views.Test = Backbone.View.extend({
 			var data = {'answers' : JSON.stringify(that.answersCollection.toJSON())}
 			$.post('/tests/next/', data, function(response){
 				var quest_data = JSON.parse(response)
-				that.questionModel.set(quest_data.quest)
-				that.answersCollection.reset(quest_data.answers)
+
+				if (quest_data.test_result){
+					that.$el.empty()
+					that.$el.html(that.result_template(quest_data))
+				}else{
+					that.questionModel.set(quest_data.quest)
+					that.answersCollection.reset(quest_data.answers)
+				}
 			});
 		}else{
 			swal('Ошибка!', "Выберите хотя бы 1 правильный ответ", "error")

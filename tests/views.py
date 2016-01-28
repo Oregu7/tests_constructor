@@ -1,7 +1,8 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
-from testsConstructor.helpers import check_sign_in, models_to_dict
+from django.db.models import Sum
+from testsConstructor.helpers import check_sign_in, models_to_dict, str_to_bool
 from constructor.models import Test, Query, Answer
 import json
 import random
@@ -16,7 +17,8 @@ def search(request):
 	#login = check_sign_in(request)
 	#tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
 	#data = models_to_dict(tests)
-	return JsonResponse(request.session['test'])
+	test = model_to_dict(Test.objects.get(id=3))
+	return JsonResponse(test)
 	#return HttpResponse(json.dumps(data))
 
 def test(request, id):
@@ -59,7 +61,37 @@ def test_next_quest(request):
 				return HttpResponse(json.dumps({'quest': model_to_dict(quest), 'answers': answers}))
 			else:
 				#расчитываем результаты
-				return JsonResponse({'msg': 'test is complite'})
+				test_data = request.session['test']
+				test = Test.objects.get(id=test_data['id'])
+				max_points = Query.objects.filter(test=test).aggregate(points_sum=Sum('point'))
+				user_points = 0
+				#начинаем обработку вопросов и ответов
+				for num in range(len(request.session['test']['questions']) - 1):
+					question = Query.objects.get(id=test_data['questions'][num])
+					#перебираем ответы
+					for answer in test_data['answers'][num]:
+						answer_data = model_to_dict(Answer.objects.get(id=answer['id'],query=question))
+						if answer_data['correct'] != str_to_bool(answer['selection']):
+							break
+					else:
+						user_points += question['point']
+
+				#получаем процент
+				user_percent = user_points * 100 / max_points['points_sum']
+				test = model_to_dict(test)
+				if user_percent >= 0 and user_percent < test['two_mark']:
+					result = 2
+				elif user_percent >= test['two_mark'] and user_percent < test['three_mark']:
+					result = 3
+				elif user_percent >= test['three_mark'] and user_percent < test['four_mark']:
+					result = 4
+				else:
+					result = 5
+
+				#удаляем сессию
+				del request.session['test']
+
+				return HttpResponse(json.dumps({'test_result': result}))
 		else:
 			raise Http404('Отсутствует сессия')
 	else:
