@@ -34,7 +34,7 @@
 	{% load static %}
 	<script type="tmpl/underscore" id ="answer_tmpl">
 		<div class="content">
-			<div class="ui toggle checkbox">
+			<div class="ui slider checkbox">
 				<input type="checkbox">
 				<label><%- text %></label>
 			</div>
@@ -45,10 +45,10 @@
 			<div class="six wide column"></div>
 			<div class="four wide column">
 				<div class="ui borderless pagination menu">
-				  <a class="item">
+				  <a class="item" id = 'help'>
 				    <i class="help icon"></i>
 				  </a>
-				  <a class="item" id = "timer">1</a>
+				  <a class="item" id = "timer">0:00</a>
 				  <a class="item" id ="next_quest">
 				    Дальше <i class="icon right arrow"></i>
 				  </a>

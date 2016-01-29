@@ -37,7 +37,15 @@ def test(request, id):
 
 		quest = Query.objects.get(id=request.session['test']['questions'][request.session['test']['current_quset']])
 		answers = models_to_dict(Answer.objects.filter(query=quest))
-		return HttpResponse(json.dumps({'quest': model_to_dict(quest), 'answers': answers}))
+		#проверяем включены ли подсказки и время сдачи
+		test = model_to_dict(test)
+		quest = model_to_dict(quest)
+		if not test['time_completion']:
+			quest['time'] = False
+		if not test['helps']:
+			quest['help'] = False
+
+		return HttpResponse(json.dumps({'quest': quest, 'answers': answers}))
 	else:
 		return render_to_response('test.html', {'login': login, 'test': test})
 
@@ -52,11 +60,21 @@ def test_next_quest(request):
 			#отдаем следующий вопрос или завершаем тест
 			next_question = request.session['test']['current_quset'] + 1
 			if next_question <= len(request.session['test']['questions']) - 1:
+				#увеличиваем индекс текущего вопроса
 				request.session['test']['current_quset'] = next_question
-				quest = Query.objects.get(id=request.session['test']['questions'][next_question])
+				#находим данные
+				test = Test.objects.get(id=request.session['test']['id'])
+				quest = Query.objects.get(id=request.session['test']['questions'][next_question], test=test)
 				answers = models_to_dict(Answer.objects.filter(query=quest))
+				#проверяем включены ли подсказки и время сдачи
+				test = model_to_dict(test)
+				quest = model_to_dict(quest)
+				if not test['time_completion']:
+					quest['time'] = False
+				if not test['helps']:
+					quest['help'] = False
 
-				return HttpResponse(json.dumps({'quest': model_to_dict(quest), 'answers': answers}))
+				return HttpResponse(json.dumps({'quest': quest, 'answers': answers}))
 			else:
 				#расчитываем результаты
 				test_data = request.session['test']

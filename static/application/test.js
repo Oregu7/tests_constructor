@@ -91,7 +91,8 @@ App.Views.Test = Backbone.View.extend({
 
 	events: {
 		'click #start': 'start_test',
-		'click #next_quest': 'next_quest'
+		'click #next_quest': 'next_quest',
+		'click #help' : 'show_help'
 	},
 
 	start_test: function(){
@@ -196,6 +197,15 @@ App.Views.Test = Backbone.View.extend({
 				that.next_quest();
 
 			}, that.questionModel.get('time') * 60 * 1000)
+		}
+	},
+
+	show_help: function(){
+		var that = this;
+		if (that.questionModel.get('help') && that.questionModel.get('help').length > 0){
+			swal('Подсказка', that.questionModel.get('help'), 'info')
+		}else{
+			swal('Подсказка', 'В данном тесте или вопросе не предусмотрены', 'error')
 		}
 	}
 });
