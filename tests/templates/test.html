@@ -26,6 +26,8 @@
 	</div>
 	<div class="two wide column"></div>
 </div>
+
+
 {% endblock %}
 
 {% block scripts %}
@@ -41,13 +43,20 @@
 	<script type="tmpl/underscore" id = 'next_tmpl'>
 		<div class="ui grid">
 			<div class="six wide column"></div>
-			<div class="six wide column"></div>
 			<div class="four wide column">
-				<a class="ui blue button fluid" id = "next_quest">
-					Дальше
-				</a>
+				<div class="ui borderless pagination menu">
+				  <a class="item">
+				    <i class="help icon"></i>
+				  </a>
+				  <a class="item" id = "timer">1</a>
+				  <a class="item" id ="next_quest">
+				    Дальше <i class="icon right arrow"></i>
+				  </a>
+				</div>
 			</div>
+			<div class="six wide column"></div>
 		</div>
+		
 	</script>
 
 	<script type="tmpl/underscore" id ="result_tmpl">

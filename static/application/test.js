@@ -61,7 +61,7 @@ App.Views.Answer = Backbone.View.extend({
 })
 
 App.Views.Answers = Backbone.View.extend({
-	className: 'ui selection list',
+	className: 'ui large list',
 	initialize: function(){
 		this.collection.on('reset', this.render, this)
 		this.render()
@@ -129,6 +129,9 @@ App.Views.Test = Backbone.View.extend({
 
 						that.$el.append(that.template())
 						swal("Вопрос загружен");
+
+						//проверяем нужен ли нам таймер
+						that.check_timer()
 					})
 				}, 2000);
 			});
@@ -144,25 +147,61 @@ App.Views.Test = Backbone.View.extend({
 			}
 		})
 
-		if (selection){
+		if (selection || that.model.get('time')){
 			var data = {'answers' : JSON.stringify(that.answersCollection.toJSON())}
 			$.post('/tests/next/', data, function(response){
 				var quest_data = JSON.parse(response)
-
 				if (quest_data.test_result){
+					console.log(quest_data)
 					that.$el.empty()
 					that.$el.html(that.result_template(quest_data))
 				}else{
 					that.questionModel.set(quest_data.quest)
 					that.answersCollection.reset(quest_data.answers)
+					that.check_timer();
 				}
 			});
 		}else{
 			swal('Ошибка!', "Выберите хотя бы 1 правильный ответ", "error")
 		}
+	},
+
+	check_timer: function(){
+		var that = this;
+
+		if (timer) {
+			clearInterval(that.timer);
+			clearTimeout(that.stopTimer);
+		}
+
+		if (that.questionModel.get('time')){
+			var minutes = that.questionModel.get('time'),
+				seconds = 0;
+
+			that.timer = setInterval(function(){
+				that.$el.find('#timer').html(minutes + " : " + seconds)
+				if (seconds == 0 ){
+					minutes -= 1;
+					seconds = 59
+				}else{
+					seconds -= 1;
+				}
+			}, 1000)
+
+			that.stopTimer = setTimeout(function(){
+				clearInterval(timer);
+				//Время заканчивается
+				that.model.set('time', true);
+				//следующий вопрос
+				that.next_quest();
+
+			}, that.questionModel.get('time') * 60 * 1000)
+		}
 	}
 });
 
 var Test = new App.Views.Test({
-	model : new App.Models.Test
+	model : new App.Models.Test({
+		time: false
+	})
 })

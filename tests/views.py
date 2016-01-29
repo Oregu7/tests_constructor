@@ -14,12 +14,10 @@ def tests(request):
 	return render_to_response('tests.html', {'data': data, 'login': login})
 
 def search(request):
-	#login = check_sign_in(request)
-	#tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
-	#data = models_to_dict(tests)
-	test = model_to_dict(Test.objects.get(id=3))
-	return JsonResponse(test)
-	#return HttpResponse(json.dumps(data))
+	login = check_sign_in(request)
+	tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
+	data = models_to_dict(tests)
+	return HttpResponse(json.dumps(data))
 
 def test(request, id):
 	login = check_sign_in(request)
@@ -63,22 +61,24 @@ def test_next_quest(request):
 				#расчитываем результаты
 				test_data = request.session['test']
 				test = Test.objects.get(id=test_data['id'])
-				max_points = Query.objects.filter(test=test).aggregate(points_sum=Sum('point'))
+				max_points = Query.objects.filter(test=test).aggregate(points_sum=Sum('point'))['points_sum']
 				user_points = 0
 				#начинаем обработку вопросов и ответов
-				for num in range(len(request.session['test']['questions']) - 1):
+				for num in range(len(request.session['test']['questions'])):
 					question = Query.objects.get(id=test_data['questions'][num])
+					point = model_to_dict(question)['point']
 					#перебираем ответы
 					for answer in test_data['answers'][num]:
 						answer_data = model_to_dict(Answer.objects.get(id=answer['id'],query=question))
-						if answer_data['correct'] != str_to_bool(answer['selection']):
+						if answer_data['correct'] != answer['selection']:
 							break
 					else:
-						user_points += question['point']
+						user_points += point
 
 				#получаем процент
-				user_percent = user_points * 100 / max_points['points_sum']
+				user_percent = user_points * 100 / int(max_points)
 				test = model_to_dict(test)
+
 				if user_percent >= 0 and user_percent < test['two_mark']:
 					result = 2
 				elif user_percent >= test['two_mark'] and user_percent < test['three_mark']:
@@ -91,7 +91,7 @@ def test_next_quest(request):
 				#удаляем сессию
 				del request.session['test']
 
-				return HttpResponse(json.dumps({'test_result': result}))
+				return HttpResponse(json.dumps({'test_result': result, 'percent': user_percent}))
 		else:
 			raise Http404('Отсутствует сессия')
 	else:
