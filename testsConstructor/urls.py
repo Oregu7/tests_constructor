@@ -15,14 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from testsConstructor.views import home, login, sign_out
+from testsConstructor.views import home
 
 urlpatterns = [
 	url(r'^$', home),
-	url(r'^login/', login),
-    url(r'^sign_out', sign_out),
-    url(r'^admin/', admin.site.urls),
-    url(r'^profile/', include('users.urls')),
-    url(r'^constructor/', include('constructor.urls')),
-    url(r'^tests/', include('tests.urls'))
+	url(r'^admin/', admin.site.urls),
+	url(r'^profile/', include('users.urls')),
+	url(r'^constructor/', include('constructor.urls')),
+	url(r'^tests/', include('tests.urls')),
+	url(r'^auth/', include('loginsys.urls'))
 ]

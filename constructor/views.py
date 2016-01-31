@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from testsConstructor.helpers import check_sign_in, str_to_bool, put
 from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
@@ -6,6 +7,7 @@ from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
 from constructor.models import Test, Query, Answer
 from users.models import User
+from django.contrib import auth
 import json
 
 def get_answers(query):
@@ -21,6 +23,7 @@ def get_answers(query):
 
 	return result
 
+@csrf_exempt
 def create_test(request):
 	if request.is_ajax():
 		try:
@@ -46,6 +49,7 @@ def create_test(request):
 	else:
 		return redirect('/')
 
+@csrf_exempt
 def settings_test(request, id):
 	test = get_object_or_404(Test, id=id)
 	login = check_sign_in(request)
@@ -56,6 +60,7 @@ def settings_test(request, id):
 			test.description = request.POST['description']
 			test.helps = str_to_bool(request.POST['helps'])
 			test.time_completion = str_to_bool(request.POST['timeCompl'])
+			test.public_access = str_to_bool(request.POST['public_access'])
 			test.two_mark = request.POST['two_mark']
 			test.three_mark = request.POST['three_mark']
 			test.four_mark = request.POST['four_mark']
@@ -68,6 +73,7 @@ def settings_test(request, id):
 	else:
 		return redirect('/')
 
+@csrf_exempt
 def queries_test(request, id):
 	sign_in = check_sign_in(request)
 	test = Test.objects.get(id=id)
@@ -75,6 +81,7 @@ def queries_test(request, id):
 
 	return render_to_response('test/queries.html', {'login': sign_in, 'test': test, 'queries': queries})
 
+@csrf_exempt
 def add_query(request, id):
 	login = check_sign_in(request)
 	if login:
@@ -111,10 +118,12 @@ def add_query(request, id):
 	else:
 		return redirect('/')
 
+@csrf_exempt
 def delete_query(request, t_id, q_id):
 	Query.objects.get(test=t_id, id=q_id).delete()
 	return redirect('/constructor/test/' + t_id + '/questions/')
 
+@csrf_exempt
 def edit_question(request, t_id, q_id):
 	test = get_object_or_404(Test, id=t_id)
 	question = get_object_or_404(Query, id=q_id)
@@ -146,6 +155,7 @@ def edit_question(request, t_id, q_id):
 	else:
 		return Http404('Вы не являетесь создателем данного теста!')
 
+@csrf_exempt
 def question_actions(request, qid, aid):
 	if request.method == 'DELETE':
 		answer = get_object_or_404(Answer, query=qid, id=aid)

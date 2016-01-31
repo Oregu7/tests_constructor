@@ -10,6 +10,7 @@ App.Models.Settings = Backbone.Model.extend({
 		description: '',
 		helps: false,
 		timeCompl: false,
+		public_access: false,
 		two_mark: 25,
 		three_mark: 55,
 		four_mark: 85
@@ -24,6 +25,7 @@ App.Views.Settings = Backbone.View.extend({
 			name: this.$el.find('input[name="title"]'),
 			helps: this.$el.find('input[name="help"]'),
 			timeCompl: this.$el.find('input[name="time"]'),
+			public_access: this.$el.find('input[name="public_access"]'),
 			description: this.$el.find('textarea[name="description"]'),
 			marks: {
 				two: this.$el.find('input[name="two_mark"]'),
@@ -138,6 +140,7 @@ App.Views.Settings = Backbone.View.extend({
 				description: this.fields.description.val(),
 				timeCompl: this.fields.timeCompl.prop('checked'),
 				helps: this.fields.helps.prop('checked'),
+				public_access: this.fields.public_access.prop('checked'),
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
 				four_mark: this.fields.marks.four[1].val()

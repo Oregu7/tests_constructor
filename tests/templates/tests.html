@@ -11,7 +11,7 @@
 			{% for tests in data %}
 			<div class="ui five connected items">
 				{% for test in tests %}
-			    <div class="item">
+			    <div class="item test_open" data-id = "{{test.id}}">
 			      <div class="content">
 			        <div class="header">{{test.title}}</div>
 			        <p class="description">{{test.description}}</p>
@@ -28,6 +28,11 @@
 {% block scripts %}
 	<script>
 		$(document).ready(function(){
+			$('.test_open').on('click', function(){
+				var id = $(this).attr('data-id')
+				window.location.assign('/tests/'+id)
+			});
+
 			$('#search').keypress(function(e){
 				var search_text = $(this).val();
 

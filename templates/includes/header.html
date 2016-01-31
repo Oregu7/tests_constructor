@@ -3,8 +3,12 @@
     <i class="home icon"></i>
     Главная
   </a>
+  <a class="item" href = '/tests/'>
+    <i class="list icon"></i>
+    Тесты
+  </a>
   {% if not login %}
-  <a class="ui active red item" href = "/login/" id = "login">
+  <a class="ui active red item" href = "/auth/login/" id = "login">
     <i class="sign in icon"></i>
     Вход
   </a>
@@ -13,15 +17,11 @@
     <i class="settings icon"></i>
     Констуктор
   </a>
-  <a class="item" href = '/tests/'>
-    <i class="list icon"></i>
-    Тесты
-  </a>
   <a class="item" href = "/profile/{{login}}">
     <i class="user icon"></i>
     {{login}}
   </a>
-  <a class="item" href = "/sign_out/">
+  <a class="item" href = "/auth/logout/">
     <i class="sign out icon"></i>
     Выход
   </a>

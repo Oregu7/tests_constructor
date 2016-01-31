@@ -1,19 +1,15 @@
 <div class="ui secondary segment">
   <div class="ui form relaxed divided list">
     <div class="item">
-      <div class="content">
-        <div class="header">Название</div>
-        <div class="field">
+      <div class="header">Название</div>
+      <div class="field">
           <input type="text" name = 'title' placeholder="Название теста" value = "{{test.title}}">
-        </div>
       </div>
     </div>
     <div class="item">
-      <div class="content">
-        <div class="header">Описание</div>
-        <div class="field">
-          <textarea name="description" placeholder = 'Краткое описание теста' data-desc = "{{test.description}}"></textarea>
-        </div>
+      <div class="header">Описание</div>
+      <div class="field">
+        <textarea name="description" placeholder = 'Краткое описание теста' data-desc = "{{test.description}}"></textarea>
       </div>
     </div>
     <div class="item">
@@ -36,11 +32,18 @@
     </div>
     <div class="item">
       <div class="content">
+        <div class="header">Публичный доступ</div>
+        <div class="ui slider checkbox">
+          <input type="checkbox" name="public_access" {% if test.public_access %} checked {% endif %}>
+          <label>Открывает пользователям доступ к вашему тесту</label>
+        </div>
+      </div>
+    </div>
+    <div class="item">
         <div class="header">Расчет результатов</div>
         <div class="field">
           {% include 'table_results.html'%}
         </div>
-      </div>
     </div>
   </div>
 </div>

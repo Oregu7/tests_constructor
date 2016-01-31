@@ -6,7 +6,11 @@
 		<div class="eight wide column">
 			<div class="ui raised segment">
 				<h1 class="ui header aligned center">Авторизация</h1>
-				<form class="ui form" id = 'login_form' method="post">
+				{% if error %}
+					<div class="ui red message">{{error}}</div>
+				{% endif %}
+				<form class="ui form" method="post" action="/auth/">
+					{% csrf_token %}
 					<div class="field">
 						<label>Логин</label>
 						<div class="ui left icon input">
@@ -21,12 +25,6 @@
 							<i class="lock icon"></i>
 						</div>
 					</div>
-					<div class="field">
-						<div class="ui toggle checkbox">
-							<input type="checkbox" name = 'remember'>
-							<label>Оставаться в системе</label>
-						</div>
-					</div>
 					<button class="ui button">Вход</button>
 				</form>
 			</div>
@@ -39,6 +37,5 @@
 {% endblock %}
 
 {% block scripts %}
-	{% load static %}
-	<script src = "{% static 'application/login.js' %}"></script>
+	
 {% endblock %}

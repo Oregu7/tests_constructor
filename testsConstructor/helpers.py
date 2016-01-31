@@ -1,10 +1,11 @@
 from django.http import QueryDict
 from django.forms.models import model_to_dict
+from django.contrib import auth
 import json
 
 def check_sign_in(request):
-	if "user" in request.session:
-		result = request.session.get('user')
+	if auth.get_user(request).username:
+		result = auth.get_user(request).username
 	else:
 		result = False
 	return result

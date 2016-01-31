@@ -27,7 +27,6 @@
 	<div class="two wide column"></div>
 </div>
 
-
 {% endblock %}
 
 {% block scripts %}
@@ -60,7 +59,15 @@
 	</script>
 
 	<script type="tmpl/underscore" id ="result_tmpl">
-		<h1 class = "ui header">Ваша оценка - <%-test_result%> </h1>
+		<div class="ui grid">
+			<div class="two wide column"></div>
+			<div class="twelve wide column">
+				<div class="ui huge message <%-color%>">
+					Ваша отметка : <%-test_result%> 
+				</div>
+			</div>
+			<div class="two wide column"></div>
+		</div>
 	</script>
 
 	<script type="text/javascript" src = "{% static 'application/test.js' %}"></script>

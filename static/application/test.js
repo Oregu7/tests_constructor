@@ -85,8 +85,8 @@ App.Views.Test = Backbone.View.extend({
 	result_template: _.template($('#result_tmpl').html()),
 
 	initialize: function(){
-		this.questionModel =  new App.Models.Question,
-		this.answersCollection =  new App.Collections.Answers
+		this.questionModel =  new App.Models.Question;
+		this.answersCollection =  new App.Collections.Answers;
 	},
 
 	events: {
@@ -129,10 +129,31 @@ App.Views.Test = Backbone.View.extend({
 						}).el)
 
 						that.$el.append(that.template())
-						swal("Вопрос загружен");
 
-						//проверяем нужен ли нам таймер
-						that.check_timer()
+						swal({
+							title: "Тест загружен!",   
+							text: "Введите свою фамилию и имя:",   
+							type: "input",   
+							showCancelButton: false,   
+							closeOnConfirm: false,   
+							animation: "slide-from-top",   
+							inputPlaceholder: "Ваша фамилия и имя.." }, 
+							function(inputValue){
+								inputValue = inputValue.replace(/\s+/g, '');
+
+								if (inputValue === false) return false;      
+								if (inputValue.length == 0) {     
+									swal.showInputError("You need to write something!");     
+									return false   
+								}else{
+									$.post('/tests/set_name/', {user: inputValue}, function(response){
+										swal("Отлично!", inputValue + ", можете начинать тестирование", "success");
+										//проверяем нужен ли нам таймер
+										that.check_timer() 
+									});	
+								}      
+								
+						});
 					})
 				}, 2000);
 			});
@@ -153,7 +174,6 @@ App.Views.Test = Backbone.View.extend({
 			$.post('/tests/next/', data, function(response){
 				var quest_data = JSON.parse(response)
 				if (quest_data.test_result){
-					console.log(quest_data)
 					that.$el.empty()
 					that.$el.html(that.result_template(quest_data))
 				}else{
@@ -180,7 +200,12 @@ App.Views.Test = Backbone.View.extend({
 				seconds = 0;
 
 			that.timer = setInterval(function(){
-				that.$el.find('#timer').html(minutes + " : " + seconds)
+				if (seconds >= 0 && seconds < 10 ){
+					that.$el.find('#timer').html(minutes + " : 0" + seconds)
+				}else{
+					that.$el.find('#timer').html(minutes + " : " + seconds)
+				}
+				
 				if (seconds == 0 ){
 					minutes -= 1;
 					seconds = 59

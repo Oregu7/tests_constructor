@@ -6,8 +6,8 @@ var App = App ? App : {
 
 App.Models.Login = Backbone.Model.extend({
 	defaults : {
-		login: 'fas',
-		password: 'fasfe',
+		login: '',
+		password: '',
 		remember : false
 	},
 
@@ -56,7 +56,7 @@ App.Views.Login = Backbone.View.extend({
     		if (!data.error){
     			window.location.assign('/')
     		}else{
-    			console.log(data)
+    			swal('Ошибка', data.error, 'error')
     		}
     	})
     },
