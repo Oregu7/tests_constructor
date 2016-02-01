@@ -4,8 +4,8 @@ from django.contrib import auth
 import json
 
 def check_sign_in(request):
-	if auth.get_user(request).username:
-		result = auth.get_user(request).username
+	if auth.get_user(request):
+		result = auth.get_user(request)
 	else:
 		result = False
 	return result

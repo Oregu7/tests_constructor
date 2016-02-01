@@ -1,13 +1,14 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.http import JsonResponse, HttpResponse, Http404
 from testsConstructor.helpers import check_sign_in
-from users.models import User
 from constructor.models import Test
+from django.contrib import auth
+
 # Create your views here.
 def profile(request, login):
-	login = check_sign_in(request)
-	user = get_object_or_404(User, login=login)
-	if login == user.login:
+	user = check_sign_in(request)
+	if user.username == login:
 		tests = Test.objects.filter(creator=user)
-		return render_to_response('profile.html', {'login': login, 'tests': tests})
+		return render_to_response('profile.html', {'login': user, 'tests': tests})
 	else:
-		return redirect('/')
+		raise Http404('Это не ваш профиль : ' + login)

@@ -7,8 +7,8 @@
     <i class="list icon"></i>
     Тесты
   </a>
-  {% if not login %}
-  <a class="ui active red item" href = "/auth/login/" id = "login">
+  {% if not login.is_authenticated %}
+  <a class="ui active item" href = "/auth/login/" id = "login">
     <i class="sign in icon"></i>
     Вход
   </a>
@@ -19,8 +19,14 @@
   </a>
   <a class="item" href = "/profile/{{login}}">
     <i class="user icon"></i>
-    {{login}}
+    Профиль
   </a>
+  {% if login.is_superuser or login.is_staff %}
+  <a class="item" href = "/admin/">
+    <i class="doctor icon"></i>
+    Админка
+  </a>
+  {%endif%}
   <a class="item" href = "/auth/logout/">
     <i class="sign out icon"></i>
     Выход

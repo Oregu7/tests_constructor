@@ -2,6 +2,11 @@ from django.contrib import admin
 from constructor.models import Test, Query, Answer
 # Register your models here.
 
-admin.site.register(Test)
+class TestAdmin(admin.ModelAdmin):
+	list_display = ('title', 'creator', 'date')
+	search_fields = ['title']
+	list_filter = ('date',)
+
+admin.site.register(Test, TestAdmin)
 admin.site.register(Query)
 admin.site.register(Answer)
