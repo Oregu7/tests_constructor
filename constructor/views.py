@@ -6,7 +6,6 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
 from constructor.models import Test, Query, Answer
-from users.models import User
 from django.contrib import auth
 import json
 

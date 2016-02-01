@@ -2,18 +2,19 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('constructor', '0005_auto_20160122_1251'),
+        ('tests', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='answer',
-            name='text',
-            field=models.CharField(blank=True, max_length=200),
+            model_name='probationer',
+            name='user',
+            field=models.ForeignKey(blank=True, null=True, to=settings.AUTH_USER_MODEL),
         ),
     ]

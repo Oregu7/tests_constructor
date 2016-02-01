@@ -129,31 +129,38 @@ App.Views.Test = Backbone.View.extend({
 						}).el)
 
 						that.$el.append(that.template())
+						//если имя не указано
+						if (!data.name){
+							swal({
+								title: "Тест загружен!",   
+								text: "Введите свою фамилию:",   
+								type: "input",   
+								showCancelButton: false,   
+								closeOnConfirm: false,   
+								animation: "slide-from-top",   
+								inputPlaceholder: "Ваша фамилия.." 
+								}, 
+								function(inputValue){
+									inputValue = inputValue.replace(/\s+/g, '');
 
-						swal({
-							title: "Тест загружен!",   
-							text: "Введите свою фамилию и имя:",   
-							type: "input",   
-							showCancelButton: false,   
-							closeOnConfirm: false,   
-							animation: "slide-from-top",   
-							inputPlaceholder: "Ваша фамилия и имя.." }, 
-							function(inputValue){
-								inputValue = inputValue.replace(/\s+/g, '');
+									if (inputValue === false) return false;      
+									if (inputValue.length == 0) {     
+										swal.showInputError("Вы должны ввести что-нибудь");     
+										return false   
+									}else{
+										$.post('/tests/set_name/', {user: inputValue}, function(response){
+											swal("Отлично!", inputValue + ", можете начинать тестирование", "success");
+											//проверяем нужен ли нам таймер
+											that.check_timer() 
+										});	
+									}      
+									
+							});
 
-								if (inputValue === false) return false;      
-								if (inputValue.length == 0) {     
-									swal.showInputError("You need to write something!");     
-									return false   
-								}else{
-									$.post('/tests/set_name/', {user: inputValue}, function(response){
-										swal("Отлично!", inputValue + ", можете начинать тестирование", "success");
-										//проверяем нужен ли нам таймер
-										that.check_timer() 
-									});	
-								}      
-								
-						});
+						}else{
+							swal("Отлично!", "Тест загружен", "success")
+							that.check_timer() 
+						}
 					})
 				}, 2000);
 			});

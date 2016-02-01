@@ -20,6 +20,12 @@ def set_name(request):
 	if request.is_ajax() and 'test' in request.session:
 		request.session.modified = True
 		request.session['test']['user'] = request.POST['user']
+
+		#если пользователь зареган, то сохраняем фамилию
+		user = check_sign_in(request)
+		if user.is_authenticated():
+			user.last_name = request.POST['user']
+			user.save()
 		return JsonResponse({'success': True})
 	else:
 		raise Http404('Такая страница не существует')
@@ -46,7 +52,7 @@ def test(request, id):
 				'questions' : list(map(lambda quest: quest['id'], questions)),
 				'answers' : [],
 				'current_quset': 0,
-				'user': 'Гость'
+				'user': ''
 			}
 
 		quest = Query.objects.get(id=request.session['test']['questions'][request.session['test']['current_quset']])
@@ -60,7 +66,17 @@ def test(request, id):
 		if not test['helps']:
 			quest['help'] = False
 
-		return HttpResponse(json.dumps({'quest': quest, 'answers': answers}))
+		#проверяем авторизирован ли пользователь и присутствие имении в сессии
+		#Включаем возможность модификации сесии
+		request.session.modified = True
+
+		if login.is_authenticated() and len(login.get_full_name()) != 0:
+			request.session['test']['user'] = login.get_full_name()
+			name = True
+		elif len(request.session['test']['user']) == 0:
+			name = False
+
+		return HttpResponse(json.dumps({'quest': quest, 'answers': answers, 'name': name}))
 	else:
 		return render_to_response('test.html', {'login': login, 'test': test})
 
@@ -129,12 +145,22 @@ def test_next_quest(request):
 					result = 5
 
 				#создаем объект тестируемого
-				probationer = Probationer(
-					test = Test.objects.get(id=test['id']),
-					name = test_data['user'],
-					precent = user_percent,
-					mark = result
-				)
+				user = check_sign_in(request)
+				if user.is_authenticated():
+					probationer = Probationer(
+						test = Test.objects.get(id=test['id']),
+						user = user,
+						name = test_data['user'],
+						precent = user_percent,
+						mark = result
+					)
+				else:
+					probationer = Probationer(
+						test = Test.objects.get(id=test['id']),
+						name = test_data['user'],
+						precent = user_percent,
+						mark = result
+					)
 				probationer.save()
 				#удаляем сессию
 				del request.session['test']
