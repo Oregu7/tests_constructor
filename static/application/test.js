@@ -181,6 +181,7 @@ App.Views.Test = Backbone.View.extend({
 			$.post('/tests/next/', data, function(response){
 				var quest_data = JSON.parse(response)
 				if (quest_data.test_result){
+					console.log(quest_data)
 					that.$el.empty()
 					that.$el.html(that.result_template(quest_data))
 				}else{

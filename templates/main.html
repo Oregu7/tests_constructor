@@ -18,8 +18,15 @@
 </head>
 <body>
 	{% include 'includes/header.html' %}
+	<div class="ui grid">
+		<div class="eight wide column"></div>
+		<div class="eight wide column"></div>
+	</div>
+	<div class="ui grid">
+		<div class="eight wide column"></div>
+		<div class="eight wide column"></div>
+	</div>
 	{% block content %}{% endblock %}
-	
 	{% block scripts %}{% endblock %}
 	<script>
 		$('#login').popup({
@@ -31,6 +38,15 @@
 		$('.ui.checkbox').checkbox();
 		$('.ui.dropdown').dropdown();
 		$('.ui.accordion').accordion();
+
+		$('#show_sidebar').click(function(){
+			$('.ui.sidebar.left')
+				.sidebar('setting', 'transition', 'overlay')
+				.sidebar('toggle')
+				
+		})
+
+		$('.menu.item.tabular').tab()
 	</script>
 </body>
 </html>

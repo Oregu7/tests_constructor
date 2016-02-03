@@ -32,9 +32,9 @@ def set_name(request):
 
 @csrf_exempt
 def search(request):
-	login = check_sign_in(request)
-	tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
-	data = models_to_dict(tests)
+	#login = check_sign_in(request)
+	#tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
+	data = request.session['test']
 	return HttpResponse(json.dumps(data))
 
 @csrf_exempt
@@ -115,17 +115,25 @@ def test_next_quest(request):
 				max_points = 0
 				user_points = 0
 				#начинаем обработку вопросов и ответов
-				for num in range(len(request.session['test']['questions'])):
+				for num in range(len(test_data['questions'])):
 					question = Query.objects.get(id=test_data['questions'][num])
-					point = model_to_dict(question)['point']
-					max_points += point
-					#перебираем ответы
+					test_data['questions'][num] = model_to_dict(question)
+					max_points += test_data['questions'][num]['point']
+					check_question = True
+					#перебираем ответы и формируем ответ, так же полученный бал и максимально возможный балл
 					for answer in test_data['answers'][num]:
 						answer_data = model_to_dict(Answer.objects.get(id=answer['id'],query=question))
 						if answer_data['correct'] != answer['selection']:
-							break
-					else:
-						user_points += point
+							check_question = False
+							answer['error'] = True
+						else:
+							answer['error'] = False
+						answer['correct'] = answer_data['correct']
+						answer['text'] =  answer_data['text']
+					if check_question:
+						user_points += test_data['questions'][num]['point']
+
+					test_data['questions'][num]['answers'] = test_data['answers'][num]
 
 				#получаем процент
 				user_percent = user_points * 100 / max_points
@@ -163,9 +171,10 @@ def test_next_quest(request):
 					)
 				probationer.save()
 				#удаляем сессию
+				questions = test_data['questions']
 				del request.session['test']
 
-				return HttpResponse(json.dumps({'test_result': result, 'color': color}))
+				return HttpResponse(json.dumps({'test_result': result, 'color': color, 'questions': questions}))
 		else:
 			raise Http404('Отсутствует сессия')
 	else:

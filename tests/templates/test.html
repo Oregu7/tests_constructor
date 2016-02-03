@@ -15,9 +15,10 @@
 				<div class="ui grid">
 					<div class="six wide column"></div>
 					<div class="four wide column">
-						<a class="ui green button fluid" id = "start" data-test = "{{test.id}}">
+						<p></p>
+						<div class="ui green button fluid" id = "start" data-test = "{{test.id}}">
 							Начать
-						</a>
+						</div>
 					</div>
 					<div class="six wide column"></div>
 				</div>
@@ -41,9 +42,9 @@
 	</script>
 	<script type="tmpl/underscore" id = 'next_tmpl'>
 		<div class="ui grid">
-			<div class="six wide column"></div>
-			<div class="four wide column">
-				<div class="ui borderless pagination menu">
+			<div class="four wide column"></div>
+			<div class="eight wide column">
+				<div class="ui fluid three item menu">
 				  <a class="item" id = 'help'>
 				    <i class="help icon"></i>
 				  </a>
@@ -53,18 +54,45 @@
 				  </a>
 				</div>
 			</div>
-			<div class="six wide column"></div>
+			<div class="four wide column"></div>
 		</div>
 		
 	</script>
 
 	<script type="tmpl/underscore" id ="result_tmpl">
+		<p></p>
 		<div class="ui grid">
 			<div class="two wide column"></div>
 			<div class="twelve wide column">
 				<div class="ui huge message <%-color%>">
 					Ваша отметка : <%-test_result%> 
 				</div>
+				<table class="ui celled table">
+					<thead>
+						<th>Вопрос</th>
+						<th>Ответы</th>
+					</thead>
+					<tbody>
+						<% _.each(questions, function(question){ %>
+							<tr>
+								<td rowspan = "<%-question.answers.length + 1%>"><%-question.text%></td>
+							</tr>
+
+							<% _.each(question.answers, function(answer){%>
+								<tr>
+									<% if (answer.error && !answer.correct) { %>
+										<td class = "negative"><%-answer.text%></td>
+									<% } else if (answer.correct) {%>
+										<td class = "positive"><%-answer.text%></td>
+									<% }else {%>
+										<td><%-answer.text%></td>
+									<% }%>
+								</tr>
+							<% }); %>
+
+						<% }); %>
+					</tbody>
+				</table>
 			</div>
 			<div class="two wide column"></div>
 		</div>

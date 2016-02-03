@@ -2,7 +2,7 @@
 
 {% block content %}
 	<div class="ui grid">
-		<div class="two wide column"></div>
+		<div class="one wide column"></div>
 		<div class="fourteen wide column">
 
 			<h1 class="ui inverted black block header">
@@ -20,9 +20,9 @@
 
 			<div class="ui segment">
 
-				<div class="ui items">
+				<div class="ui four cards">
 				{% for item in queries %}
-					<div class="item">
+					<div class="card">
 						<div class="image">
 							<a class="like ui corner label" data-id = "{{item.query.id}}">
 								<i class="remove icon"></i>
@@ -40,7 +40,7 @@
 						</div>	
 					</div>
 				{% endfor %}
-				<div class="item">
+				<div class="red card">
 					<div class="content">
 						<div class="ui icon center aligned header">
 							<i class="circular question icon"></i>Вопрос
@@ -51,6 +51,7 @@
 				</div>
 			</div>	
 		</div>
+		<div class="one wide column"></div>
 	</div>
 {% endblock %}
 

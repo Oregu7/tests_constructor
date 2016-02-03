@@ -26,6 +26,8 @@ def login(request):
 
 def logout(request):
 	auth.logout(request)
+	if 'test' in request.session:
+		del request.session['test']
 	return redirect('/')
 
 def check(request):

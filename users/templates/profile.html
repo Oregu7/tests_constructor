@@ -4,24 +4,20 @@
 <div class="ui grid">
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
-		<div class="ui blue segment">
-			<h2 class="ui header">
-			<i class="user icon"></i>
-				{{login}}
-			</h2>
-			<div class="ui inverted divider"></div>
-
-			<div class="ui selection list">
-			{% for test in tests %}
-				<div class="item" data-test="{{test.id}}">
-					<div class="content">
-						<div class="header">{{test.title}}</div>
-						<p class="description">{{test.description|slice:":20"}}...</p>
-					</div>
-				</div>
-
-			{% endfor %}
-			</div>
+		<div class="ui grid">
+		  <div class="four wide column">
+		    <div class="ui vertical fluid tabular menu">
+		      <a class="item active">Информация</a>
+		      <a class="item">Тесты</a>
+		      <a class="item">Пройденные</a>
+		      <a class="item">Прошедшие</a>
+		    </div>
+		  </div>
+		  <div class="twelve wide stretched column">
+		    <div class="ui segment">
+		    	
+		    </div>
+		  </div>
 		</div>
 	</div>
 	<div class="two wide column"></div>
@@ -32,7 +28,7 @@
 <script>
 	$(document).ready(function(){
 
-		$('.item').on('click', function(){
+		$('.test_content').on('click', function(){
 			var test = $(this).attr('data-test');
 			console.log(test)
 			window.location.assign('/constructor/test/'+test+'/settings/');

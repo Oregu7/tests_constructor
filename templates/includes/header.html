@@ -1,4 +1,22 @@
-<div class="ui inverted left fixed vertical labeled icon menu">
+<div class="ui top fixed menu">
+  <a class="item" id ="show_sidebar">
+    <i class="list icon"></i>
+  </a>
+  <div class="right menu">
+    {% if login.is_superuser or login.is_staff %}
+    <a class="item active red" href = "/admin/">
+      Админка
+    </a>
+    {%endif%}
+    {% if login.is_authenticated %}
+    <a class="item" href = "/profile/{{login.username}}/">{{login.username}}</a>
+    {% else %}
+    <a class="item" href = "/auth/login/">Вход</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="ui left vertical sidebar labeled icon menu">
   <a class="item" href = "/">
     <i class="home icon"></i>
     Главная
@@ -7,29 +25,10 @@
     <i class="list icon"></i>
     Тесты
   </a>
-  {% if not login.is_authenticated %}
-  <a class="ui active item" href = "/auth/login/" id = "login">
-    <i class="sign in icon"></i>
-    Вход
-  </a>
-  {% else %}
+  {% if login.is_authenticated %}
   <a class="item" href = '/constructor/'>
     <i class="settings icon"></i>
     Констуктор
-  </a>
-  <a class="item" href = "/profile/{{login}}">
-    <i class="user icon"></i>
-    Профиль
-  </a>
-  {% if login.is_superuser or login.is_staff %}
-  <a class="item" href = "/admin/">
-    <i class="doctor icon"></i>
-    Админка
-  </a>
-  {%endif%}
-  <a class="item" href = "/auth/logout/">
-    <i class="sign out icon"></i>
-    Выход
   </a>
   {% endif %}
 </div>
