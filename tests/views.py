@@ -17,23 +17,24 @@ def tests(request, category = 'all', page_number = 1):
 	args = {'login': login, 'categories': categories, 'tests_category': category}
 	args.update(csrf(request))
 
+	#удаляем сессию поиска, если присутствует
+	if 'search' in request.session:
+		del request.session['search']
+
 	if request.method == 'GET':
 		#Проверка категории
 		if category == 'all':
-			tests = Test.objects.filter(public_access=True)[:15]
+			tests = Test.objects.filter(public_access=True)
+			args['url'] = '/tests/page/'
 		else:
-			tests = Test.objects.filter(public_access=True, category__url=category)[:15]
+			tests = Test.objects.filter(public_access=True, category__url=category)
+			args['url'] = '/tests/category/%s/page/' % category
 	elif request.method == 'POST':
 		title = request.POST.get('search', '')
-		#Проверка категории
-		if category == 'all':
-			tests = Test.objects.filter(public_access=True, title__icontains=title)[:15]
-		else:
-			tests = Test.objects.filter(public_access=True, category__url=category, title__icontains=title)[:15]
-		page_number = 1
-		args['search'] = {'text': title, 'count': tests.count()}
+		request.session['search'] = {'text': title, 'category': category}
+		return redirect('/tests/search/')
 	#Пагинация
-	current_page = Paginator(tests, 2)
+	current_page = Paginator(tests, 1)
 	args['tests'] = current_page.page(page_number)
 
 	return render_to_response('tests.html', args)
@@ -54,11 +55,32 @@ def set_name(request):
 		raise Http404('Такая страница не существует')
 
 @csrf_exempt
-def search(request):
-	#login = check_sign_in(request)
-	#tests = Test.objects.filter(title__icontains=request.GET['search_text'])[:15]
-	data = request.session['test']
-	return HttpResponse(json.dumps(data))
+def search(request, page_number=1):
+	if 'search' in request.session:
+		login = check_sign_in(request)
+		categories = Category.objects.all()
+		data = request.session['search']
+		args = {'login': login, 'categories': categories, 'tests_category': data.get('category','all'), 'url': '/tests/search/page/'}
+		args.update(csrf(request))
+
+		if request.method == 'POST':
+			request.session['search']['text'] = request.POST.get('search','')
+
+		#Проверка категории
+		if data['category'] == 'all':
+			tests = Test.objects.filter(public_access=True, title__icontains=data['text'])
+			search_category_test = "Все"
+		else:
+			search_category_test = get_object_or_404(Category, url=data['category'])
+			tests = Test.objects.filter(public_access=True, category=search_category_test, title__icontains=data['text'])
+			
+		
+		args['search'] = {'text': data['text'], 'count': tests.count, 'category': search_category_test}
+		current_page = Paginator(tests, 1)
+		args['tests'] = current_page.page(page_number)
+		return render_to_response('tests.html', args)
+	else:
+		raise Http404('Что-то пошло не так')
 
 @csrf_exempt
 def test(request, id):

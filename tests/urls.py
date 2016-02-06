@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^(?P<id>\d+)/$', test),
 	url(r'^next/$', test_next_quest),
 	url(r'^set_name/$', set_name),
-	url(r'^search/$', search)
+	url(r'^search/$', search),
+	url(r'^search/page/(\d+)/$', search),
 ]
