@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
-from constructor.models import Test, Query, Answer
+from constructor.models import Test, Query, Answer, Category
 from django.contrib import auth
 import json
 
@@ -27,12 +27,15 @@ def create_test(request):
 	login = check_sign_in(request)
 	if login:
 		if request.is_ajax():
+			category = get_object_or_404(Category,id=int(request.POST['category']))
 			test = Test(
 				title = request.POST['title'],
 				description = request.POST['description'],
 				helps = str_to_bool(request.POST['helps']),
 				time_completion = str_to_bool(request.POST['timeCompl']),
 				creator = auth.get_user(request),
+				category = category,
+				questions_count = request.POST['quest_count'],
 				two_mark = request.POST['two_mark'],
 				three_mark = request.POST['three_mark'],
 				four_mark = request.POST['four_mark']
@@ -41,7 +44,8 @@ def create_test(request):
 
 			return JsonResponse({'testID': test.id, 'error': False})
 		else:
-			return render_to_response('create_test.html', {'login': login})
+			categories = Category.objects.all()
+			return render_to_response('create_test.html', {'login': login, 'categories': categories})
 	else:
 		return redirect('/')
 
@@ -50,6 +54,7 @@ def settings_test(request, id):
 	test = get_object_or_404(Test, id=id)
 	if test.creator == auth.get_user(request):
 		if request.is_ajax():
+			category = get_object_or_404(Category,id=int(request.POST['category']))
 
 			test.title = request.POST['title']
 			test.description = request.POST['description']
@@ -59,13 +64,15 @@ def settings_test(request, id):
 			test.two_mark = request.POST['two_mark']
 			test.three_mark = request.POST['three_mark']
 			test.four_mark = request.POST['four_mark']
-
+			test.category = category
+			test.questions_count = request.POST['quest_count']
 			test.save()
 
 			return JsonResponse({'success': 'Данные сохранены!'})
 		else:
 			login = check_sign_in(request)
-			return render_to_response('create_test.html', {'login': login, 'test': test})
+			categories = Category.objects.all()
+			return render_to_response('create_test.html', {'login': login, 'test': test, 'categories': categories})
 	else:
 		return redirect('/')
 

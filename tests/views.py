@@ -1,19 +1,42 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.core.context_processors import csrf
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
 from testsConstructor.helpers import check_sign_in, models_to_dict, str_to_bool
-from constructor.models import Test, Query, Answer
+from constructor.models import Test, Query, Answer, Category
+from django.core.paginator import Paginator
 from tests.models import Probationer
 import json
 import random
 # Create your views here.
 
-def tests(request):
+def tests(request, category = 'all', page_number = 1):
 	login = check_sign_in(request)
-	tests = Test.objects.filter(public_access=True)[:15]
-	data = [tests[:5], tests[5:10], tests[10:15]]
-	return render_to_response('tests.html', {'data': data, 'login': login})
+	categories = Category.objects.all()
+	args = {'login': login, 'categories': categories, 'tests_category': category}
+	args.update(csrf(request))
+
+	if request.method == 'GET':
+		#Проверка категории
+		if category == 'all':
+			tests = Test.objects.filter(public_access=True)[:15]
+		else:
+			tests = Test.objects.filter(public_access=True, category__url=category)[:15]
+	elif request.method == 'POST':
+		title = request.POST.get('search', '')
+		#Проверка категории
+		if category == 'all':
+			tests = Test.objects.filter(public_access=True, title__icontains=title)[:15]
+		else:
+			tests = Test.objects.filter(public_access=True, category__url=category, title__icontains=title)[:15]
+		page_number = 1
+		args['search'] = {'text': title, 'count': tests.count()}
+	#Пагинация
+	current_page = Paginator(tests, 2)
+	args['tests'] = current_page.page(page_number)
+
+	return render_to_response('tests.html', args)
 
 @csrf_exempt	
 def set_name(request):

@@ -81,12 +81,23 @@
 							<% _.each(question.answers, function(answer){%>
 								<tr>
 									<% if (answer.error && !answer.correct) { %>
-										<td class = "negative"><%-answer.text%></td>
-									<% } else if (answer.correct) {%>
-										<td class = "positive"><%-answer.text%></td>
-									<% }else {%>
+										<td class = "negative">
+											<i class="icon close"></i>
+											<%-answer.text%>
+										</td>
+									<% } else if (answer.correct && answer.selection) {%>
+										<td class = "positive">
+											<i class="icon checkmark"></i>
+											<%-answer.text%>
+										</td>
+									<% }else if (answer.correct && !answer.selection){%>
+										<td class = "positive">
+											<i class="icon circular checkmark"></i>
+											<%-answer.text%>
+										</td>
+									<% } else {%>
 										<td><%-answer.text%></td>
-									<% }%>
+									<% } %>
 								</tr>
 							<% }); %>
 

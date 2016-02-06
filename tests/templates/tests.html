@@ -4,24 +4,90 @@
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column">
-			<div class="ui big icon fluid input">
-				<input type="text" placeholder="Поиск по названию..." id = 'search'>
-				<i class="search icon"></i>
+			<form action="" class="ui form" method="POST">
+				{% csrf_token %}
+				<div class="field">
+					<div class="ui big icon input">
+						<input type="text" placeholder="Поиск по названию..." name = 'search'>
+						<i class="search icon"></i>
+					</div>
+				</div>
+			</form>
+			{% if search %}
+			<div class="ui message">
+				<div class="header">По запросу: "{{search.text}}" найдено {{search.count}} </div>
 			</div>
-			{% for tests in data %}
-			<div class="ui five connected items">
-				{% for test in tests %}
-			    <div class="item test_open" data-id = "{{test.id}}">
-			      <div class="content">
-			        <div class="header">{{test.title}}</div>
-			        <p class="description">{{test.description}}</p>
-			      </div>
-			    </div>
-			    {% endfor %}
-			</div>
-			{% endfor %}
+			{% endif %}
 		</div>
 		<div class="two wide column"></div>
+	</div>
+	<p></p>
+	<div class="ui internally celled grid">
+		<div class="row">
+			<div class="two wide column"></div>
+			<div class="twelve wide column">
+				<div class="ui divided items">
+					{% for test in tests %}
+				    <div class="item">
+				      <div class="content">
+				        <a class="header test_open" data-id = "{{test.id}}">{{test.title}}</a>
+				        <p class="description">{{test.description}}</p>
+				        <a class="ui tag label">{{test.category.name}}</a>
+				      </div>
+				    </div>
+				    {% endfor %}
+				</div>
+			</div>
+			<div class="two wide column">
+				<div class="ui vertical text menu">
+					<div class="header item">Категории</div>
+					{% if tests_category = 'all' %}
+					<a href = "/tests/" class="item active">Все</a>
+					{%else%}
+					<a href = "/tests/" class="item">Все</a>
+					{%endif%}
+
+					{%for category in categories%}
+						{% if tests_category = category.url %}
+						<a href = "/tests/category/{{category.url}}/" class="item active">{{category.name}}</a>
+						{%else%}
+						<a href = "/tests/category/{{category.url}}/" class="item">{{category.name}}</a>
+						{%endif%}
+					{% endfor %}
+				</div>
+			</div>	
+		</div>	
+	</div>
+	<div class="ui grid">
+		<div class="four wide column"></div>
+		<div class="eight wide column">
+			<div class = "ui borderless menu">
+				<a class="item">
+				<i class="left arrow icon"></i>Назад
+				</a>
+				{% if tests_category == 'all' %}
+					{% for page in tests.paginator.page_range %}
+						{% if page == tests.number %}
+						<a href = "/tests/page/{{page}}/" class="item active red">{{page}}</a>
+						{% else %}
+						<a href = "/tests/page/{{page}}/" class="item">{{page}}</a>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					{% for page in tests.paginator.page_range %}
+						{% if page == tests.number %}
+						<a href = "/tests/category/{{tests_category}}/page/{{page}}/" class="item active red">{{page}}</a>
+						{% else %}
+						<a href = "/tests/category/{{tests_category}}/page/{{page}}/" class="item">{{page}}</a>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				<a class="item">
+				Дальше<i class="icon right arrow"></i>
+				</a>
+			</div>
+		</div>
+		<div class="four wide column"></div>
 	</div>
 {% endblock %}
 

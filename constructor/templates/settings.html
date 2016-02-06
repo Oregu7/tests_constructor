@@ -7,6 +7,20 @@
       </div>
     </div>
     <div class="item">
+      <div class="header">Категория</div>
+      <div class="field">
+          <select name="category" class="ui search dropdown">
+            {% for category in categories %}
+              {% if category = test.category %}
+              <option value="{{category.id}}" selected>{{category.name}}</option>
+              {% else %}
+              <option value="{{category.id}}">{{category.name}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+    </div>
+    <div class="item">
       <div class="header">Описание</div>
       <div class="field">
         <textarea name="description" placeholder = 'Краткое описание теста' data-desc = "{{test.description}}"></textarea>
@@ -37,6 +51,12 @@
           <input type="checkbox" name="public_access" {% if test.public_access %} checked {% endif %}>
           <label>Открывает пользователям доступ к вашему тесту</label>
         </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="header">Количество вопросов в тесте</div>
+      <div class="field">
+          <input type="number" name = 'quest_count' placeholder="Введите количество вопросов" value = "{{test.questions_count}}">
       </div>
     </div>
     <div class="item">

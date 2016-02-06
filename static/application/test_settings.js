@@ -8,6 +8,8 @@ App.Models.Settings = Backbone.Model.extend({
 	defaults: {
 		title: '',
 		description: '',
+		category: '',
+		quest_count: 0,
 		helps: false,
 		timeCompl: false,
 		public_access: false,
@@ -27,6 +29,8 @@ App.Views.Settings = Backbone.View.extend({
 			timeCompl: this.$el.find('input[name="time"]'),
 			public_access: this.$el.find('input[name="public_access"]'),
 			description: this.$el.find('textarea[name="description"]'),
+			category: this.$el.find('select[name="category"]'),
+			quest_count: this.$el.find('input[name="quest_count"]'),
 			marks: {
 				two: this.$el.find('input[name="two_mark"]'),
 				three: [this.$el.find('input[name="three_mark_b"]'), this.$el.find('input[name="three_mark"]')],
@@ -95,7 +99,9 @@ App.Views.Settings = Backbone.View.extend({
 				title: this.fields.name.val(),
 				description: this.fields.description.val(),
 				timeCompl: this.fields.timeCompl.prop('checked'),
-				helps: this.fields.helps.prop('checked')
+				helps: this.fields.helps.prop('checked'),
+				category: this.fields.category.val(),
+				quest_count: this.fields.quest_count.val()
 			});
 
 			$.post('/constructor/', this.model.toJSON(), function(data){
@@ -143,7 +149,9 @@ App.Views.Settings = Backbone.View.extend({
 				public_access: this.fields.public_access.prop('checked'),
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
-				four_mark: this.fields.marks.four[1].val()
+				four_mark: this.fields.marks.four[1].val(),
+				category: this.fields.category.val(),
+				quest_count: this.fields.quest_count.val()
 			});
 
 			$.post('', this.model.toJSON(), function(data){
