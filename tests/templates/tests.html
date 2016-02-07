@@ -8,7 +8,7 @@
 				{% csrf_token %}
 				<div class="field">
 					<div class="ui big icon input">
-						<input type="text" placeholder="Поиск по названию..." name = 'search'>
+						<input type="text" autocomplete="off" placeholder="Поиск по названию..." name = 'search'>
 						<i class="search icon"></i>
 					</div>
 				</div>
@@ -69,16 +69,14 @@
 	<div class="ui grid">
 		<div class="five wide column"></div>
 		<div class="six wide column">
-			<div class = "ui borderless menu">
+			<div class = "ui {{pages_count}} item menu">
 				{% if tests.has_previous %}
 				<a class="item" href = "{{url}}{{tests.previous_page_number}}/">
 					<i class="left arrow icon"></i>
-					Назад
 				</a>
 				{%else%}
 				<a class="item">
 					<i class="left arrow icon"></i>
-					Назад
 				</a>
 				{%endif%}
 				{% for page in tests.paginator.page_range %}
@@ -90,11 +88,11 @@
 				{% endfor %}
 				{% if tests.has_next %}
 				<a class="item" href="{{url}}{{tests.next_page_number}}/">
-				Дальше<i class="icon right arrow"></i>
+				<i class="icon right arrow"></i>
 				</a>
 				{%else%}
 				<a class="item">
-				Дальше<i class="icon right arrow"></i>
+				<i class="icon right arrow"></i>
 				</a>
 				{%endif%}
 			</div>

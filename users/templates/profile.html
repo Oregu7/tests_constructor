@@ -4,20 +4,26 @@
 <div class="ui grid">
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
-		<div class="ui grid">
-		  <div class="four wide column">
-		    <div class="ui vertical fluid tabular menu">
-		      <a class="item active">Информация</a>
-		      <a class="item">Тесты</a>
-		      <a class="item">Пройденные</a>
-		      <a class="item">Прошедшие</a>
-		    </div>
-		  </div>
-		  <div class="twelve wide stretched column">
-		    <div class="ui segment">
-		    	
-		    </div>
-		  </div>
+		<div class="ui divided items">
+		{% for test in tests %}
+			<div class="item">
+				<div class="content">
+					<a href="/constructor/test/{{test.id}}/settings/" class="header">{{test.title}}</a>
+					<div class="description">
+						<p>
+							{{test.description}}
+						</p>
+					</div>
+					<div class="extra">
+						<a href ="results/{{test.id}}/" class = "ui right floated teal button">
+							Результаты
+							<i class="right chevron icon"></i>
+						</a>
+						<div class="ui label">{{test.category}}</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 		</div>
 	</div>
 	<div class="two wide column"></div>
@@ -25,16 +31,4 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-	$(document).ready(function(){
-
-		$('.test_content').on('click', function(){
-			var test = $(this).attr('data-test');
-			console.log(test)
-			window.location.assign('/constructor/test/'+test+'/settings/');
-		});
-
-	})
-	
-	</script>
 {% endblock %}

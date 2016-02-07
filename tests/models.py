@@ -8,4 +8,4 @@ class Probationer(models.Model):
 	name = models.CharField(max_length=200, blank=True)
 	mark = models.IntegerField()
 	precent = models.FloatField()
-	date = models.DateTimeField(auto_now=True)
+	date = models.DateTimeField()

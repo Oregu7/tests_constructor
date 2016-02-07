@@ -50,7 +50,8 @@ App.Views.Settings = Backbone.View.extend({
 		'change input[name="three_mark"]': 'changeThreeMark',
 		'change input[name="four_mark"]': 'changeFourMark',
 		'click #questions' : 'questions_step',
-		'click #edit_test' : 'edit_test'
+		'click #edit_test' : 'edit_test',
+		'change input[name="quest_count"]': 'setQuestCount'
 	},
 
 	changeTwoMark: function(){
@@ -100,8 +101,7 @@ App.Views.Settings = Backbone.View.extend({
 				description: this.fields.description.val(),
 				timeCompl: this.fields.timeCompl.prop('checked'),
 				helps: this.fields.helps.prop('checked'),
-				category: this.fields.category.val(),
-				quest_count: this.fields.quest_count.val()
+				category: this.fields.category.val()
 			});
 
 			$.post('/constructor/', this.model.toJSON(), function(data){
@@ -138,8 +138,8 @@ App.Views.Settings = Backbone.View.extend({
 	edit_test:function(){
 		var testID = $('#edit_test').attr('testID');
 
-		if (this.fields.name.val().length <= 4){
-			swal("Ошибка!", 'Название теста слишком короткое, должно быть больше 4 символов', 'error')
+		if (this.fields.name.val().length < 3){
+			swal("Ошибка!", 'Название теста слишком короткое, должно быть не менее 3 символов', 'error')
 		}else{
 			this.model.set({
 				title: this.fields.name.val(),
@@ -150,14 +150,23 @@ App.Views.Settings = Backbone.View.extend({
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
 				four_mark: this.fields.marks.four[1].val(),
-				category: this.fields.category.val(),
-				quest_count: this.fields.quest_count.val()
+				category: this.fields.category.val()
 			});
 
 			$.post('', this.model.toJSON(), function(data){
 				swal('Выполено!', data.success, 'success')
 			});
 		}	
+	},
+
+	setQuestCount: function(){
+		var that = this;
+		if (that.fields.quest_count.val() <= 0){
+			swal('Ошибка!', "Количество вопросов должно быть больше 0!", "error")
+			that.fields.quest_count.val(that.model.get('quest_count'))
+		}else{
+			that.model.set('quest_count', that.fields.quest_count.val())
+		}
 	}
 });
 

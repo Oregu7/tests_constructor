@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/backgrid.css' %}">
+<link rel="stylesheet" href="{% static 'css/backgrid-filter.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/backgrid-paginator.min.css' %}">
+{%endblock%}
+
+{%block library%}
+<script src = "{% static 'library/backgrid.js' %}"></script>
+<script src = "{% static 'library/backbone-pageable.min.js' %}"></script>
+<script src = "{% static 'library/backgrid-filter.min.js' %}"></script>
+<script src = "{% static 'library/backgrid-paginator.min.js' %}"></script>
+{%endblock%}
+
+{%block content%}
+<div class="ui grid">
+	<div class="two wide column"></div>
+	<div class="twelve wide column">
+		<h2 class="ui header">
+			<i class="plug icon"></i>
+			<div class="content">Результаты теста - "{{test.title}}" </div>
+		</h2>
+		<div id="results">
+			
+		</div>
+	</div>
+	<div class="two wide column"></div>
+</div>
+{%endblock%}
+
+{%block scripts %}
+<script src = "{% static 'application/test_results.js' %}"></script>
+{%endblock%}

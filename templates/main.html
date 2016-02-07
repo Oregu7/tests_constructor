@@ -9,12 +9,14 @@
 	<link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 	<link rel="stylesheet" href="{% static 'css/sweetalert.css' %}">
+	{%block css%}{%endblock%}
 
 	<script src = "{% static 'library/jquery-2.1.4.min.js' %}"></script>
 	<script src = "{% static 'library/underscore-min.js' %}"></script>
 	<script src = "{% static 'library/backbone-min.js' %}"></script>
 	<script src = "{% static 'library/semantic.min.js' %}"></script>
 	<script src = "{% static 'library/sweetalert.min.js' %}"></script>
+	{%block library%}{%endblock%}
 </head>
 <body>
 	{% include 'includes/header.html' %}

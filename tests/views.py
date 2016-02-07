@@ -3,12 +3,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
-from testsConstructor.helpers import check_sign_in, models_to_dict, str_to_bool
+from testsConstructor.helpers import check_sign_in, models_to_dict, str_to_bool, get_number_name
 from constructor.models import Test, Query, Answer, Category
 from django.core.paginator import Paginator
 from tests.models import Probationer
 import json
 import random
+import datetime
 # Create your views here.
 
 def tests(request, category = 'all', page_number = 1):
@@ -34,9 +35,12 @@ def tests(request, category = 'all', page_number = 1):
 		request.session['search'] = {'text': title, 'category': category}
 		return redirect('/tests/search/')
 	#Пагинация
-	current_page = Paginator(tests, 1)
-	args['tests'] = current_page.page(page_number)
+	current_page = Paginator(tests, 15)
+	if int(page_number) > current_page.num_pages or int(page_number) < 1:
+		raise Http404('Такой страницы нет')
 
+	args['tests'] = current_page.page(page_number)
+	args['pages_count'] = get_number_name(current_page.num_pages + 2)
 	return render_to_response('tests.html', args)
 
 @csrf_exempt	
@@ -76,7 +80,11 @@ def search(request, page_number=1):
 			
 		
 		args['search'] = {'text': data['text'], 'count': tests.count, 'category': search_category_test}
-		current_page = Paginator(tests, 1)
+		current_page = Paginator(tests, 15)
+		if int(page_number) > current_page.num_pages or int(page_number) < 1:
+			raise Http404('Такой страницы нет')
+
+		args['pages_count'] = get_number_name(current_page.num_pages + 2)
 		args['tests'] = current_page.page(page_number)
 		return render_to_response('tests.html', args)
 	else:
@@ -89,7 +97,7 @@ def test(request, id):
 	if request.is_ajax():
 		#Если не существует сессии с данным тестом , мы ее создаем
 		if 'test' not in request.session or request.session['test']['id'] != test.id:
-			questions = models_to_dict(Query.objects.filter(test=test).order_by('?')[:5])
+			questions = models_to_dict(Query.objects.filter(test=test).order_by('?')[:test.questions_count])
 			random.shuffle(questions)
 
 			request.session['test'] = {
@@ -204,15 +212,17 @@ def test_next_quest(request):
 						test = Test.objects.get(id=test['id']),
 						user = user,
 						name = test_data['user'],
-						precent = user_percent,
-						mark = result
+						precent = round(user_percent, 1),
+						mark = result,
+						date = datetime.datetime.now()
 					)
 				else:
 					probationer = Probationer(
 						test = Test.objects.get(id=test['id']),
 						name = test_data['user'],
-						precent = user_percent,
-						mark = result
+						precent = round(user_percent, 1),
+						mark = result,
+						date = datetime.datetime.now()
 					)
 				probationer.save()
 				#удаляем сессию

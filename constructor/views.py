@@ -28,6 +28,7 @@ def create_test(request):
 	if login:
 		if request.is_ajax():
 			category = get_object_or_404(Category,id=int(request.POST['category']))
+			
 			test = Test(
 				title = request.POST['title'],
 				description = request.POST['description'],
