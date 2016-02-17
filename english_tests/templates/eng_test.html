@@ -1,0 +1,35 @@
+{% verbatim %}
+    <h1 class = "center">
+        {{ current_test.title }}
+    </h1>
+    <div class="row center">
+        <p class="flow-text">
+            {{ current_test.description }}
+        </p>
+    </div>
+    <div class="row center">
+        <a class="waves-effect waves-light btn-large" ng-click="getQuestions()">
+            Начать
+        </a>
+    </div>
+    <div class="row">
+        <ul class="collection">
+            <li class="collection-item" ng-repeat="question in questions">
+                {{ question.text }}
+                <ul class="collection">
+                   <li class="collection-item" ng-repeat="answer in question.answers">
+                       {{ answer.text }}
+                       <div class="switch secondary-content">
+                        <label>
+                          Нет
+                          <input type="checkbox">
+                          <span class="lever"></span>
+                          Да
+                        </label>
+                      </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endverbatim %}

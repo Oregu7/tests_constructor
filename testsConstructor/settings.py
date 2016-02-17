@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'tests',
     'constructor',
+    'english_tests',
     'loginsys'
 ]
 
@@ -61,7 +62,14 @@ ROOT_URLCONF = 'testsConstructor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates','loginsys/templates','users/templates', 'constructor/templates', 'tests/templates'],
+        'DIRS': [
+            'templates',
+            'loginsys/templates',
+            'users/templates',
+            'constructor/templates',
+            'tests/templates',
+            'english_tests/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,5 +120,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    'static'
+    'static',
+    'english_tests/static'
 ]

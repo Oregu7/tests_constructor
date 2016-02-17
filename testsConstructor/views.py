@@ -5,3 +5,4 @@ from testsConstructor.helpers import check_sign_in
 def home(request):
 	sign_in = check_sign_in(request)
 	return render_to_response('home.html', {'login': sign_in})
+
