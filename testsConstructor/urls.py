@@ -20,6 +20,7 @@ from testsConstructor.views import home
 urlpatterns = [
 	url(r'^$', home),
 	url(r'^admin/', admin.site.urls),
+    url(r'^api/', include('api.urls')),
 	url(r'^profile/', include('users.urls')),
 	url(r'^constructor/', include('constructor.urls')),
 	url(r'^tests/', include('tests.urls')),

@@ -21,7 +21,7 @@ var columns = [
 
 	{
 		name: "name",
-		label: "Фамилия",
+		label: "Студент",
 		editable: false,
 		cell: "string"
 	},

@@ -19,9 +19,14 @@
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
 		<h2 class="ui header">
-			<i class="plug icon"></i>
+			<i class="bar chart icon"></i>
 			<div class="content">Результаты теста - "{{test.title}}" </div>
 		</h2>
+		<div class="ui breadcrumb">
+			<a class="section" href = '/profile/{{login}}/'>Профиль</a>
+			<div class="divider"> / </div>
+			<div class="active section">{{test.title}}</div>
+		</div>
 		<div id="results">
 			
 		</div>

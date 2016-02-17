@@ -8,17 +8,24 @@
 		{% for test in tests %}
 			<div class="item">
 				<div class="content">
-					<a href="/constructor/test/{{test.id}}/settings/" class="header">{{test.title}}</a>
+					<a href="/tests/{{test.id}}/" class="header">{{test.title}}</a>
 					<div class="description">
 						<p>
 							{{test.description}}
 						</p>
 					</div>
 					<div class="extra">
-						<a href ="results/{{test.id}}/" class = "ui right floated teal button">
-							Результаты
-							<i class="right chevron icon"></i>
-						</a>
+						<div class="ui basic right floated teal  buttons">
+							<a href ="/constructor/test/{{test.id}}/settings/" class = "ui button">
+								<i class="settings chevron icon"></i>
+								Настройки
+							</a>
+							<a href ="results/{{test.id}}/" class = "ui button">
+								Результаты
+								<i class="right chevron icon"></i>
+							</a>
+						</div>
+						
 						<div class="ui label">{{test.category}}</div>
 					</div>
 				</div>

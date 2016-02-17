@@ -33,6 +33,11 @@ class Query(models.Model):
 
 	def __str__(self):
 		return self.test.title + ' Вопрос #' + str(self.id)
+
+	def get_answers(self):
+		answers = Answer.objects.filter(query=self)
+		return answers
+
 class Answer(models.Model):
 	query = models.ForeignKey(Query)
 	text = models.CharField(max_length=200, blank=True)
