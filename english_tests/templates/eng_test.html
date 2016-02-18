@@ -7,22 +7,28 @@
             {{ current_test.description }}
         </p>
     </div>
-    <div class="row center">
+    <div class="row center" ng-show="!questions">
         <a class="waves-effect waves-light btn-large" ng-click="getQuestions()">
             Начать
+        </a>
+    </div>
+    <div class="row center" ng-show="questions && mark">
+        <h4 class="truncate">Ваша оценка - {{ mark }}</h4>
+        <a class="btn-floating btn-large waves-effect waves-light red z-depth-3" ng-click="restart()">
+            <i class="material-icons">replay</i>
         </a>
     </div>
     <div class="row">
         <ul class="collection">
             <li class="collection-item" ng-repeat="question in questions">
-                {{ question.text }}
+               {{ $index + 1}}){{ question.text }}
                 <ul class="collection">
-                   <li class="collection-item" ng-repeat="answer in question.answers">
+                   <li class="collection-item" ng-repeat="answer in question.answers" ng-class = "{'red lighten-4':answer.error, 'green lighten-4': answer.success}">
                        {{ answer.text }}
                        <div class="switch secondary-content">
                         <label>
                           Нет
-                          <input type="checkbox">
+                          <input type="checkbox" ng-model = "answer.selection">
                           <span class="lever"></span>
                           Да
                         </label>
@@ -31,5 +37,10 @@
                 </ul>
             </li>
         </ul>
+    </div>
+    <div class="row center" ng-show="questions && (mark === undefined || !mark)">
+        <a class="waves-effect waves-light btn-large" ng-click="check_test()">
+            Проверить
+        </a>
     </div>
 {% endverbatim %}

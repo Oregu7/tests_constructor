@@ -54,4 +54,3 @@ def question_list(request, id):
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
-

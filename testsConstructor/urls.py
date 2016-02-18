@@ -18,7 +18,8 @@ from django.contrib import admin
 from testsConstructor.views import home
 
 urlpatterns = [
-	url(r'^$', 'english_tests.views.index'),
+	url(r'^$', home),
+    url(r'^english/$', 'english_tests.views.index'),
     url(r'^english_tests/(?P<page>\S+)/$', 'english_tests.views.get_page'),
 	url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
