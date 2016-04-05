@@ -20,10 +20,21 @@
 								<i class="settings chevron icon"></i>
 								Настройки
 							</a>
-							<a href ="results/{{test.id}}/" class = "ui button">
+                            {% if test.category.url == 'analytics' %}
+                            <a href ="/analytics/answers/{{test.id}}/" class = "ui button">
+                                <i class="save icon"></i>
+								Ответы
+							</a>
+                            <a href ="/analytics/questions/{{test.id}}/" class = "ui button">
+                                <i class="save icon"></i>
+								Вопросы
+							</a>
+                            {% else %}
+                            <a href ="results/{{test.id}}/" class = "ui button">
 								Результаты
 								<i class="right chevron icon"></i>
 							</a>
+                            {% endif %}
 						</div>
 						
 						<div class="ui label">{{test.category}}</div>
