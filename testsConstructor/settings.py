@@ -49,8 +49,6 @@ INSTALLED_APPS = [
     'loginsys'
 ]
 
-FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
-                        "django_excel.TemporaryExcelFileUploadHandler")
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,13 +71,13 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'templates',
-            'loginsys/templates',
-            'users/templates',
-            'constructor/templates',
-            'tests/templates',
-            'english_tests/templates',
-            'analytics/templates'
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR,'loginsys/templates'),
+            os.path.join(BASE_DIR,'users/templates'),
+            os.path.join(BASE_DIR,'constructor/templates'),
+            os.path.join(BASE_DIR,'tests/templates'),
+            os.path.join(BASE_DIR,'english_tests/templates'),
+            os.path.join(BASE_DIR,'analytics/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
