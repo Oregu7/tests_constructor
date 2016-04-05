@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Аналитика</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="{% static 'js/vendor/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/vendor/materialize.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular-route.min.js' %}"></script>
+    <script src="{% static 'js/analytics.js' %}"></script>
+</head>
+<body ng-app="testProject">
+	<nav>
+		<div class="nav-wrapper blue-grey darken-4">
+			<a href="#/" class="brand-logo center">Аналитическое тестирование</a>
+		</div>
+	</nav>
+    {% verbatim %}
+    <main class="container" ng-controller="main">
+        <ng-view></ng-view>
+    </main>
+    {% endverbatim %}
+</body>
+</html>

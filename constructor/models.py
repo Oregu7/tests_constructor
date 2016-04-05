@@ -38,7 +38,11 @@ class Query(models.Model):
 		answers = Answer.objects.filter(query=self)
 		return answers
 
+	def __unicode__(self):
+		return self.test.title + ' Вопрос #' + str(self.id)
+
 class Answer(models.Model):
-	query = models.ForeignKey(Query)
-	text = models.CharField(max_length=200, blank=True)
-	correct = models.BooleanField(default=False)
+    query = models.ForeignKey(Query)
+    text = models.CharField(max_length=200, blank=True)
+    correct = models.BooleanField(default=False)
+    analytics = models.IntegerField(default=0)

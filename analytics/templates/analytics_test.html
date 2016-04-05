@@ -1,0 +1,49 @@
+{% verbatim %}
+    <h1 class = "center">
+        {{ current_test.title }}
+    </h1>
+    <div class="row center">
+        <p class="flow-text">
+            {{ current_test.description }}
+        </p>
+    </div>
+    <div class="row center" ng-show="!questions">
+        <a class="waves-effect waves-light btn-large" ng-click="getQuestions()">
+            Начать
+        </a>
+    </div>
+    <div class="row center" ng-show="questions && mark">
+        <h4 class="truncate">{{ mark }}</h4>
+        <a class="btn-floating btn-large waves-effect waves-light red z-depth-3" ng-click="restart()">
+            <i class="material-icons">replay</i>
+        </a>
+    </div>
+    <div class="row">
+
+        <ul class="collection">
+            <form action="#">
+            <li class="collection-item" ng-repeat="question in questions">
+               {{ $index + 1}}){{ question.text }}
+                <ul class="collection">
+                   <li class="collection-item" ng-repeat="answer in question.answers" ng-class = "{'red lighten-4':answer.error, 'green lighten-4': answer.success}">
+                       <input type="radio"
+                              class = "with-gap"
+                              name = "question_{{ question.id }}"
+                              ng-model = "question.current_answer"
+                              value = "{{ answer.id }}"
+                              id = "{{ answer.id }}">
+                        <label for = "{{ answer.id }}">
+                          {{ answer.text }}
+                        </label>
+                    </li>
+                </ul>
+            </li>
+            </form>
+        </ul>
+    </div>
+    <div class="row center" ng-show="questions && (mark === undefined || !mark)">
+        <a class="waves-effect waves-light btn-large" ng-click="check_test()">
+            Проверить
+        </a>
+    </div>
+{% endverbatim %}

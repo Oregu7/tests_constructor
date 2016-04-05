@@ -11,7 +11,7 @@ class TestSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ('id', 'text', 'correct', 'query')
+        fields = ('id', 'text', 'correct', 'query', 'analytics')
 
 class QuerySerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(source='get_answers', read_only=True, many=True)

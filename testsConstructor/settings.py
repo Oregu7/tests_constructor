@@ -40,12 +40,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
+    'testsConstructor',
     'users',
     'tests',
     'constructor',
     'english_tests',
+    'analytics',
     'loginsys'
 ]
+
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +78,8 @@ TEMPLATES = [
             'users/templates',
             'constructor/templates',
             'tests/templates',
-            'english_tests/templates'
+            'english_tests/templates',
+            'analytics/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -126,5 +132,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     'static',
-    'english_tests/static'
+    'english_tests/static',
+    'analytics/static'
 ]

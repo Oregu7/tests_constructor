@@ -1,0 +1,17 @@
+{% verbatim %}
+<div class="row">
+    <div class="col s12">
+        <div class="collection">
+            <a href="/analytics/#/test/{{ test.id }}/" class="collection-item" ng-repeat = "test in tests">
+                {{ test.title }}
+            </a>
+      </div>
+    </div>
+</div>
+
+<!--<div class="collection">
+    <a href="#/test/{{ $index }}/" class="collection-item" ng-repeat = "test in tests" ng-click = "testPage($index)">
+        {{ test.title }}
+    </a>
+</div>-->
+{% endverbatim %}
