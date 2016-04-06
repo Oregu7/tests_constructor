@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^tests/(?P<test_id>\d+)/question/(?P<quest_id>\d+)/$', 'api.views.question_detail', name='question_detail'),
     url(r'^user/$', 'api.views.user_detail', name='user_detail'),
     url(r'^probationers/$', 'api.views.probationers_list', name='probationers_list'),
-    url(r'^categories/$', 'api.views.category_list', name='category_list')
+    url(r'^categories/$', 'api.views.category_list', name='category_list'),
+    url(r'^countries/$', 'api.views.country_list', name='country_list')
 ]

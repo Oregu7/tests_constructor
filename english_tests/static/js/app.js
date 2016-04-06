@@ -23,14 +23,16 @@ var App = angular.module('testProject',['ngRoute'])
 
 App.controller('main', function($scope, $http, $routeParams){
     $scope.init = function(){
-        if ($scope.tests === undefined){
-            $http.get('/api/tests/English/').then(function(res){
-                $scope.tests = res.data;
+        if ($scope.countries === undefined){
+            $http.get('/api/countries/').then(function(res){
+                $scope.countries = res.data;
             })
         };
 
         if ($routeParams.id){
-            $scope.current_test = $scope.tests[$routeParams.id];
+            $http.get('/api/tests/'+ $routeParams.id+'/').then(function(res){
+                $scope.current_test = res.data;
+            })
         }
 
     };

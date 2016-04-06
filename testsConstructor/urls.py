@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from testsConstructor.views import home, excel
+from django.views import static
+from .settings import MEDIA_ROOT, MEDIA_URL
 
 urlpatterns = [
 	url(r'^$', home),
@@ -30,3 +32,5 @@ urlpatterns = [
 	url(r'^tests/', include('tests.urls')),
 	url(r'^auth/', include('loginsys.urls'))
 ]
+
+urlpatterns.append(url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}))

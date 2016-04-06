@@ -31,12 +31,12 @@ def send_to_excel(request, data, test):
     if data == "answers":
         answers = Answer.objects.filter(query__test=test)
         serializer = AnswerSerializer(answers, many=True)
-        file_name = test.title + "_answers"
+        file_name = u"test#%s_answers" % test.id
         serializer = list(map(change_answers, serializer.data))
         return make_response_from_records(serializer, 'xls', file_name=file_name)
     elif data == "questions":
         questions = Query.objects.filter(test=test)
-        file_name = test.title + "_questions"
+        file_name = u'test#%s_questions' % test.id
         column_names = ['id', 'text']
         return make_response_from_query_sets(questions, column_names, 'xls', file_name=file_name)
     else:

@@ -133,3 +133,6 @@ STATICFILES_DIRS = [
     'english_tests/static',
     'analytics/static'
 ]
+
+MEDIA_ROOT = BASE_DIR + '/media/'
+MEDIA_URL = '/media/'

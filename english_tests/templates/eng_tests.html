@@ -1,162 +1,25 @@
 {% verbatim %}
 <div class="row">
-<div class="col s12">
-  <div class="card">
-    <div class="card-image">
-      <img src="/static/images/sydney-opera-house-sunset.jpg">
-      <span class="card-title">Australia</span>
+    <div class="col s12" ng-repeat = "country in countries">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{ country.image }}">
+          <span class="card-title">{{ country.name }}</span>
+        </div>
+        <div class="card-content">
+          <p>{{ country.text }}</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">{{ country.name_translate }}<i class="material-icons right">close</i></span>
+          <p>{{ country.translate }}</p>
+        </div>
+        <div class="card-action">
+          <a href="" class = "activator">Перевод</a>
+          <a href="#/test/{{ country.test }}/">Пройти тест</a>
+        </div>
+      </div>
     </div>
-    <div class="card-content">
-      <p>Australia, or the Commonwealth of Australia, as it is officially called, is situated on the island continent. It also occupies the Island of Tasmania and some minor islands round the coast of the continent.
-
-It is a highly developed industrial-agrarian country. Its area is about 8 million km2. It is the only state in the world that occupies the territory of a whole continent.
-
-The capital of Australia is Canberra, which became the capital only in 1927.
-
-From 1787 to 1867 Australia was a place where criminals were sent from Britain. That is why the official language of Australia is English.
-
-Almost one half of Australian territory is occupied by deserts and semideserts. For quite a long period of time it was thought to be useless for economic development. But it is rich in coal, iron ore, bauxites, uranium, lead and many other mineral resources.
-
-For almost a century the production and export of sheep wool was the basis of the economy of the country. Now the most important industries are oil, chemical, ore mining, radioelectronics, and food industry. The country exports agricultural products and raw materials.
-
-As for the nature, the commonest trees of Australia are the eucalyptus and the Australian acacia or mimosa, the national emblem of the country. Such unusual animals as a kangaroo or a koala-bear originate from Australia.
-
-Australia is one of the most unusual and exotic countries of the world. A significant feature of modern Australian society is the representation of a lot of cultures drawn from many lands by its people.
-
-Historically part of the British Empire and now a member of a Commonwealth of Nations, it is a relatively prosperous and independent nation.</p>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Австралия<i class="material-icons right">close</i></span>
-      <p>Австралия, или Австралийский Союз, как она официально называется, находится на островном континенте. Она также занимает остров Тасмания и небольшие острова вокруг континентального побережья.
-
-Это весьма развитая индустриально-аграрная страна. Её площадь составляет около 8 млн км2. Это единственное государство в мире, занимающее территорию целого континента.
-
-Столица Австралии- Канберра, стала столицей лишь в 1927 году.
-
-С 1787 по 1867 год Австралия была местом, куда отправлялись преступники из Англии. Именно поэтому официальным языком Австралии является английский.
-
-Почти половину территории Австралии занимают пустыни и полупустыни. В течение довольно долгого времени они считались бесполезными для экономического развития. Но они богаты углём, железной рудой, бокситами, ураном, свинцом и многими другими полезными ископаемыми.
-
-Почти столетие производство и экспорт шерсти овец являлся основой экономики страны. В настоящее время наиболее важными отраслями являются нефтяная, химическая, горнорудная промышленность, радиоэлектроника, а также пищевая промышленность. Страна экспортирует сельскохозяйственную продукцию и сырьё.
-
-Что касается природы, то самыми распространенными деревьями в Австралии являются эвкалипт и австралийская акация, или мимоза, - государственный герб страны. Такие необычные животные, как кенгуру или коала, родом тоже из Австралии.
-
-Австралия является одной из самых необычных и экзотических стран мира. Важной особенностью современного австралийского общества является представительство многих культур, принесённых на континент из разных земель.
-
-Исторически - часть Британской империи, в настоящее время - член Содружества Наций, Австралия является процветающей и независимой страной.</p>
-    </div>
-    <div class="card-action">
-      <a href="" class = "activator">Перевод</a>
-      <a href="#/test/0/">Пройти тест</a>
-    </div>
-  </div>
 </div>
-<div class="col s12">
-  <div class="card">
-    <div class="card-image">
-      <img src="/static/images/kanada.jpg">
-      <span class="card-title">Canada</span>
-    </div>
-    <div class="card-content">
-      <p>Canada is the second largest country in the world. Only Russia has a greater land area. Canada is situated in North America. Canada is slightly larger than the United States, but has only about a tenth as many people. About 28 million people live in Canada. About 80 % of the population live within 320 km of the southern border. Much of the rest of Canada is uninhabited or thinly populated because of severe natural conditions.
-   Canada is a federation of 10 provinces and 2 territories. Canada is an independent nation. But according to the Constitution Act of 1982 British Monarch, Queen Elizabeth II of the United Kingdom is recognized as Queen of Canada. This symbolizes the country's strong ties to Britain. Canada was ruled by Britain completely until 1867, when Canada gained control of its domestic affairs. Britain governed Canada's foreign affairs until 1931, when Canada gained full independence.
-   Canada's people are. varied. About 57 % of all Canadians have some English ancestry and about 32 % have some French ancestry. Both English and French are official languages of the country. French Canadians, most of whom live in the provinces of Quebec, have kept the language and customs of their ancestors. Other large ethnic groups are German, Irish and Scottish people. Native people—American Indians and Eskimos — make up about 2 % of the country's population." 77 % of Canada's people live in cities or towns. Toronto and Montreal are the largest urban areas. Ottawa is the capital of the country.
-   Today, maintaining a sense of community is one of the major problems in Canada because of differences among the provinces and territories. Many Canadians in western and eastern parts of the country feel that the federal government does not pay enough attention to their problems. 80 % of Quebec's population are French Canadians. Many of them believe that their province should recieve a special recognition in the Canadian constitution.</p>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Канада<i class="material-icons right">close</i></span>
-      <p>
-          Канада — это вторая по величине страна в мире. Только Россия имеет большую площадь. Канада находится в Северной Америке. Канада немного больше Соединенных Штатов, однако в ней живет в десять раз меньше людей. В Канаде — около 28 миллионов жителей. Около 80 % населения живет в пределах 320 км от южной границы. Большая часть остальной территории Канады не заселена или мало заселена из-за суровых природных условий.
-   Канада является федерацией 10 провинций и 2 территорий. Канада — это независимое государство. Но согласно Конституционному акту 1982 года английская королева Елизавета II признана главой государства Канады. Это символизирует прочные связи страны с Британией. Британия правила Канадой вплоть до 1867 года, когда Канада получила контроль над своими внутренними делами. Британия управляла иностранными делами Канады до 1931 года, когда Канада получила полную независимость.
-   Население Канады разнообразно. Около 57 % канадцев имеют английское происхождение и около 32 % жителей — канадцы французского происхождения. Как английский, так и французский являются государственными языками страны.
-   Французские канадцы, большинство из которых живет в провинции Квебек, сохранили язык и обычаи своих предков. Другими большими этническими группами являются немцы, ирландцы и шотландцы. Коренные народы, американские индейцы и эскимосы, составляют около 2 % населения страны. 77 % населения Канады живет в больших и малых городах. Торонто и Монреаль — самые большие города. Оттава — столица страны.
-   Сегодня сохранение чувства общности является главной проблемой в Канаде из-за различий среди провинций и территорий. Многие канадцы в западных и восточных областях страны считают, что федеральное правительство не уделяет достаточно внимания их проблемам. 80 % населения Квебека — французские канадцы. Многие из них считают, что провинция должна получить специальное признание в канадской Конституции.
-      </p>
-    </div>
-    <div class="card-action">
-      <a href="" class = "activator">Перевод</a>
-      <a href="#/test/0/">Пройти тест</a>
-    </div>
-  </div>
-</div>
-<div class="col s12">
-  <div class="card">
-    <div class="card-image">
-      <img src="/static/images/Britan.jpg">
-      <span class="card-title">Great Britain</span>
-    </div>
-    <div class="card-content">
-      <p>The United Kingdom of Great Britain and Northern Ireland is situated on the British Isles. The British Isles consist of two large islands, Great Britain and Ireland, and above five thousand small islands. Their total area is over 315 000 square kilometers. The United Kingdom is made up of four countries: England, Scotland, Wales and Northern Ireland. Their capitals are London, Edinburgh, Cardiff and Belfast respectively.
-
-The British isles are separated from the European continent by the North Sea and the English Channel. The western coast of Great Britain is washed by the Atlantic Ocean and the Irish Sea. The surface of the British Isles varies very much. The north of Scotland is mountainous and is called Highlands, while the south, which has beautiful valleys and plains, is called Lowlands. The north and west of England are mountainous, but all the rest - east, center and southeast - is a vast plain. Mountains are not very high. Ben Nevis is the highest mountain. (1343 m.)
-
-There are a lot of rivers in GB, but they are not very long. The Severn is the longest river, while the Thames is the deepest and the most important one.
-
-The UK is one of the world’s smallest countries. The population of the country is over 87 million and about 80% of it is urban. The UK is highly developed industrial country. It’s known as one of world’s largest producers and exporters of machinery, electronics, textile, aircraft and navigation equipment. The UK is constitutional monarchy. In law, the Head of State is the Queen, but in practice, the Queen reigns, but does not rule. The country is ruled by the elected government with the Prime Minister at the head. The British Parliament consists of two chambers: the House of Lords and the House of Commons.
-
-There are three main political parties in Great Britain: the Labour, the Conservative and the Liberal parties. The Liberal party is the ruling party nowadays.</p>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Великобритания<i class="material-icons right">close</i></span>
-      <p>
-          Соединенное королевство Великобритании и Северной Ирландии расположено на Британских островах. Британские острова состоят из двух больших островов, Великобритании и Ирландии, и более пяти тысяч маленьких островов. Их общая площадь - более 315 000 квадратных километров. Великобритания состоит из четырех стран: Англии, Шотландии, Уэльса и Северной Ирландии. Их столицы - Лондон, Эдинбург, Кардифф и Белфаст соответственно.
-
-Британские острова отделены от Европейского континента Северным морем и проливом Ла-Манш. Западное побережье Великобритании омывается Атлантическим океаном и Ирландским морем. Поверхность Британских островов очень разнообразна. Север Шотландии горист и называется Высокогорьем, в то время как юг, на котором находятся красивые долины и равнины, называется Среднешотландской низменностью. Север и запад Англии горист, но все остальное - восток, центр и юго-восток - является обширной равниной. Горы - не очень высоки. Бен-Невис - самая высокая гора. (1343 м)
-
-В Великобритании есть много рек, но они не очень длинные. Северн - самая длинная река, в то время как Темза самая глубокая и наиболее важная.
-
-Великобритания - одна из самых маленьких стран в мире. Население страны - более 87 миллионов человек и приблизительно 80% из них живут в городах. Великобритания высоко индустриально развитая страна. Она известна как один из самых крупных в мире производителей и экспортеров машин, электроники, ткани, самолетов и навигационного оборудования. Великобритания - конституционная монархия. По закону, глава государства - Королева, но практически, Королева правит, но не управляет. Страна управляется избранным правительством с премьер-министром во главе. Британский Парламент состоит из двух палат: Палаты лордов и Палаты общин.
-
-В Великобритании есть три главных политических партии: лейбористская, консервативная и либеральная. Либеральная партия - правящая партия в настоящее время.
-      </p>
-    </div>
-    <div class="card-action">
-      <a href="" class = "activator">Перевод</a>
-      <a href="#/test/0/">Пройти тест</a>
-    </div>
-  </div>
-</div>
-<div class="col s12">
-  <div class="card">
-    <div class="card-image">
-      <img src="/static/images/USA.jpg">
-      <span class="card-title">USA</span>
-    </div>
-    <div class="card-content">
-      <p>The United States of America is one of the greatest countries in the world.
-It is situated on the North American continent and is washed by three oceans: the Pacific, the Atlantic and the Arctic.
-The USA  borders only on two countries — Canada and Mexico.
-This great country has a lot of mountains, rivers, lakes. The main mountains are the Appalachians and the Cordilleras. The longest rivers are the Mississippi and the Missouri.
-The climate of the country is varied. In the southern part it is subtropical while the northern part has very cold weather in winter.
-America has fifty states and one federal District of Columbia where the capital of the country is situated.
-The capital of the USA is Washington. It stands on the Potomac river in the eastern part of the country.
-The main cities are located on the Pacific and Atlantic coasts. New-York is the largest city of the country. Other large cities are San-Francisco, Los-Angeles, Detroit, Chicago, Phoenix and Dallas.
-The USA is a country of highly developed industry and agriculture. The main industrial centres are Chicago and Detroit, with their greatest automobile company “General Motors”. There are many farms with various agricultural products. Grain, fruit and vegetables are grown on numerous fields especially in the South.
-The USA is a country with great holidays, customs and traditions. It is one of the most beautiful and interesting countries in the world.</p>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">США<i class="material-icons right">close</i></span>
-      <p>
-          Соединенные Штаты Америки является одной из величайших стран мира.
-Страна расположена на Северо-Американском континенте и омывается морями трех океанов: Тихого, Атлантического и Арктического.
-США граничит только с двумя странами - Канадой и Мексикой.
-Эта великая страна имеет много гор, рек, озер. Основные горы - Аппалачи и Кордильеры. Самые длинные реки - Миссисипи и Миссури.
-Климат в стране разнообразный. В южной части - субтропический, а северная часть имеет очень холодную погоду зимой.
-Америка состоит из пятидесяти штатов и одного федерального округа Колумбия, где расположена столица страны.
-Столица США - Вашингтон. Она стоит на реке Потомак в восточной части страны.
-Основные города расположены на тихоокеанском и атлантическом побережьях. Нью-Йорк является крупнейшим городом страны. Другие крупные города - Сан-Франциско, Лос-Анджелес, Детройт, Чикаго, Феникс и Даллас.
-США является страной с развитой промышленностью и сельским хозяйством. Основные промышленные центры - Чикаго и Детройт, с самой большой автомобильной компанией "Дженерал Моторс". Есть много хозяйств производящих различную сельскохозяйственную продукцию. Зерно, фрукты и овощи выращиваются во многих областях, особенно на юге страны.
-США является страной с великими праздниками, обычаями и традициями. Это одна из самых красивых и интересных стран в мире.
-      </p>
-    </div>
-    <div class="card-action">
-      <a href="" class = "activator">Перевод</a>
-      <a href="#/test/0/">Пройти тест</a>
-    </div>
-  </div>
-</div>
-</div>
-
 <!--<div class="collection">
     <a href="#/test/{{ $index }}/" class="collection-item" ng-repeat = "test in tests" ng-click = "testPage($index)">
         {{ test.title }}

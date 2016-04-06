@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import get_object_or_404
 from constructor.models import Test, Category, Answer, Query
+from english_tests.models import Country
+from english_tests.serializers import CountrySerializer
 from tests.models import Probationer
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -132,3 +134,9 @@ def question_detail(request, test_id, quest_id):
         return Response(status=status.HTTP_200_OK)
     if request.method == 'PUT':
         pass
+
+@api_view(['GET'])
+def country_list(request):
+    countries = Country.objects.all()
+    serializer = CountrySerializer(countries, many=True)
+    return Response(serializer.data)
