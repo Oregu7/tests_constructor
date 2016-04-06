@@ -1,5 +1,5 @@
 var TemplatesDIR = '/analytics/'
-var App = angular.module('testProject',['ngRoute'])
+var App = angular.module('testProject',['ngRoute', 'ui.materialize'])
     .config(function($routeProvider){
         $routeProvider
             .when("/",{
@@ -35,23 +35,50 @@ App.controller('main', function($scope, $http, $routeParams){
             })
         }
 
+        $scope.select = {};
+
     };
 
-    $scope.getQuestions = function(){
-        $http.get('/api/tests/' + $scope.current_test.id + '/questions/').then(function(res){
-            $scope.questions = res.data;
-            angular.forEach($scope.questions, function(question){
-                question.current_answer = false;
-            });
+    $scope.startTest = function(){
+        $scope.courses = [1,2,3,4];
+
+        $http.get('/api/rolies/').then(function(res){
+            $('#modal1').openModal();
+            $scope.rolies = res.data;
+        });
+
+        $http.get('/api/specializations/').then(function(res){
+            $scope.specializations = res.data;
         })
     };
 
+    $scope.next =function(){
+        if(($scope.select.role == 1 && $scope.select.specialization && $scope.select.course) || $scope.select.role == 2){
+            if($scope.mark){
+                $scope.mark = 0;
+                angular.forEach($scope.questions, function(question){
+                    question.current_answer = false;
+                });
+                console.log($scope.questions)
+            }else{
+                $http.get('/api/tests/' + $scope.current_test.id + '/questions/').then(function(res){
+                $scope.questions = res.data;
+                    angular.forEach($scope.questions, function(question){
+                        question.current_answer = false;
+                    });
+                })
+            }
+
+        }
+
+    }
+
+    $scope.cancel = function(){
+        $scope.select = {}
+    }
+
     $scope.restart = function(){
-        $scope.mark = 0;
-        angular.forEach($scope.questions, function(question){
-            question.current_answer = false;
-        });
-        console.log($scope.questions)
+        $('#modal1').openModal();
     };
 
     $scope.check_test = function(){
@@ -60,10 +87,17 @@ App.controller('main', function($scope, $http, $routeParams){
             data.push({id: question.id, current_answer:question.current_answer})
         });
 
-        $.post('/analytics/save/', {data: JSON.stringify(data)}, function(response){
-            console.log(response);
-            console.log(data);
-        })
+        $.post('/analytics/save/',
+            {
+                data: JSON.stringify(data),
+                tested: JSON.stringify($scope.select),
+                test: $scope.current_test.id
+            },
+            function(response){
+                console.log(response);
+                console.log(data);
+            }
+        )
 
         $scope.mark = "Данные успешно сохранены";
         scroll(0,0);

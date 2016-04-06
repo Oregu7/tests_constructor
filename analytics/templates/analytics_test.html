@@ -8,7 +8,7 @@
         </p>
     </div>
     <div class="row center" ng-show="!questions">
-        <a class="waves-effect waves-light btn-large" ng-click="getQuestions()">
+        <a class="waves-effect waves-light btn-large" ng-click="startTest()">
             Начать
         </a>
     </div>
@@ -43,7 +43,61 @@
     </div>
     <div class="row center" ng-show="questions && (mark === undefined || !mark)">
         <a class="waves-effect waves-light btn-large" ng-click="check_test()">
-            Проверить
+            Отправить
         </a>
     </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class = "valign center">Пожалуйста укажите свои данные</h4>
+      <div class="row">
+          <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.role" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите свою роль</option>
+                      <option ng-repeat="role in rolies" value="{{ role.id }}">
+                          {{ role.name }}
+                      </option>
+                    </select>
+                    <label>Роль тестируемого</label>
+                </div>
+              </div>
+              <div class="row" ng-show = "select.role == 1">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.specialization" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите свою специализацию</option>
+                      <option ng-repeat="specialization in specializations" value="{{ specialization.code }}">
+                          {{ specialization.name }}
+                      </option>
+                    </select>
+                    <label>Специализация</label>
+                </div>
+              </div>
+              <div class="row" ng-show = "select.role == 1">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.course" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите свой курс</option>
+                      <option ng-repeat="course in courses" value="{{ course }}">
+                          {{ course }}
+                      </option>
+                    </select>
+                    <label>Курс</label>
+                </div>
+              </div>
+          </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="next()">Далее</a>
+      <a href="" class="modal-action modal-close waves-effect waves-red btn-flat" ng-click="cancel()">Отмена</a>
+    </div>
+  </div>
+
+    <script>
+         $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 {% endverbatim %}

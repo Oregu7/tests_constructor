@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from constructor.models import Test, Category, Answer, Query
 from english_tests.models import Country
 from english_tests.serializers import CountrySerializer
+from analytics.models import Role, Tested, Specialization, Analytic
+from analytics.serializers import RoleSerializer, SpecializationSerializer
+
 from tests.models import Probationer
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -139,4 +142,16 @@ def question_detail(request, test_id, quest_id):
 def country_list(request):
     countries = Country.objects.all()
     serializer = CountrySerializer(countries, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def role_list(request):
+    rolies = Role.objects.all()
+    serializer = RoleSerializer(rolies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def specialization_list(request):
+    specializations = Specialization.objects.all()
+    serializer = SpecializationSerializer(specializations, many=True)
     return Response(serializer.data)

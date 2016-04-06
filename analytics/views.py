@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, JsonResponse, QueryDict, Http404
 from django.views.decorators.csrf import csrf_exempt
 from constructor.models import Query, Answer, Test
+from .models import Role, Specialization, Tested, Analytic
 from constructor.serializers import QuerySerializer, AnswerSerializer
 from django_excel import make_response_from_query_sets, make_response_from_records
 import json
@@ -15,13 +16,39 @@ def get_page(request, page):
 
 @csrf_exempt
 def save_analytics(request):
+    print(request.POST)
     data = json.loads(request.POST['data'])
-    print(data)
+    tested = json.loads(request.POST['tested'])
+
+    role = get_object_or_404(Role, id=tested['role'])
+    test = get_object_or_404(Test, id=request.POST['test'])
+
+    #если тестируемый студент
+    if role.id == 1:
+        specialization = get_object_or_404(Specialization, code=tested['specialization'])
+        tested_new = Tested(
+            role = role,
+            specialization = specialization,
+            course = tested['course'],
+            test = test
+        )
+        tested_new.save()
+    else:
+        tested_new = Tested(
+            role = role,
+            test = test
+        )
+        tested_new.save()
+
     for analytic in data:
         if analytic['current_answer']:
             answer = Answer.objects.get(id=analytic['current_answer'], query__id=analytic['id'])
-            answer.analytics += 1
-            answer.save()
+            analytic_new = Analytic(
+                answer = answer,
+                tested = tested_new
+            )
+
+            analytic_new.save()
 
     return JsonResponse({'success': True})
 
