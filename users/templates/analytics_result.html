@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Аналитика</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="{% static 'js/vendor/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/vendor/materialize.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular-materialize.js' %}"></script>
+    <script src="{% static 'application/analytics_result.js' %}"></script>
+</head>
+<body ng-app="analytics_result">
+	<nav>
+		<div class="nav-wrapper blue-grey darken-4">
+			<a href="#/" class="brand-logo center">{{ test.title }}</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <a href="/profile/{{ user }}/">
+                        <i class="material-icons">fast_rewind</i>
+                    </a>
+                </li>
+            </ul>
+		</div>
+	</nav>
+    {% verbatim %}
+    <div class="container" ng-controller="main">
+        <h3 class = "valign center">Анализ данных</h3>
+        <div class="row">
+            <form class="col s12">
+               <div class="row">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.role" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите роль</option>
+                      <option value="">ВСЕ</option>
+                      <option ng-repeat="role in rolies" value="{{ role.id }}">
+                          {{ role.name }}
+                      </option>
+                    </select>
+                    <label>Роль тестируемого</label>
+                </div>
+              </div>
+              <div class="row" ng-show = "select.role == 1">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.specialization" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите специализацию</option>
+                      <option value="">ВСЕ</option>
+                      <option ng-repeat="specialization in specializations" value="{{ specialization.code }}">
+                          {{ specialization.name }}
+                      </option>
+                    </select>
+                    <label>Специализация</label>
+                </div>
+              </div>
+              <div class="row" ng-show = "select.role == 1">
+                <div class="input-field col s12">
+                    <select class="" ng-model="select.course" material-select watch>
+                      <option value="" disabled selected>Пожалуйста укажите курс</option>
+                      <option value="">ВСЕ</option>
+                      <option ng-repeat="course in courses" value="{{ course }}">
+                          {{ course }}
+                      </option>
+                    </select>
+                    <label>Курс</label>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s6">
+                      <label for="date_first">Дата От</label>
+                      <input input-date
+                            type="text"
+                            name="date_first"
+                            id="date_first"
+                            ng-model="date.first"
+                            container="body"
+                            format="yyyy-mm-dd"
+                            months-full="{{ month }}"
+                            months-short="{{ monthShort }}"
+                            weekdays-full="{{ weekdaysFull }}"
+                            weekdays-short="{{ weekdaysShort }}"
+                            weekdays-letter="{{ weekdaysLetter }}"
+                            today="today"
+                            clear="clear"
+                            close="close"
+                            select-years="15"/>
+                  </div>
+
+                  <div class="input-field col s6">
+                      <label for="date_last">Дата До</label>
+                      <input input-date
+                            type="text"
+                            name="date_last"
+                            id="date_last"
+                            ng-model="date.last"
+                            container="body"
+                            format="yyyy-mm-dd"
+                            months-full="{{ month }}"
+                            months-short="{{ monthShort }}"
+                            weekdays-full="{{ weekdaysFull }}"
+                            weekdays-short="{{ weekdaysShort }}"
+                            weekdays-letter="{{ weekdaysLetter }}"
+                            today="today"
+                            clear="clear"
+                            close="close"
+                            select-years="15"/>
+                  </div>
+              </div>
+              <a class="waves-effect waves-light btn-large"
+                 href="/analytics/questions/test/14/role/{{ select.role }}/spec/{{ select.specialization }}/course/{{ select.course }}/date_f/{{ date.first }}/date_l/{{ date.last }}/">
+                  <i class="material-icons left">cloud</i>
+                  Сформировать
+              </a>
+            </form>
+        </div>
+    </div>
+    {% endverbatim %}
+</body>
+</html>

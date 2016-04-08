@@ -78,6 +78,7 @@ App.controller('main', function($scope, $http, $routeParams){
     }
 
     $scope.restart = function(){
+        $scope.select = {};
         $('#modal1').openModal();
     };
 

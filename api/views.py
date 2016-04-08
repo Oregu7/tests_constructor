@@ -8,7 +8,7 @@ from constructor.models import Test, Category, Answer, Query
 from english_tests.models import Country
 from english_tests.serializers import CountrySerializer
 from analytics.models import Role, Tested, Specialization, Analytic
-from analytics.serializers import RoleSerializer, SpecializationSerializer
+from analytics.serializers import RoleSerializer, SpecializationSerializer, AnalyticSerializer, TestedSerializer
 
 from tests.models import Probationer
 from django.contrib import auth
@@ -154,4 +154,10 @@ def role_list(request):
 def specialization_list(request):
     specializations = Specialization.objects.all()
     serializer = SpecializationSerializer(specializations, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def tested_list(request):
+    testeds = Tested.objects.all()
+    serializer = TestedSerializer(testeds, many=True)
     return Response(serializer.data)

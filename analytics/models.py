@@ -21,6 +21,9 @@ class Tested(models.Model):
     date = models.DateField(default=datetime.date.today)
     test = models.ForeignKey(Test)
 
+    def get_analytic(self):
+        return Analytic.objects.filter(tested=self)
+
     def __str__(self):
         return "Тестируемый %s#%d" % (self.role.name, self.id)
 

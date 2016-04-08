@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^categories/$', 'api.views.category_list', name='category_list'),
     url(r'^countries/$', 'api.views.country_list', name='country_list'),
     url(r'^rolies/$', 'api.views.role_list', name='role_list'),
-    url(r'^specializations/$', 'api.views.specialization_list', name='specialization_list')
+    url(r'^specializations/$', 'api.views.specialization_list', name='specialization_list'),
+    url(r'^testeds/$', 'api.views.tested_list', name='tested_list')
 ]
