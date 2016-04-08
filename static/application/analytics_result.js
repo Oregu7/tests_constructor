@@ -20,6 +20,7 @@ App.controller('main', function($scope, $http){
             last: '',
             first: ''
         };
+        $scope.test = $('#test_header').attr('data-testID');
         $scope.courses = [1,2,3,4];
 
         $http.get('/api/rolies/').then(function(res){

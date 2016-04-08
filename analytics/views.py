@@ -59,14 +59,18 @@ def send_to_excel(request, data, test):
     if data == "answers":
         answers = Answer.objects.filter(query__test=test)
         serializer = AnswerSerializer(answers, many=True)
-        file_name = u"test#%s_answers" % test.id
+        file_name = u"test#%s_answers" % str(test.id)
         serializer = list(map(change_answers, serializer.data))
         return make_response_from_records(serializer, 'xls', file_name=file_name)
     elif data == "questions":
         questions = Query.objects.filter(test=test)
-        file_name = u'test#%s_questions' % test.id
+        file_name = u'test#%s_questions' % str(test.id)
         column_names = ['id', 'text']
         return make_response_from_query_sets(questions, column_names, 'xls', file_name=file_name)
+    elif data == "testeds":
+        testeds = change_testeds(TestedSerializer(Tested.objects.filter(test=test), many=True).data)
+        file_name = u'test#%s_testeds' % str(test.id)
+        return make_response_from_records(testeds, 'xls', file_name=file_name)
     else:
         return Http404("Does Not Exist")
 
@@ -79,6 +83,13 @@ def change_answers(answer):
 
     return response
 
+def change_testeds(testeds):
+    for tested in testeds:
+        tested['count_answers'] = len(tested['analytics'])
+        del tested['analytics']
+        del tested['test']
+
+    return testeds
 
 def set_if_not_none(mapping, key, value):
     if value is not "":

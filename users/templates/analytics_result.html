@@ -17,7 +17,7 @@
 <body ng-app="analytics_result">
 	<nav>
 		<div class="nav-wrapper blue-grey darken-4">
-			<a href="#/" class="brand-logo center">{{ test.title }}</a>
+			<a href="" class="brand-logo center" id = "test_header" data-testID="{{ test.id }}">{{ test.title }}</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li>
                     <a href="/profile/{{ user }}/">
@@ -109,11 +109,21 @@
                             select-years="15"/>
                   </div>
               </div>
-              <a class="waves-effect waves-light btn-large"
-                 href="/analytics/questions/test/14/role/{{ select.role }}/spec/{{ select.specialization }}/course/{{ select.course }}/date_f/{{ date.first }}/date_l/{{ date.last }}/">
-                  <i class="material-icons left">cloud</i>
-                  Сформировать
-              </a>
+              <div class="row">
+                  <a class="waves-effect waves-light btn-large"
+                     href="/analytics/answers/test/{{ test }}/role/{{ select.role }}/spec/{{ select.specialization }}/course/{{ select.course }}/date_f/{{ date.first }}/date_l/{{ date.last }}/">
+                      <i class="material-icons left">question_answer</i>
+                      Ответы
+                  </a>
+                  <a class="waves-effect waves-light btn-large" href="/analytics/testeds/{{ test }}/">
+                      <i class="material-icons left">recent_actors</i>
+                      Тестируемые
+                  </a>
+                  <a class="waves-effect waves-light btn-large" href="/analytics/questions/{{ test }}/">
+                      <i class="material-icons right">live_help</i>
+                      Вопросы
+                  </a>
+              </div>
             </form>
         </div>
     </div>
