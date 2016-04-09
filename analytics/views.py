@@ -88,6 +88,7 @@ def change_testeds(testeds):
         tested['count_answers'] = len(tested['analytics'])
         del tested['analytics']
         del tested['test']
+        del tested['id']
 
     return testeds
 
@@ -107,7 +108,7 @@ def inc_answer(mapping, id):
 
     mapping = list(map(find_by_id, mapping))
 
-def search_and_send_to_excel(request, test, role, spec, course, date_f, date_l):
+def search_and_send_to_excel(request, data, test, role, spec, course, date_f, date_l):
     sort_params = {}
     set_if_not_none(sort_params, 'test', test)
     set_if_not_none(sort_params, 'role', role)
@@ -119,13 +120,21 @@ def search_and_send_to_excel(request, test, role, spec, course, date_f, date_l):
 
     testeds = Tested.objects.filter(**sort_params)
     testeds_serializer = TestedSerializer(testeds, many=True)
-    answers = Answer.objects.filter(query__test=test)
-    answers_data = AnswerSerializer(answers, many=True).data
+    if data == "answers":
+        answers = Answer.objects.filter(query__test=test)
+        answers_data = AnswerSerializer(answers, many=True).data
 
-    for tested in testeds_serializer.data:
-        for analytic in tested['analytics']:
-            inc_answer(answers_data, analytic['answer'])
+        for tested in testeds_serializer.data:
+            for analytic in tested['analytics']:
+                inc_answer(answers_data, analytic['answer'])
 
-    file_name = u"test#%s_answers" % test
-    excel_data = list(map(change_answers, answers_data))
-    return make_response_from_records(excel_data, 'xls', file_name=file_name)
+        file_name = u"test#%s_answers" % str(test)
+        excel_data = list(map(change_answers, answers_data))
+        return make_response_from_records(excel_data, 'xls', file_name=file_name)
+
+    elif data == "testeds":
+        testeds = change_testeds(testeds_serializer.data)
+        file_name = u'test#%s_testeds' % str(test)
+        return make_response_from_records(testeds, 'xls', file_name=file_name)
+    else:
+        return Http404("Does Not Exist")
