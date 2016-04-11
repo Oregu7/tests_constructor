@@ -93,7 +93,7 @@ def change_testeds(testeds):
     return testeds
 
 def set_if_not_none(mapping, key, value):
-    if value is not "":
+    if value != "all":
         if key == 'specialization' or key == 'course':
             if 'role' in mapping and mapping['role'] is "1":
                 mapping[key] = value
@@ -115,7 +115,7 @@ def search_and_send_to_excel(request, data, test, role, spec, course, date_f, da
     set_if_not_none(sort_params, 'specialization', spec)
     set_if_not_none(sort_params, 'course', course)
 
-    if date_f is not "" and date_l is not "":
+    if date_f != "all" and date_l != "all":
         sort_params['date__range'] = (date_f, date_l)
 
     testeds = Tested.objects.filter(**sort_params)
