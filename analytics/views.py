@@ -5,7 +5,7 @@ from constructor.models import Query, Answer, Test
 from .models import Role, Specialization, Tested, Analytic
 from .serializers import TestedSerializer, AnalyticSerializer
 from constructor.serializers import QuerySerializer, AnswerSerializer
-from django_excel import make_response_from_query_sets, make_response_from_records
+from django_excel import make_response_from_query_sets, make_response_from_records, make_response_from_book_dict
 import json
 import pyexcel.ext.xls
 
@@ -25,21 +25,14 @@ def save_analytics(request):
     test = get_object_or_404(Test, id=request.POST['test'])
 
     #если тестируемый студент
-    if role.id == 1:
-        specialization = get_object_or_404(Specialization, code=tested['specialization'])
-        tested_new = Tested(
-            role = role,
-            specialization = specialization,
-            course = tested['course'],
-            test = test
-        )
-        tested_new.save()
-    else:
-        tested_new = Tested(
-            role = role,
-            test = test
-        )
-        tested_new.save()
+    specialization = get_object_or_404(Specialization, code=tested['specialization'])
+    tested_new = Tested(
+        role = role,
+        specialization = specialization,
+        course = tested['course'],
+        test = test
+    )
+    tested_new.save()
 
     for analytic in data:
         if analytic['current_answer']:
@@ -86,19 +79,15 @@ def change_answers(answer):
 def change_testeds(testeds):
     for tested in testeds:
         tested['count_answers'] = len(tested['analytics'])
+
         del tested['analytics']
         del tested['test']
-        del tested['id']
 
     return testeds
 
 def set_if_not_none(mapping, key, value):
     if value != "all":
-        if key == 'specialization' or key == 'course':
-            if 'role' in mapping and mapping['role'] is "1":
-                mapping[key] = value
-        else:
-            mapping[key] = value
+        mapping[key] = value
 
 def inc_answer(mapping, id):
     def find_by_id(answer):
@@ -136,5 +125,10 @@ def search_and_send_to_excel(request, data, test, role, spec, course, date_f, da
         testeds = change_testeds(testeds_serializer.data)
         file_name = u'test#%s_testeds' % str(test)
         return make_response_from_records(testeds, 'xls', file_name=file_name)
+
+    elif data == "testeds_answers":
+        testeds_answers = AnalyticSerializer(Analytic.objects.filter(tested__in = testeds), many=True)
+        file_name = u'test#%s_testeds_answers' % str(test)
+        return make_response_from_records(testeds_answers.data, 'xls', file_name=file_name)
     else:
         return Http404("Does Not Exist")

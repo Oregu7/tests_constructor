@@ -12,7 +12,7 @@ class SpecializationSerializer(serializers.ModelSerializer):
 class AnalyticSerializer(serializers.ModelSerializer):
     class Meta:
         model = Analytic
-        fields = ('answer',)
+        fields = ('answer','tested')
 
 class TestedSerializer(serializers.ModelSerializer):
     analytics = AnalyticSerializer(source='get_analytic', read_only=True, many=True)

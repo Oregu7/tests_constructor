@@ -53,7 +53,7 @@ App.controller('main', function($scope, $http, $routeParams){
     };
 
     $scope.next =function(){
-        if(($scope.select.role == 1 && $scope.select.specialization && $scope.select.course) || $scope.select.role == 2){
+        if(($scope.select.role && $scope.select.specialization && $scope.select.course)){
             if($scope.mark){
                 $scope.mark = 0;
                 angular.forEach($scope.questions, function(question){
