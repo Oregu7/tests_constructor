@@ -8,6 +8,9 @@ from constructor.serializers import QuerySerializer, AnswerSerializer
 from django_excel import make_response_from_query_sets, make_response_from_records, make_response_from_book_dict
 import json
 import pyexcel.ext.xls
+import pyexcel.ext.xlsx
+import io
+from xlsxwriter.workbook import Workbook
 
 def index(request):
     return render_to_response('analytics.html')
@@ -59,7 +62,7 @@ def send_to_excel(request, data, test):
         questions = Query.objects.filter(test=test)
         file_name = u'test#%s_questions' % str(test.id)
         column_names = ['id', 'text']
-        return make_response_from_query_sets(questions, column_names, 'xls', file_name=file_name)
+        return make_response_from_query_sets(questions, column_names, 'xlsx', file_name=file_name)
     elif data == "testeds":
         testeds = change_testeds(TestedSerializer(Tested.objects.filter(test=test), many=True).data)
         file_name = u'test#%s_testeds' % str(test.id)
@@ -70,6 +73,7 @@ def send_to_excel(request, data, test):
 def change_answers(answer):
     response = {
         'ID_Вопроса': answer['query'],
+        'ID_Ответа': answer['id'],
         'Текст_Ответа': answer['text'],
         'Аналитика': answer['analytics']
     }
@@ -119,16 +123,29 @@ def search_and_send_to_excel(request, data, test, role, spec, course, date_f, da
 
         file_name = u"test#%s_answers" % str(test)
         excel_data = list(map(change_answers, answers_data))
-        return make_response_from_records(excel_data, 'xls', file_name=file_name)
+        return make_response_from_records(excel_data, 'xlsx', file_name=file_name)
 
     elif data == "testeds":
         testeds = change_testeds(testeds_serializer.data)
         file_name = u'test#%s_testeds' % str(test)
-        return make_response_from_records(testeds, 'xls', file_name=file_name)
+        return make_response_from_records(testeds, 'xlsx', file_name=file_name)
 
     elif data == "testeds_answers":
-        testeds_answers = AnalyticSerializer(Analytic.objects.filter(tested__in = testeds), many=True)
-        file_name = u'test#%s_testeds_answers' % str(test)
-        return make_response_from_records(testeds_answers.data, 'xls', file_name=file_name)
+        output = io.BytesIO()
+        testeds_answers = AnalyticSerializer(Analytic.objects.filter(tested__in = testeds), many=True).data
+        workbook = Workbook(output, {'in_memory': True})
+        worksheet = workbook.add_worksheet('ответы_тестируемых')
+        for indx in range(len(testeds_answers)):
+            worksheet.write("A%s" % str(indx + 2), testeds_answers[indx]['tested'])
+            worksheet.write("B%s" % str(indx + 2), testeds_answers[indx]['answer'])
+
+        workbook.close()
+        output.seek(0)
+        response = HttpResponse(output.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = "attachment; filename=test.xlsx"
+        return response
+
+        #file_name = u'test#%s_testeds_answers' % str(test)
+        #return make_response_from_records(testeds_answers.data, 'xlsx', file_name=file_name)
     else:
         return Http404("Does Not Exist")

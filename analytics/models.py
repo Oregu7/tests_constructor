@@ -1,16 +1,13 @@
-from django.db import models
-from constructor.models import Test, Answer, Query
 import datetime
+
+from django.db import models
+
+from constructor.models import Test, Answer
+from users.models import Specialization
+
 
 class Role(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    def __str__(self):
-        return self.name
-
-class Specialization(models.Model):
-    name = models.CharField(max_length=200, unique=True)
-    code = models.IntegerField(primary_key=True, unique=True)
-
     def __str__(self):
         return self.name
 

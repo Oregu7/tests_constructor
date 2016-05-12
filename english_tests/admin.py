@@ -6,4 +6,4 @@ class CountryAdmin(admin.ModelAdmin):
     list_display = ('name', 'name_translate', 'image')
     search_fields = ['name']
 
-admin.site.register(Country, CountryAdmin)
+#admin.site.register(Country, CountryAdmin)

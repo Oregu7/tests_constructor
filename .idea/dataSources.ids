@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source source="LOCAL" name="Django default" uuid="b371d44d-ecec-47b9-a4fe-5e2ad3e20720">
+  <data-source source="LOCAL" name="Django default" uuid="33cdb5a8-07d1-4f8b-bbda-9f39da66ee17">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
 </component>

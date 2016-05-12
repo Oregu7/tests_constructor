@@ -1,20 +1,21 @@
+import datetime
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-
 from django.shortcuts import get_object_or_404
-from constructor.models import Test, Category, Answer, Query
+from django.contrib import auth
+
+from constructor.models import Test, Category, Query
 from english_tests.models import Country
 from english_tests.serializers import CountrySerializer
-from analytics.models import Role, Tested, Specialization, Analytic
-from analytics.serializers import RoleSerializer, SpecializationSerializer, AnalyticSerializer, TestedSerializer
-
+from analytics.models import Role, Tested, Specialization
+from analytics.serializers import RoleSerializer, SpecializationSerializer, TestedSerializer
 from tests.models import Probationer
-from django.contrib import auth
-from django.contrib.auth.models import User
-from constructor.serializers import TestSerializer, AnswerSerializer, QuerySerializer, CategorySerializer, UserSerializer, ProbationerSerializer
-import datetime
+from users.models import User
+from constructor.serializers import TestSerializer, AnswerSerializer, QuerySerializer, CategorySerializer, UserSerializer
+
 
 # Create your views here.
 @csrf_exempt

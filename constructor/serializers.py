@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from constructor.models import Test, Query, Answer, Category
 from tests.models import Probationer
-from django.contrib.auth.models import User
+from users.models import User
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:

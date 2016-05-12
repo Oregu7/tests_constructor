@@ -1,11 +1,27 @@
 from django.db import models
-from constructor.models import Test
-from django.contrib.auth.models import User
+
+from constructor.models import Test, Answer
+from users.models import User
+
 # Create your models here.
 class Probationer(models.Model):
-	test = models.ForeignKey(Test)
-	user = models.ForeignKey(User, blank = True, null = True)
-	name = models.CharField(max_length=200, blank=True)
-	mark = models.IntegerField()
-	precent = models.FloatField()
-	date = models.DateTimeField()
+    test = models.ForeignKey(Test, verbose_name="Тест")
+    user = models.ForeignKey(User, verbose_name="Тестируемый")
+    mark = models.IntegerField(verbose_name="Отметка")
+    precent = models.FloatField(verbose_name="Процент")
+    date = models.DateTimeField(verbose_name="Дата")
+
+    def get_answers(self):
+        return ProbationerAnswers.objects.filter(probationer=self)
+
+    class Meta:
+        verbose_name = "Тестируемого"
+        verbose_name_plural = "Тестируемые"
+
+class ProbationerAnswers(models.Model):
+    probationer = models.ForeignKey(Probationer, verbose_name="Тестируемый")
+    answer = models.ForeignKey(Answer, verbose_name="Ответ")
+
+    class Meta:
+        verbose_name = "Ответ Тестируемого"
+        verbose_name_plural = "Ответы Тестируемых"
