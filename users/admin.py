@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Specialization, Subject, Group, User
+from .models import Specialization, Group, User
 from .forms import AdminUserAddForm, AdminUserChangeForm
 
 
@@ -36,5 +36,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Specialization, SpecializationAdmin)
-admin.site.register(Subject)
 admin.site.register(Group)

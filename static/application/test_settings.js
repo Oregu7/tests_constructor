@@ -9,7 +9,7 @@ App.Models.Settings = Backbone.Model.extend({
 		title: '',
 		description: '',
 		category: '',
-		quest_count: 0,
+		quest_count: 10,
 		helps: false,
 		timeCompl: false,
 		public_access: false,
@@ -93,8 +93,8 @@ App.Views.Settings = Backbone.View.extend({
 	},
 
 	create_test: function(){
-		if (this.fields.name.val().length <= 4){
-			swal("Ошибка!", 'Название теста слишком короткое, должно быть больше 4 символов', 'error')
+		if (this.fields.name.val().length == 0){
+			swal("Ошибка!", 'Вы не указали название!', 'error')
 		}else{
 			this.model.set({
 				title: this.fields.name.val(),
@@ -150,7 +150,8 @@ App.Views.Settings = Backbone.View.extend({
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
 				four_mark: this.fields.marks.four[1].val(),
-				category: this.fields.category.val()
+				category: this.fields.category.val(),
+                quest_count: this.fields.quest_count.val()
 			});
 
 			$.post('', this.model.toJSON(), function(data){
@@ -161,7 +162,7 @@ App.Views.Settings = Backbone.View.extend({
 
 	setQuestCount: function(){
 		var that = this;
-		if (that.fields.quest_count.val() <= 0){
+		if (that.fields.quest_count.val() < 1){
 			swal('Ошибка!', "Количество вопросов должно быть больше 0!", "error")
 			that.fields.quest_count.val(that.model.get('quest_count'))
 		}else{
