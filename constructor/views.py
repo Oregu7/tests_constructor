@@ -6,6 +6,7 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
 from constructor.models import Test, Query, Answer, Category
+from users.models import Specialization
 from django.contrib import auth
 import json
 
@@ -72,7 +73,7 @@ def settings_test(request, id):
         else:
             login = check_sign_in(request)
             categories = Category.objects.all()
-            return render_to_response('create_test.html', {'login': login, 'test': test, 'categories': categories})
+            return render_to_response('create_test.html', {'login': login, 'test': test, 'categories': categories, 'optionName': 'settings'})
     else:
         return redirect('/')
 
@@ -82,7 +83,7 @@ def queries_test(request, id):
     test = get_object_or_404(Test, id=id)
     if test.creator == auth.get_user(request):
         queries = map(get_answers, Query.objects.filter(test = test))
-        return render_to_response('test/queries.html', {'login': sign_in, 'test': test, 'queries': queries})
+        return render_to_response('test/queries.html', {'login': sign_in, 'test': test, 'queries': queries, 'optionName': 'questions'})
     else:
         raise Http404('Вы не являетесь создателем данного теста!')
 
@@ -198,3 +199,19 @@ def question_actions(request, qid, aid):
             return HttpResponse(json.dumps(response))
     else:
         return Http404('Вы не являетесь создателем данного теста!')
+
+@csrf_exempt
+def test_access(request, id):
+    test = get_object_or_404(Test, id=id)
+    login = check_sign_in(request)
+    specializations = Specialization.objects.all()
+    courses = range(1, 5)
+    if test.creator == login:
+        return render_to_response('test_access.html',
+                                  {'login': login,
+                                   'test': test,
+                                   'optionName': 'access',
+                                   'specializations': specializations,
+                                   'courses': courses})
+    else:
+        return Http404('Вы не имете доступа!')

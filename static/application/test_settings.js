@@ -47,7 +47,6 @@ App.Views.Settings = Backbone.View.extend({
 		'change input[name="two_mark"]': 'changeTwoMark',
 		'change input[name="three_mark"]': 'changeThreeMark',
 		'change input[name="four_mark"]': 'changeFourMark',
-		'click #questions' : 'questions_step',
 		'click #edit_test' : 'edit_test',
 		'change input[name="quest_count"]': 'setQuestCount',
         'change input[name="time"]': 'setTime'
@@ -108,29 +107,6 @@ App.Views.Settings = Backbone.View.extend({
 				}
 			});
 		}
-	},
-
-	questions_step:function(){
-		var testID = $('#questions').attr('data-testID')
-		swal({
-			title: 'Переход к вопросам',
-			text: 'Вы точно хотите перейти к вопросам теста?',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: 'Да, перейти!',
-			cancelButtonText: 'Нет, не надо!',
-			closeOnConfirm: false,   
-			closeOnCancel: false
-			},
-
-			function(isConfirm){
-				if(isConfirm){
-					window.location.assign('/constructor/test/' + testID + '/questions/')
-				}else{
-					swal("Отмена", "Вы остаетесь в настройках", "success");
-				}
-			});
 	},
 
 	edit_test:function(){

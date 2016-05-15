@@ -10,6 +10,11 @@ from .forms import AdminUserAddForm, AdminUserChangeForm
 class SpecializationAdmin(admin.ModelAdmin):
     list_display = ('code', 'name')
 
+class GroupAdmin(admin.ModelAdmin):
+    list_filter = ('specialization', 'course')
+    list_display = ('name', 'specialization', 'course')
+    search_fields = ('name',)
+
 class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
@@ -36,4 +41,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Specialization, SpecializationAdmin)
-admin.site.register(Group)
+admin.site.register(Group, GroupAdmin)

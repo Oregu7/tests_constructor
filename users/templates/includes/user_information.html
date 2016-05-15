@@ -1,9 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="ui card">
+  <div class="image">
+    <img src="/media/images/_318-61897.jpg/">
+  </div>
+  <div class="content">
+    <a class="header">{{ login.get_full_name }}</a>
+    <div class="meta">
+      <span class="date">Последний вход: {{ login.last_login }}</span>
+    </div>
+    <div class="description">
+        {% for group in login.groups.all %}
+            {% if group.name == "Студент" %}
+            <div class="ui list">
+                <div class="item">Группа: {{ login.study_group }}</div>
+                <div class="item">Курс: {{ login.study_group.course }}</div>
+                <div class="item">Специализация: {{ login.study_group.specialization }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+  <div class="extra content">
+    <div class="ui list">
+    {% for group in login.groups.all %}
+        <div class="item">
+            <a><i class="selected radio icon"></i>{{ group }}</a>
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>

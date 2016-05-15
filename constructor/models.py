@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User
+from users.models import User, Group
 
 # Create your models here.
 class Category(models.Model):
@@ -17,6 +17,7 @@ class Test(models.Model):
     category = models.ForeignKey(Category, blank=True, null=True)
     questions_count = models.IntegerField(blank=True, null=True)
     date = models.DateTimeField(auto_now=True)
+    group_access = models.ManyToManyField(Group, blank=True, verbose_name="Групповой доступ")
     two_mark = models.IntegerField()
     three_mark = models.IntegerField()
     four_mark = models.IntegerField()

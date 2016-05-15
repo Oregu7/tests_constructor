@@ -1,9 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'main.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="ui grid">
+    <div class="one wide column"></div>
+    <div class="fourteen wide column">
+        <h1 class="ui inverted black block header">
+            Тест : "{{test.title}}"
+        </h1>
+
+        {% include 'test/test_menu.html' %}
+        <div class="ui grid">
+            <div class="two wide column">
+                <div class="ui vertical menu">
+                    <div class="item">
+                        <div class="header">Специализации</div>
+                        <div class="menu">
+                            <a class="item active" href="">Все</a>
+                            {% for spec in specializations %}
+                                <a class="item" href="">{{ spec.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="header">Курсы</div>
+                        <div class="menu">
+                            <a class="item active" href="">Все</a>
+                            {% for course in courses %}
+                                <a class="item" href="">{{ course }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="two wide column"></div>
+            <div class="twelve wide column">
+                <div class="ui segments">
+                    <div class="ui horizontal segments">
+                        <div class="ui secondary inverted blue segment">
+                            <h3 class="ui header">
+                                <i class="ellipsis vertical icon"></i>
+                                <div class="content">Все</div>
+                            </h3>
+                        </div>
+                        <div class="ui secondary inverted teal segment">
+                            <h3 class="ui header">
+                                <i class="check circle outline icon"></i>
+                                <div class="content">Активные</div>
+                            </h3>
+                        </div>
+                        <div class="ui secondary inverted red segment">
+                            <h3 class="ui header">
+                                <i class="minus circle icon"></i>
+                                <div class="content">Нет Доступа</div>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui icon fluid input">
+                            <input type="text" name="search" placeholder="поиск...">
+                            <i class="circular search link icon"></i>
+                        </div>
+                    </div>
+                    <div class="ui segment"></div>
+                    <div class="ui attached segment">
+                    </div>
+                    <div class="ui bottom attached button">Очистить Доступ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="one wide column"></div>
+</div>
+{% endblock %}

@@ -8,28 +8,10 @@
 			<h1 class="ui inverted black block header">
 				Тест : "{{test.title}}"
 			</h1>
-			
-			<div class="ui steps" data-testID = "{{test.id}}" id = 'settings'>
-				<a class="ui step">
-					<i class="setting icon"></i>
-					<div class="content">
-						<div class="title">
-							Настройки
-						</div>
-					</div>	
-				</a>
-				<a class="ui active step">
-					<i class="help icon"></i>
-					<div class="content">
-						<div class="title">
-							Вопросы
-						</div>
-					</div>		
-				</a>
-			</div>
+
+            {% include 'test/test_menu.html' %}
 
 			<div class="ui segment">
-
 				<div class="ui four cards">
 				{% for item in queries %}
 					<div class="card">
@@ -42,7 +24,7 @@
 							<div class="name">
 								Вопрос
 							</div>
-							{{item.query.text|slice:":20"}}...?
+							{{item.query.text|slice:":30"}}...
 							{% include 'test/query_items.html' %}
 							<a href = "edit/{{item.query.id}}/" class="ui button green fluid">
 								Подробнее
@@ -89,10 +71,5 @@
 				}
 			});
 	});
-
-	$('#settings').on('click', function(){
-		testID = $(this).attr('data-testID');
-		window.location.assign('/constructor/test/' + testID + '/settings/')
-	})
 </script>
 {% endblock %}

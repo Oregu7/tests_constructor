@@ -15,24 +15,7 @@
 			</h2>
 			
 			{% if test %}
-			<div class="ui steps">
-				<a class="ui active step">
-					<i class="setting icon"></i>
-					<div class="content">
-						<div class="title">
-							Настройки
-						</div>
-					</div>	
-				</a>
-				<a class="ui step" data-testID = "{{test.id}}" id = "questions">
-					<i class="help icon"></i>
-					<div class="content">
-						<div class="title">
-							Вопросы
-						</div>
-					</div>		
-				</a>
-			</div>
+			    {% include 'test/test_menu.html' %}
 			{% endif %}
 			
 			{% include 'settings.html' %}
