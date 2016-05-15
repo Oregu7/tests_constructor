@@ -17,8 +17,7 @@ App.Models.Query = Backbone.Model.extend({
 	defaults:{
 		text: '',
 		help: '',
-		point: 1,
-		time: 5
+		point: 1
 	}
 })
 
@@ -86,7 +85,6 @@ App.Views.Query = Backbone.View.extend({
 				that.$el.find('textarea[name="text_query"]').val(model.get('text'));
 				that.$el.find('textarea[name="text_helps"]').val(model.get('help'));
 				that.$el.find('input[name="point"]').val(model.get('point'));
-				that.$el.find('input[name="time"]').val(model.get('time'));
 			}
 		});
 	},
@@ -96,8 +94,7 @@ App.Views.Query = Backbone.View.extend({
 		'click #back' : 'back_to_test',
 		'change textarea[name="text_query"]' : 'setQueryText',
 		'change textarea[name="text_helps"]' : 'setHelp',
-		'change input[name="point"]' : 'setPoint',
-		'change input[name="time"]' : 'setTime'
+		'change input[name="point"]' : 'setPoint'
 	},
 
 	addAnswer: function(){
@@ -124,10 +121,6 @@ App.Views.Query = Backbone.View.extend({
 
 	setPoint: function(){
 		this.model.save({point: this.$el.find('input[name="point"]').val()})
-	},
-
-	setTime: function(){
-		this.model.save({time: this.$el.find('input[name="time"]').val()})
 	},
 
 	back_to_test:function(){

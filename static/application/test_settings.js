@@ -11,8 +11,7 @@ App.Models.Settings = Backbone.Model.extend({
 		category: '',
 		quest_count: 10,
 		helps: false,
-		timeCompl: false,
-		public_access: false,
+		timeCompl: 0,
 		two_mark: 25,
 		three_mark: 55,
 		four_mark: 85
@@ -27,7 +26,6 @@ App.Views.Settings = Backbone.View.extend({
 			name: this.$el.find('input[name="title"]'),
 			helps: this.$el.find('input[name="help"]'),
 			timeCompl: this.$el.find('input[name="time"]'),
-			public_access: this.$el.find('input[name="public_access"]'),
 			description: this.$el.find('textarea[name="description"]'),
 			category: this.$el.find('select[name="category"]'),
 			quest_count: this.$el.find('input[name="quest_count"]'),
@@ -51,7 +49,8 @@ App.Views.Settings = Backbone.View.extend({
 		'change input[name="four_mark"]': 'changeFourMark',
 		'click #questions' : 'questions_step',
 		'click #edit_test' : 'edit_test',
-		'change input[name="quest_count"]': 'setQuestCount'
+		'change input[name="quest_count"]': 'setQuestCount',
+        'change input[name="time"]': 'setTime'
 	},
 
 	changeTwoMark: function(){
@@ -99,7 +98,6 @@ App.Views.Settings = Backbone.View.extend({
 			this.model.set({
 				title: this.fields.name.val(),
 				description: this.fields.description.val(),
-				timeCompl: this.fields.timeCompl.prop('checked'),
 				helps: this.fields.helps.prop('checked'),
 				category: this.fields.category.val()
 			});
@@ -138,15 +136,14 @@ App.Views.Settings = Backbone.View.extend({
 	edit_test:function(){
 		var testID = $('#edit_test').attr('testID');
 
-		if (this.fields.name.val().length < 3){
-			swal("Ошибка!", 'Название теста слишком короткое, должно быть не менее 3 символов', 'error')
+		if (this.fields.name.val().length == 0){
+			swal("Ошибка!", 'Вы не указали название!', 'error')
 		}else{
 			this.model.set({
 				title: this.fields.name.val(),
 				description: this.fields.description.val(),
-				timeCompl: this.fields.timeCompl.prop('checked'),
+				timeCompl: this.fields.timeCompl.val(),
 				helps: this.fields.helps.prop('checked'),
-				public_access: this.fields.public_access.prop('checked'),
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
 				four_mark: this.fields.marks.four[1].val(),
@@ -168,7 +165,17 @@ App.Views.Settings = Backbone.View.extend({
 		}else{
 			that.model.set('quest_count', that.fields.quest_count.val())
 		}
-	}
+	},
+
+    setTime: function(){
+        var that = this;
+		if (that.fields.timeCompl.val() < 0){
+			swal('Ошибка!', "Время не может быть меньше 0!", "error")
+			that.fields.timeCompl.val(that.model.get('timeCompl'))
+		}else{
+			that.model.set('timeCompl', that.fields.timeCompl.val())
+		}
+    }
 });
 
 var testSettings = new App.Views.Settings({model: new App.Models.Settings()});

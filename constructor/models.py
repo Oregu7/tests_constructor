@@ -12,8 +12,7 @@ class Test(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     helps = models.BooleanField(default=False)
-    time_completion = models.BooleanField(default=False)
-    public_access = models.BooleanField(default=False)
+    time_completion = models.IntegerField(default=20)
     creator = models.ForeignKey(User)
     category = models.ForeignKey(Category, blank=True, null=True)
     questions_count = models.IntegerField(blank=True, null=True)
@@ -28,7 +27,6 @@ class Query(models.Model):
     text = models.TextField()
     test = models.ForeignKey(Test)
     help = models.TextField(blank=True)
-    time = models.IntegerField(default=5)
     point = models.IntegerField(default=1)
 
     def __str__(self):

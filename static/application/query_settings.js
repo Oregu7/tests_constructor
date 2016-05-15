@@ -15,8 +15,7 @@ App.Models.Query = Backbone.Model.extend({
 	defaults:{
 		text: '',
 		help: '',
-		point: 1,
-		time: 5
+		point: 1
 	}
 })
 
@@ -65,16 +64,17 @@ App.Views.Query = Backbone.View.extend({
 	el: '#query_settings',
 	initialize: function(){
 		this.collection.on('add', this.addItem, this);
-		this.collection.on('reset', this.tbodyEmpty, this)
+		this.collection.on('reset', this.tbodyEmpty, this);
+        this.test = this.$el.find('#save_query').attr('data-testID');
 	},
 
 	events: {
 		'click #add_answ' : 'addAnswer',
 		'click #save_query' : 'saveQuery',
+        'click #back' : 'back_to_test',
 		'change textarea[name="text_query"]' : 'setQueryText',
 		'change textarea[name="text_helps"]' : 'setHelp',
-		'change input[name="point"]' : 'setPoint',
-		'change input[name="time"]' : 'setTime'
+		'change input[name="point"]' : 'setPoint'
 	},
 
 	addAnswer: function(){
@@ -101,12 +101,12 @@ App.Views.Query = Backbone.View.extend({
 		this.model.set({point: this.$el.find('input[name="point"]').val()})
 	},
 
-	setTime: function(){
-		this.model.set({time: this.$el.find('input[name="time"]').val()})
+    back_to_test:function(){
+		window.location.assign('/constructor/test/'+this.test+'/questions/')
 	},
 
 	saveQuery: function(){
-		var url = '/constructor/test/' + this.$el.find('#save_query').attr('data-testID') + '/questions/add/';
+		var url = '/constructor/test/' + this.test + '/questions/add/';
 		data = this.model.toJSON();
 		data['answers'] = JSON.stringify(this.collection.toJSON());
 
@@ -117,8 +117,7 @@ App.Views.Query = Backbone.View.extend({
 				this.model.set({
 					text: '',
 					help: '',
-					point: 1,
-					time: 5
+					point: 1
 				});
 
 				this.$el.find('textarea').val('');

@@ -37,19 +37,9 @@
     </div>
     <div class="item">
       <div class="content">
-        <div class="header">Временные рамки</div>
-        <div class="ui slider checkbox">
-          <input type="checkbox" name="time" {% if test.time_completion %} checked {% endif %}>
-          <label>Ограниченное время сдачи теста</label>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="content">
-        <div class="header">Публичный доступ</div>
-        <div class="ui slider checkbox">
-          <input type="checkbox" name="public_access" {% if test.public_access %} checked {% endif %}>
-          <label>Открывает пользователям доступ к вашему тесту</label>
+        <div class="header">Ограниченное время сдачи теста(в минутах)</div>
+        <div class="field">
+          <input type="number" name = 'time' placeholder="Введите время" value = "{{test.time_completion}}">
         </div>
       </div>
     </div>

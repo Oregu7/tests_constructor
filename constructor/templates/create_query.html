@@ -23,13 +23,6 @@
 		<div class="content">
 			<input type="number" name = "point">
 		</div>
-		<div class="title">
-			<i class="dropdown icon"></i>
-			Время отведенное на вопрос(мин)
-		</div>
-		<div class="content">
-			<input type="number" name = "time">
-		</div>	
 	</div>
 	
 	<div class="ui horizontal icon divider">
@@ -51,14 +44,12 @@
 	    </th>
 	  </tr></tfoot>
 	</table>
-	{% if question %}
-	<div class="ui purple labeled icon button" id = "back" data-testID = "{{test.id}}">
-		<i class="left icon"></i>Назад
+    <div class="ui purple labeled icon button" id = "back" data-testID = "{{test.id}}">
+		<i class="caret left icon"></i>Назад
 	</div>
-	{% else %}
+	{% if not question %}
 	<div class="ui green labeled icon button" id = "save_query" data-testID = "{{test.id}}">
 		<i class="save icon"></i>Сохранить
 	</div>
 	{% endif%}
-	
 </div>
