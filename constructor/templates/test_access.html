@@ -1,72 +1,64 @@
 {% extends 'main.html' %}
+{% load static %}
+
+{%block library%}
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+{%endblock%}
+
+{% block scripts %}
+    <script src="{% static 'application/test_access.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-<div class="ui grid">
+<div class="ui grid" ng-app = "testAccess">
     <div class="one wide column"></div>
     <div class="fourteen wide column">
         <h1 class="ui inverted black block header">
             Тест : "{{test.title}}"
         </h1>
 
+
         {% include 'test/test_menu.html' %}
-        <div class="ui grid">
+        <div class="ui grid" ng-controller = "groupsAccess">
             <div class="two wide column">
-                <div class="ui vertical menu">
-                    <div class="item">
-                        <div class="header">Специализации</div>
-                        <div class="menu">
-                            <a class="item active" href="">Все</a>
-                            {% for spec in specializations %}
-                                <a class="item" href="">{{ spec.name }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">Курсы</div>
-                        <div class="menu">
-                            <a class="item active" href="">Все</a>
-                            {% for course in courses %}
-                                <a class="item" href="">{{ course }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+                {% include 'test/access_filter.html' %}
             </div>
             <div class="two wide column"></div>
+            {% verbatim %}
             <div class="twelve wide column">
                 <div class="ui segments">
-                    <div class="ui horizontal segments">
-                        <div class="ui secondary inverted blue segment">
-                            <h3 class="ui header">
-                                <i class="ellipsis vertical icon"></i>
-                                <div class="content">Все</div>
-                            </h3>
+                    <!-- Фильтр статуса -->
+                    <div class="ui three top attached buttons">
+                        <div class="ui tertiary inverted blue button" ng-class = "{active: filters.type == 'all'}" ng-click="setType('all')">
+                            <i class="ellipsis vertical icon"></i>
+                            Все
                         </div>
-                        <div class="ui secondary inverted teal segment">
-                            <h3 class="ui header">
-                                <i class="check circle outline icon"></i>
-                                <div class="content">Активные</div>
-                            </h3>
+                        <div class="ui tertiary inverted green button" ng-class = "{active: filters.type == 'active'}" ng-click="setType('active')">
+                            <i class="check circle outline icon"></i>
+                            Активные
                         </div>
-                        <div class="ui secondary inverted red segment">
-                            <h3 class="ui header">
-                                <i class="minus circle icon"></i>
-                                <div class="content">Нет Доступа</div>
-                            </h3>
+                        <div class="ui tertiary inverted red button" ng-class = "{active: filters.type == 'noAccess'}" ng-click="setType('noAccess')">
+                            <i class="minus circle icon"></i>
+                            Нет Доступа
                         </div>
                     </div>
-                    <div class="ui segment">
+                    <div class="ui attached segment">
                         <div class="ui icon fluid input">
-                            <input type="text" name="search" placeholder="поиск...">
+                            <input type="text" name="search" placeholder="поиск..." autocomplete="off" ng-model = "filters.search.name">
                             <i class="circular search link icon"></i>
                         </div>
                     </div>
-                    <div class="ui segment"></div>
-                    <div class="ui attached segment">
+                    <!-- Группы -->
+                    <div class="ui attached segment" ng-repeat = "group in filteredGroups | filter: filters.search">
+                        {{ group.name }}
                     </div>
-                    <div class="ui bottom attached button">Очистить Доступ</div>
+                    <div class="ui red bottom attached button">
+                        <i class="remove circle outline icon"></i>
+                        Очистить
+                    </div>
                 </div>
             </div>
+            {% endverbatim %}
         </div>
     </div>
     <div class="one wide column"></div>
