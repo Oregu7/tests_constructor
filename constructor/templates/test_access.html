@@ -29,27 +29,28 @@
                 <div class="ui segments">
                     <!-- Фильтр статуса -->
                     <div class="ui three top attached buttons">
-                        <div class="ui tertiary inverted blue button" ng-class = "{active: filters.type == 'all'}" ng-click="setType('all')">
+                        <div class="ui tertiary inverted blue button" ng-class = "{active: filters.access === ''}" ng-click="setAccess('')">
                             <i class="ellipsis vertical icon"></i>
                             Все
                         </div>
-                        <div class="ui tertiary inverted green button" ng-class = "{active: filters.type == 'active'}" ng-click="setType('active')">
+                        <div class="ui tertiary inverted green button" ng-class = "{active: filters.access === true}" ng-click="setAccess(true)">
                             <i class="check circle outline icon"></i>
                             Активные
                         </div>
-                        <div class="ui tertiary inverted red button" ng-class = "{active: filters.type == 'noAccess'}" ng-click="setType('noAccess')">
+                        <div class="ui tertiary inverted red button" ng-class = "{active: filters.access === false}" ng-click="setAccess(false)">
                             <i class="minus circle icon"></i>
                             Нет Доступа
                         </div>
                     </div>
                     <div class="ui attached segment">
                         <div class="ui icon fluid input">
-                            <input type="text" name="search" placeholder="поиск..." autocomplete="off" ng-model = "filters.search.name">
+                            <input type="text" name="search" placeholder="поиск..." autocomplete="off" ng-model = "filters.name">
                             <i class="circular search link icon"></i>
                         </div>
                     </div>
                     <!-- Группы -->
-                    <div class="ui attached segment" ng-repeat = "group in filteredGroups | filter: filters.search">
+                    <div class="ui attached segment" ng-repeat = "group in filteredGroups
+                        | filter: {name: filters.name, specialization: filters.specialization, course: filters.course, access: filters.access}">
                         {{ group.name }}
                     </div>
                     <div class="ui red bottom attached button">

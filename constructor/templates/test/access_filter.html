@@ -3,7 +3,7 @@
     <div class="item">
         <div class="header">Специализации</div>
         <div class="menu">
-            <a class="item" ng-repeat = "spec in data.specs" ng-class = "{active: filters.spec == spec.code}" ng-click="setSpec(spec.code)">
+            <a class="item" ng-repeat = "spec in data.specs" ng-class = "{active: filters.specialization == spec.code}" ng-click="setSpec(spec.code)">
                 {{ spec.name }}
             </a>
         </div>
@@ -11,8 +11,8 @@
     <div class="item">
         <div class="header">Курсы</div>
         <div class="menu">
-            <a class="item" ng-repeat = "course in data.courses" ng-class = "{active: filters.course == course}" ng-click="setCourse(course)">
-                {{ course }}
+            <a class="item" ng-repeat = "course in data.courses" ng-class = "{active: filters.course == course.id}" ng-click="setCourse(course.id)">
+                {{ course.name }}
             </a>
         </div>
     </div>

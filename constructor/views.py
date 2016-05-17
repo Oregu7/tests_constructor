@@ -210,8 +210,14 @@ def test_access(request, id):
             #Формируем данные
             if request.method == 'GET':
                 specializations = SpecializationSerializer(Specialization.objects.all(), many=True).data
+                groups_access = GroupSerializer(test.group_access.all(), many=True).data
                 groups = GroupSerializer(Group.objects.all(), many=True).data
-                courses = list(range(1, 5))
+                for group in groups:
+                    if group in groups_access:
+                        group['access'] = True
+                    else:
+                        group['access'] = False
+                courses = list(map(lambda x: {'id': x, 'name': str(x)}, range(1, 5)))
                 return JsonResponse({'specs': specializations, 'groups': groups, 'courses': courses})
         else:
             return render_to_response('test_access.html',{'login': login, 'test': test, 'optionName': 'access'})
