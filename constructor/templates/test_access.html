@@ -49,13 +49,30 @@
                         </div>
                     </div>
                     <!-- Группы -->
-                    <div class="ui attached segment" ng-repeat = "group in filteredGroups
-                        | filter: {name: filters.name, specialization: filters.specialization, course: filters.course, access: filters.access}">
-                        {{ group.name }}
+                    <div class="ui attached segment"
+                        ng-repeat = "group in data.groups
+                        | filter: {name: filters.name, specialization : {code: filters.specialization} , course: filters.course, access: filters.access}"
+                    >
+
+                        <div class="item">
+                            <div class="content">
+                                <div class="ui checkbox">
+                                    <input id="{{ group.id }}" type="checkbox" ng-model = "group.access" ng-change = "changeAccess({{ $index }})">
+                                    <label for = "{{ group.id }}">
+                                        <h2 class = "ui header"><a>{{ group.name }}</a></h2>
+                                    </label>
+                                </div>
+
+                                <div class="extra">
+                                    <div class="ui label" ng-class = "{teal: group.access == true}">{{ group.specialization.name }}</div>
+                                    <div class = "ui label" ng-class = "{teal: group.access == true}">{{ group.course }} курс</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ui red bottom attached button">
+                    <div class="ui red bottom attached button" ng-click = "closeAllAccess()">
                         <i class="remove circle outline icon"></i>
-                        Очистить
+                        Закрыть всем доступ
                     </div>
                 </div>
             </div>

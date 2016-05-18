@@ -19,7 +19,6 @@ App.controller('groupsAccess', function($scope, $http){
             response.data.courses.unshift({id: '', name: 'Все'});
             $scope.data = response.data;
 
-            $scope.filteredGroups = $scope.data.groups;
             //Устанавливаем первоначальное значение фильтров
             $scope.filters.specialization = $scope.data.specs[0].code;
             $scope.filters.course = $scope.data.courses[0].id;
@@ -39,6 +38,31 @@ App.controller('groupsAccess', function($scope, $http){
 
     $scope.setAccess = function(access){
         $scope.filters.access = access;
+    }
+
+    $scope.closeAllAccess = function(){
+        $http.delete('')
+                .then(function(resp){
+                    angular.forEach($scope.data.groups, function(group){
+                        group.access = false;
+                    })
+                })
+    }
+
+    $scope.changeAccess = function(index){
+        var group = $scope.data.groups[index];
+        if(group.access){
+            $.post('',{group: group.id, append: true})
+                .success(function(response){
+                    console.log(response)
+                })
+        }else{
+            $.post('',{group: group.id})
+                .success(function(response){
+                    console.log(response)
+                })
+        }
+
     }
 
     init();

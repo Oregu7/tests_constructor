@@ -219,6 +219,16 @@ def test_access(request, id):
                         group['access'] = False
                 courses = list(map(lambda x: {'id': x, 'name': str(x)}, range(1, 5)))
                 return JsonResponse({'specs': specializations, 'groups': groups, 'courses': courses})
+            elif request.method == 'POST':
+                group = get_object_or_404(Group, id=request.POST.get('group', ''))
+                if request.POST.get('append', False):
+                    test.group_access.add(group)
+                else:
+                    test.group_access.remove(group)
+                return JsonResponse({'success': True})
+            elif request.method == "DELETE":
+                test.group_access.clear()
+                return JsonResponse({'success': True})
         else:
             return render_to_response('test_access.html',{'login': login, 'test': test, 'optionName': 'access'})
     else:

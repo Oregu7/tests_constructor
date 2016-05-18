@@ -6,6 +6,7 @@ class SpecializationSerializer(ModelSerializer):
         model = Specialization
 
 class GroupSerializer(ModelSerializer):
+    specialization = SpecializationSerializer()
     class Meta:
         model = Group
 
