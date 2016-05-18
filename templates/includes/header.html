@@ -10,6 +10,7 @@
     {%endif%}
     {% if login.is_authenticated %}
     <a class="item" href = "/profile/{{login.username}}/">{{login.username}}</a>
+    <a class="item" href = "/auth/logout/">Выход</a>
     {% else %}
     <a class="item" href = "/auth/login/">Вход</a>
     {% endif %}

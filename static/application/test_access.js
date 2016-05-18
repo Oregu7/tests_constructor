@@ -49,15 +49,14 @@ App.controller('groupsAccess', function($scope, $http){
                 })
     }
 
-    $scope.changeAccess = function(index){
-        var group = $scope.data.groups[index];
+    $scope.changeAccess = function(group){
         if(group.access){
             $.post('',{group: group.id, append: true})
                 .success(function(response){
                     console.log(response)
                 })
         }else{
-            $.post('',{group: group.id})
+            $.post('',{group: group.id, append: false})
                 .success(function(response){
                     console.log(response)
                 })

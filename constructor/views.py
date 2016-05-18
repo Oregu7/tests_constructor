@@ -211,7 +211,7 @@ def test_access(request, id):
             if request.method == 'GET':
                 specializations = SpecializationSerializer(Specialization.objects.all(), many=True).data
                 groups_access = GroupSerializer(test.group_access.all(), many=True).data
-                groups = GroupSerializer(Group.objects.all(), many=True).data
+                groups = GroupSerializer(Group.objects.all().order_by('course','name'), many=True).data
                 for group in groups:
                     if group in groups_access:
                         group['access'] = True
@@ -221,7 +221,7 @@ def test_access(request, id):
                 return JsonResponse({'specs': specializations, 'groups': groups, 'courses': courses})
             elif request.method == 'POST':
                 group = get_object_or_404(Group, id=request.POST.get('group', ''))
-                if request.POST.get('append', False):
+                if str_to_bool(request.POST.get('append', False)):
                     test.group_access.add(group)
                 else:
                     test.group_access.remove(group)

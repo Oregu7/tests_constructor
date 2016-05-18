@@ -25,7 +25,7 @@ def tests(request, category = 'all', page_number = 1):
 	if request.method == 'GET':
 		#Проверка категории
 		if category == 'all':
-			tests = Test.objects.filter(public_access=True)
+			tests = Test.objects.filter(group_access = login.study_group)
 			args['url'] = '/tests/page/'
 		else:
 			tests = Test.objects.filter(public_access=True, category__url=category)
