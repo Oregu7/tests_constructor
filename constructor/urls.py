@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^test/(?P<t_id>\d+)/questions/edit/(?P<q_id>\d+)/$', edit_question),
     url(r'^test/(?P<id>\d+)/settings/$', settings_test),
     url(r'^test/(?P<id>\d+)/access/$', test_access),
+    url(r'^test/(?P<id>\d+)/options/$', test_options),
     url(r'^question/(?P<qid>\d+)/(?P<aid>\d*)$', question_actions)
 ]

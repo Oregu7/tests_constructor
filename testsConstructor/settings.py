@@ -62,6 +62,12 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'FORM_METHOD_OVERRIDE': None,
+    'FORM_CONTENT_OVERRIDE': None,
+    'FORM_CONTENTTYPE_OVERRIDE': None
+}
+
 ROOT_URLCONF = 'testsConstructor.urls'
 #Кроссерверные запросы
 CORS_ORIGIN_ALLOW_ALL = True

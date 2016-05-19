@@ -1,0 +1,15 @@
+{% csrf_token %}
+{% verbatim %}
+<div class="ui large vertical menu">
+    <a class="item" ng-repeat = "option in data.options" ng-class = "{'active teal': $index === currentOption}" ng-click="setOption($index)">
+        {{ option.number }} Вариант
+        <div class="ui label" ng-class = "{'teal': $index === currentOption}">{{ option.questions.length }}</div>
+    </a>
+    <div class="item">
+        <button class="ui button" ng-click="addOption()">
+            <i class="plus icon"></i>
+            Добавить вариант
+        </button>
+    </div>
+</div>
+{% endverbatim %}

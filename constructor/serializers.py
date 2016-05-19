@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from constructor.models import Test, Query, Answer, Category
+from constructor.models import Test, Query, Answer, Category, Option
 from tests.models import Probationer
 from users.models import User
 
@@ -17,7 +17,7 @@ class QuerySerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(source='get_answers', read_only=True, many=True)
     class Meta:
         model = Query
-        fields = ('id', 'text', 'point', 'answers', 'help', 'time', 'test')
+        fields = ('id', 'text', 'point', 'answers', 'help', 'test')
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,3 +33,13 @@ class ProbationerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Probationer
         fields = ('test', 'name', 'mark', 'percent')
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Query
+        fields = ('text', 'id', 'point')
+
+class OptionSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(read_only=True, many=True)
+    class Meta:
+        model = Option

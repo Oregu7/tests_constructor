@@ -5,11 +5,11 @@ import json
 import datetime
 
 def check_sign_in(request):
-	if auth.get_user(request):
-		result = auth.get_user(request)
-	else:
-		result = False
-	return result
+    if request.user.is_authenticated():
+        result = request.user
+    else:
+        result = False
+    return result
 
 def str_to_bool(item):
 	if item == "true":

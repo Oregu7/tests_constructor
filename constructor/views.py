@@ -1,14 +1,17 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.core.context_processors import csrf
 from testsConstructor.helpers import check_sign_in, str_to_bool, put
 from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
 from django.forms.models import model_to_dict
-from constructor.models import Test, Query, Answer, Category
+from .models import Test, Query, Answer, Category, Option
+from .serializers import OptionSerializer, QuestionSerializer
 from users.models import Specialization, Group
 from users.serializers import SpecializationSerializer, GroupSerializer
 from django.contrib import auth
+from rest_framework import status
 import json
 
 def get_answers(query):
@@ -231,5 +234,35 @@ def test_access(request, id):
                 return JsonResponse({'success': True})
         else:
             return render_to_response('test_access.html',{'login': login, 'test': test, 'optionName': 'access'})
+    else:
+        return Http404('Вы не имете доступа!')
+
+#@api_view(['GET', 'POST', 'DELETE'])
+def test_options(request, id):
+    test = get_object_or_404(Test, id=id)
+    user = check_sign_in(request)
+    if test.creator == user:
+        if request.is_ajax():
+            if request.method == 'GET':
+                questions = QuestionSerializer(Query.objects.filter(test=test), many=True).data
+                options = OptionSerializer(Option.objects.filter(test=test), many=True).data
+                return JsonResponse({'questions': questions, 'options': options})
+            if request.method == 'POST':
+                data = json.loads(request.body.decode("utf-8"))
+                #добавление варианта
+                if data.get('action', '') == "addOption":
+                    option = Option(
+                        test = test,
+                        number = data.get('number', 1)
+                    )
+                    option.save()
+                    return JsonResponse({'id': option.id})
+                #действие не инициализированно
+                else:
+                    return JsonResponse({'error': 'Action Does Not Exist'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            data = {'test': test, 'login': user, 'optionName': 'options'}
+            data.update(csrf(request))
+            return render_to_response('test_options.html', data)
     else:
         return Http404('Вы не имете доступа!')

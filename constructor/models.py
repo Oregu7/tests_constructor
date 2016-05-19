@@ -48,3 +48,13 @@ class Answer(models.Model):
 
     def __str__(self):
         return "Ответ#%d" % self.id
+
+
+class Option(models.Model):
+    number = models.IntegerField(default=1)
+    test = models.ForeignKey(Test)
+    questions = models.ManyToManyField(Query, blank=True)
+    public_access = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "Тест#%d Вариант#%d" % (self.test.id, self.number)

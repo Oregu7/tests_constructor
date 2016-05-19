@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block library %}
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'application/test_options.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui grid" ng-app = "testOptions">
+        <div class="one wide column"></div>
+        <div class="fourteen wide column" ng-controller = "OptionsCtr">
+            <h1 class="ui inverted black block header">
+                Тест : "{{test.title}}"
+            </h1>
+            {% include 'test/test_menu.html' %}
+            <div class="ui grid">
+                <div class="three wide column">
+                    {% include 'test/test_options_list.html' %}
+                </div>
+                <div class="one wide column"></div>
+                {% verbatim %}
+                <div class="twelve wide column">
+                    <table class="ui compact celled definition table">
+                        <thead>
+                            <th></th>
+                            <th>Баллы</th>
+                            <th>Вопрос</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat = "question in data.questions">
+                                <td class="collapsing">
+                                    <div class="ui toggle checkbox" ng-show = 'currentOption !== false'>
+                                        <input type="checkbox" id = "{{ question.id }}"><label for = "{{ question.id }}"></label>
+                                    </div>
+                                </td>
+                                <td>{{ question.point }}</td>
+                                <td>{{ question.text }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% endverbatim %}
+            </div>
+        </div>
+        <div class="one wide column"></div>
+    </div>
+{% endblock %}
