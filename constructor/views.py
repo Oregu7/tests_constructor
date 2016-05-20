@@ -247,16 +247,35 @@ def test_options(request, id):
                 questions = QuestionSerializer(Query.objects.filter(test=test), many=True).data
                 options = OptionSerializer(Option.objects.filter(test=test), many=True).data
                 return JsonResponse({'questions': questions, 'options': options})
-            if request.method == 'POST':
+            elif request.method == 'POST':
                 data = json.loads(request.body.decode("utf-8"))
+                action = data.get('action', '')
                 #добавление варианта
-                if data.get('action', '') == "addOption":
+                if action == "addOption":
                     option = Option(
                         test = test,
                         number = data.get('number', 1)
                     )
                     option.save()
                     return JsonResponse({'id': option.id})
+                elif action == "deleteOption":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    option.delete()
+                    return JsonResponse({'success': True})
+                elif action == "addQuestion":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    question = get_object_or_404(Query, id=data.get('question', ''))
+                    option.questions.add(question)
+                    return JsonResponse({'success': True})
+                elif action == "deleteQuestion":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    question = get_object_or_404(Query, id=data.get('question', ''))
+                    option.questions.remove(question)
+                    return JsonResponse({'success': True})
+                elif action == "deleteAllQuestions":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    option.questions.clear()
+                    return JsonResponse({'success': True})
                 #действие не инициализированно
                 else:
                     return JsonResponse({'error': 'Action Does Not Exist'}, status=status.HTTP_404_NOT_FOUND)

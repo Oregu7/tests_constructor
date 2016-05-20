@@ -30,7 +30,74 @@ App.controller('OptionsCtr', function($scope, $http){
             })
     }
 
+    $scope.deleteOption = function(){
+        var option = $scope.data.options[$scope.currentOption];
+        var data = {option: option.id, action: 'deleteOption'}
+        $http.post('', data)
+            .then(function(response){
+                $scope.data.options.splice($scope.currentOption, 1);
+                $scope.currentOption = false;
+            })
+    }
+
+    var searchQuestion = function(search_item, questions){
+        var response = {result: false, index: ''};
+        angular.forEach(questions, function(question, index){
+            if(question.id == search_item.id){
+                response = {result: true, index: index};
+            }
+        })
+
+        return response
+    }
+
     $scope.setOption = function(index){
         $scope.currentOption = index;
+        var option = $scope.data.options[index];
+        //Проверяем какие вопросы входят в данный вариант
+        angular.forEach($scope.data.questions, function(question){
+            question.inOption = searchQuestion(question, option.questions).result;
+        })
+    }
+
+    $scope.changeQuestion = function(question){
+        var option = $scope.data.options[$scope.currentOption];
+        var data = {
+            option: option.id,
+            question: question.id
+        }
+
+        if(question.inOption){
+            option.questions.push(question);
+            data.action = "addQuestion";
+
+            $http.post('', data)
+                .then(function(response){
+                    console.log(response.data)
+                })
+        }else{
+            data.action = "deleteQuestion";
+
+            $http.post('', data)
+                .then(function(response){
+                    console.log(response.data)
+                })
+
+            var result = searchQuestion(question, option.questions);
+            option.questions.splice(result.index, 1);
+        }
+
+    }
+
+    $scope.clearQuestions = function(){
+        var option = $scope.data.options[$scope.currentOption];
+        $http.post('', {option: option.id, action: 'deleteAllQuestions'})
+            .then(function(response){
+                $scope.data.options[$scope.currentOption].questions = [];
+                angular.forEach($scope.data.questions, function(question){
+                    question.inOption = false;
+                })
+            })
+
     }
 })

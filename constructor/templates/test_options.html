@@ -26,7 +26,8 @@
                 <div class="twelve wide column">
                     <table class="ui compact celled definition table">
                         <thead>
-                            <th></th>
+                            <th>
+                            </th>
                             <th>Баллы</th>
                             <th>Вопрос</th>
                         </thead>
@@ -34,13 +35,24 @@
                             <tr ng-repeat = "question in data.questions">
                                 <td class="collapsing">
                                     <div class="ui toggle checkbox" ng-show = 'currentOption !== false'>
-                                        <input type="checkbox" id = "{{ question.id }}"><label for = "{{ question.id }}"></label>
+                                        <input type="checkbox" id = "{{ question.id }}" ng-model = "question.inOption" ng-change="changeQuestion(question)"/>
+                                        <label for = "{{ question.id }}"></label>
                                     </div>
                                 </td>
                                 <td>{{ question.point }}</td>
                                 <td>{{ question.text }}</td>
                             </tr>
                         </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th></th>
+                                <th colspan="2">
+                                    <div class="ui right floated small red labeled icon button" ng-show = 'currentOption !== false' ng-click="clearQuestions()">
+                                        <i class="remove circle icon"></i> Удалить все вопросы
+                                    </div>
+                                </th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 {% endverbatim %}

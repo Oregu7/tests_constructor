@@ -2,11 +2,17 @@
 {% verbatim %}
 <div class="ui large vertical menu">
     <a class="item" ng-repeat = "option in data.options" ng-class = "{'active teal': $index === currentOption}" ng-click="setOption($index)">
-        {{ option.number }} Вариант
+        {{ $index + 1}} Вариант
         <div class="ui label" ng-class = "{'teal': $index === currentOption}">{{ option.questions.length }}</div>
     </a>
+    <div class="item" ng-show = 'currentOption !== false'>
+        <button class="fluid ui red button" ng-click = "deleteOption()">
+            <i class="minus icon"></i>
+            Удалить вариант
+        </button>
+    </div>
     <div class="item">
-        <button class="ui button" ng-click="addOption()">
+        <button class="fluid ui button" ng-click="addOption()">
             <i class="plus icon"></i>
             Добавить вариант
         </button>
