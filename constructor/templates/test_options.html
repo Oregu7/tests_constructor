@@ -24,36 +24,71 @@
                 <div class="one wide column"></div>
                 {% verbatim %}
                 <div class="twelve wide column">
-                    <table class="ui compact celled definition table">
-                        <thead>
-                            <th>
-                            </th>
-                            <th>Баллы</th>
-                            <th>Вопрос</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat = "question in data.questions">
-                                <td class="collapsing">
-                                    <div class="ui toggle checkbox" ng-show = 'currentOption !== false'>
-                                        <input type="checkbox" id = "{{ question.id }}" ng-model = "question.inOption" ng-change="changeQuestion(question)"/>
-                                        <label for = "{{ question.id }}"></label>
-                                    </div>
-                                </td>
-                                <td>{{ question.point }}</td>
-                                <td>{{ question.text }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot class="full-width">
-                            <tr>
-                                <th></th>
-                                <th colspan="2">
-                                    <div class="ui right floated small red labeled icon button" ng-show = 'currentOption !== false' ng-click="clearQuestions()">
-                                        <i class="remove circle icon"></i> Удалить все вопросы
-                                    </div>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="ui segments">
+                        <!-- Фильтр статуса -->
+                        <div class="ui three top attached buttons">
+                            <div class="ui tertiary inverted blue button" ng-class = "{active: filters.inOption === ''}" ng-click="setInOption('')">
+                                <i class="ellipsis vertical icon"></i>
+                                Все
+                            </div>
+                            <div class="ui tertiary inverted green button" ng-class = "{active: filters.inOption === true}" ng-click="setInOption(true)">
+                                <i class="check circle outline icon"></i>
+                                Выбранные
+                            </div>
+                            <div class="ui tertiary inverted red button" ng-class = "{active: filters.inOption === false}" ng-click="setInOption(false)">
+                                <i class="minus circle icon"></i>
+                                Не Выбранные
+                            </div>
+                        </div>
+                        <div class="ui attached segment">
+                            <div class="ui icon fluid input">
+                                <input type="text" name="search" placeholder="поиск..." autocomplete="off" ng-model = "filters.text">
+                                <i class="circular search link icon"></i>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <table class="ui compact celled definition table">
+                                <thead class="full-width">
+                                    <th>
+                                        <button class="ui yellow button"
+                                                ng-show = 'currentOption !== false'
+                                                ng-click = 'changeSelectAll()'
+                                        >
+                                            Выбрать ВСЕ
+                                        </button>
+                                    </th>
+                                    <th>Баллы</th>
+                                    <th>Вопрос</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat = "question in data.questions | filter : {
+                                        inOption : filters.inOption,
+                                        text : filters.text
+                                    }">
+                                        <td class="collapsing">
+                                            <div class="ui toggle checkbox" ng-show = 'currentOption !== false'>
+                                                <input type="checkbox" id = "{{ question.id }}" ng-model = "question.inOption" ng-change="changeQuestion(question)"/>
+                                                <label for = "{{ question.id }}"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{ question.point }}</td>
+                                        <td>{{ question.text }}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="full-width">
+                                    <tr>
+                                        <th></th>
+                                        <th colspan="2">
+                                            <div class="ui right floated small red labeled icon button" ng-show = 'currentOption !== false' ng-click="clearQuestions()">
+                                                <i class="remove circle icon"></i> Удалить все вопросы
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
                 {% endverbatim %}
             </div>

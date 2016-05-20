@@ -31,24 +31,27 @@
 	{% block content %}{% endblock %}
 	{% block scripts %}{% endblock %}
 	<script>
-		$('#login').popup({
-			on: 'hover',
-			position: 'right center',
-    		content: 'Авторизироваться в системе'
-		});
+        $(document).ready(function(){
+            $('#login').popup({
+                on: 'hover',
+                position: 'right center',
+                content: 'Авторизироваться в системе'
+            });
 
-		$('.ui.checkbox').checkbox();
-		$('.ui.dropdown').dropdown();
-		$('.ui.accordion').accordion();
+            $('.ui.checkbox').checkbox();
+            $('.ui.dropdown').dropdown();
+            $('.ui.accordion').accordion();
 
-		$('#show_sidebar').click(function(){
-			$('.ui.sidebar.left')
-				.sidebar('setting', 'transition', 'overlay')
-				.sidebar('toggle')
-				
-		})
+            $('#show_sidebar').click(function(){
+                $('.ui.sidebar.left')
+                    .sidebar('setting', 'transition', 'overlay')
+                    .sidebar('toggle')
 
-		$('.menu.item.tabular').tab()
+            })
+
+		    $('.menu.item.tabular').tab()
+        })
+
 	</script>
 </body>
 </html>
