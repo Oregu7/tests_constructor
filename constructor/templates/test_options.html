@@ -51,10 +51,16 @@
                                 <thead class="full-width">
                                     <th>
                                         <button class="ui yellow button"
-                                                ng-show = 'currentOption !== false'
+                                                ng-show = 'currentOption !== false && allQuestion'
                                                 ng-click = 'changeSelectAll()'
                                         >
                                             Выбрать ВСЕ
+                                        </button>
+                                        <button class="ui olive button"
+                                                ng-show = 'currentOption !== false && allQuestion == false'
+                                                ng-click = 'changeSelectAll()'
+                                        >
+                                            Выбрано
                                         </button>
                                     </th>
                                     <th>Баллы</th>

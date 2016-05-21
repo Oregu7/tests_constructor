@@ -276,6 +276,13 @@ def test_options(request, id):
                     option = get_object_or_404(Option, id=data.get('option', ''))
                     option.questions.clear()
                     return JsonResponse({'success': True})
+                elif action == "addAllQuestions":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    option.questions.clear()
+                    for question in data.get('questions', ''):
+                        question = get_object_or_404(Query, id=question['id'])
+                        option.questions.add(question)
+                    return JsonResponse({'success': True})
                 #действие не инициализированно
                 else:
                     return JsonResponse({'error': 'Action Does Not Exist'}, status=status.HTTP_404_NOT_FOUND)

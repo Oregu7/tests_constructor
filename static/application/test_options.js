@@ -12,7 +12,7 @@ App.config(['$httpProvider', function ($httpProvider) {
 App.controller('OptionsCtr', function($scope, $http){
     var init = function(){
         $scope.currentOption = false;
-        $scope.allQuestion = {selection : true};
+        $scope.allQuestion =  true;
 
         $scope.filters = {
             inOption: '',
@@ -63,8 +63,8 @@ App.controller('OptionsCtr', function($scope, $http){
 
     $scope.setOption = function(index){
         $scope.currentOption = index;
-        console.log($scope.allQuestion.selection);
-        //$scope.allQuestion.selection = false;
+        $scope.allQuestion = true;
+
         var option = $scope.data.options[index];
         //Проверяем какие вопросы входят в данный вариант
         angular.forEach($scope.data.questions, function(question){
@@ -102,7 +102,6 @@ App.controller('OptionsCtr', function($scope, $http){
     }
 
     $scope.clearQuestions = function(){
-        console.log($scope.data.questions)
         var option = $scope.data.options[$scope.currentOption];
         $http.post('', {option: option.id, action: 'deleteAllQuestions'})
             .then(function(response){
@@ -115,7 +114,26 @@ App.controller('OptionsCtr', function($scope, $http){
     }
 
     $scope.changeSelectAll = function(){
-        console.log($scope.allQuestion.selection)
+        var option = $scope.data.options[$scope.currentOption];
+        option.questions = [];
+
+        if($scope.allQuestion){
+            $http.post('', {option: option.id, questions: $scope.data.questions, action: 'addAllQuestions'})
+                .then(function(response){
+                    console.log(response)
+                })
+
+            angular.forEach($scope.data.questions, function(question){
+                question.inOption = true;
+                option.questions.push(question);
+            })
+
+            $scope.allQuestion = false
+        }else{
+            $scope.clearQuestions();
+            $scope.allQuestion = true;
+        }
+
     }
 
     init();
