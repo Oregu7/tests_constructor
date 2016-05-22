@@ -1,127 +1,52 @@
-{% extends 'main.html' %}
-
-{% block content %}
-	<div class="ui grid">
-		<div class="two wide column"></div>
-		<div class="twelve wide column">
-			<form {%if search %}action="/tests/search/"{%else%}action=""{%endif%} class="ui form" method="POST">
-				{% csrf_token %}
-				<div class="field">
-					<div class="ui big icon input">
-						<input type="text" autocomplete="off" placeholder="Поиск по названию..." name = 'search'>
-						<i class="search icon"></i>
-					</div>
-				</div>
-			</form>
-			{% if search %}
-			<div class="ui icon info message">
-				<i class="search icon"></i>
-				<div class="content">
-					<div class="header">
-						Поиск в категории: {{search.category}}
-					</div>
-					<p>
-						По запросу: <b>"{{search.text}}"</b> найдено <b>{{search.count}}</b>
-					</p>
-				</div>	
-			</div>
-			{% endif %}
-		</div>
-		<div class="two wide column"></div>
-	</div>
-	<p></p>
-	<div class="ui internally celled grid">
-		<div class="row">
-			<div class="two wide column"></div>
-			<div class="twelve wide column">
-				<div class="ui divided items">
-					{% for test in tests %}
-				    <div class="item">
-				      <div class="content">
-				        <a class="header test_open" data-id = "{{test.id}}">{{test.title}}</a>
-				        <p class="description">{{test.description}}</p>
-				        <a class="ui tag label">{{test.category.name}}</a>
-				      </div>
-				    </div>
-				    {% endfor %}
-				</div>
-			</div>
-			<div class="two wide column">
-				<div class="ui vertical text menu">
-					<div class="header item">Категории</div>
-					{% if tests_category = 'all' %}
-					<a href = "/tests/" class="item active teal">Все</a>
-					{%else%}
-					<a href = "/tests/" class="item">Все</a>
-					{%endif%}
-
-					{%for category in categories%}
-						{% if tests_category = category.url %}
-						<a href = "/tests/category/{{category.url}}/" class="item active teal">{{category.name}}</a>
-						{%else%}
-						<a href = "/tests/category/{{category.url}}/" class="item">{{category.name}}</a>
-						{%endif%}
-					{% endfor %}
-				</div>
-			</div>	
-		</div>	
-	</div>
-	<div class="ui grid">
-		<div class="five wide column"></div>
-		<div class="six wide column">
-			<div class = "ui {{pages_count}} item menu">
-				{% if tests.has_previous %}
-				<a class="item" href = "{{url}}{{tests.previous_page_number}}/">
-					<i class="left arrow icon"></i>
-				</a>
-				{%else%}
-				<a class="item">
-					<i class="left arrow icon"></i>
-				</a>
-				{%endif%}
-				{% for page in tests.paginator.page_range %}
-					{% if page == tests.number %}
-					<a class="item active red">{{page}}</a>
-					{% else %}
-					<a href = "{{url}}{{page}}/" class="item">{{page}}</a>
-					{% endif %}
-				{% endfor %}
-				{% if tests.has_next %}
-				<a class="item" href="{{url}}{{tests.next_page_number}}/">
-				<i class="icon right arrow"></i>
-				</a>
-				{%else%}
-				<a class="item">
-				<i class="icon right arrow"></i>
-				</a>
-				{%endif%}
-			</div>
-		</div>
-		<div class="five wide column"></div>
-	</div>
-{% endblock %}
-
-{% block scripts %}
-	<script>
-		$(document).ready(function(){
-			$('.test_open').on('click', function(){
-				var id = $(this).attr('data-id')
-				window.location.assign('/tests/'+id)
-			});
-
-			$('#search').keypress(function(e){
-				var search_text = $(this).val();
-
-				if(e.keyCode==13){
-					if (search_text.length === 0){
-						swal('Внимание!', 'Вы ничего не ввели в поисковое поле', 'warning')
-					}else{
-						$.get('/tests/search/', {search_text: search_text}, function(response){
-							console.log(JSON.parse(response))
-						});
-					}
-				}
-			});
-		});
-	</script>
-{% endblock %}
+{% verbatim %}
+<div class="ui grid">
+    <div class="two wide column"></div>
+    <div class="twelve wide column">
+        <form>
+            <div class="field">
+                <div class="ui big icon input fluid">
+                    <input type="text" autocomplete="off" placeholder="Поиск по названию..." ng-model = "filters.name">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="two wide column"></div>
+</div>
+<p></p>
+<div class="ui internally celled grid">
+    <div class="row">
+        <div class="two wide column"></div>
+        <div class="twelve wide column">
+            <div class="ui divided items">
+                <div class="item" ng-repeat = "test in data.tests | filter : {
+                    title : filters.name,
+                    category : {url : filters.category}
+                }">
+                  <div class="content">
+                    <a class="header" href="#/{{ test.id }}">{{test.title}}</a>
+                    <p class="description">{{test.description}}</p>
+                    <a class="ui tag label"
+                       ng-click = "setCategory(test.category.url)"
+                       ng-class = "{'teal': test.category.url == filters.category}"
+                    >
+                        {{test.category.name}}
+                    </a>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="two wide column">
+            <div class="ui vertical text menu">
+                <div class="header item">Категории</div>
+                <a class="item" ng-repeat = "category in data.categories"
+                   ng-class = "{'active teal': category.url == filters.category}"
+                   ng-click = "setCategory(category.url)"
+                >
+                    {{ category.name }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

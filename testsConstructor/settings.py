@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'users.User'
-
+LOGIN_URL = '/auth/login/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -81,12 +81,12 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR,'loginsys/templates'),
-            os.path.join(BASE_DIR,'users/templates'),
-            os.path.join(BASE_DIR,'constructor/templates'),
-            os.path.join(BASE_DIR,'tests/templates'),
-            os.path.join(BASE_DIR,'english_tests/templates'),
-            os.path.join(BASE_DIR,'analytics/templates')
+            os.path.join(BASE_DIR, 'loginsys/templates'),
+            os.path.join(BASE_DIR, 'users/templates'),
+            os.path.join(BASE_DIR, 'constructor/templates'),
+            os.path.join(BASE_DIR, 'tests/templates'),
+            os.path.join(BASE_DIR, 'english_tests/templates'),
+            os.path.join(BASE_DIR, 'analytics/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,9 +138,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    'static',
-    'english_tests/static',
-    'analytics/static'
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'english_tests/static'),
+    os.path.join(BASE_DIR, 'analytics/static'),
+    os.path.join(BASE_DIR, 'tests/static')
 ]
 
 MEDIA_ROOT = BASE_DIR + '/media/'

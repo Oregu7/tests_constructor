@@ -1,6 +1,4 @@
-{% extends 'main.html' %}
-
-{% block content %}
+{% verbatim %}
 <div class="ui grid">
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
@@ -13,101 +11,64 @@
 		<div  id = "content">
 			<div id="test">
 				<div class="ui grid">
-					<div class="six wide column"></div>
-					<div class="four wide column">
-						<p></p>
-						<div class="ui green button fluid" id = "start" data-test = "{{test.id}}">
-							Начать
-						</div>
+					<div class="one wide column"></div>
+					<div class="fourteen wide column">
+                        <p></p>
+                        <!-- Выбор варианта -->
+                        <div class="ui cards" ng-hide="currentOption">
+                            <div class="card" ng-repeat = "option in test.options">
+                                <div class="content">
+                                    <a class="header">{{ $index + 1}} вариант</a>
+                                    <div class="met">Количество вопросов : {{ option.questions.length }}</div>
+                                </div>
+                                <div class="extra content">
+                                    <div class="ui basic green button" ng-click = "startTest(option)">
+                                        Начать
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- конецВыбораВарианта -->
+                        <!-- Тестирование -->
+                        <div class="ui card fluid" ng-show = "currentOption">
+                            <div class="content">
+                                <div class="header">{{ currentQuestion.text }}</div>
+                                <div class="meta">
+                                    {{ currentIndexQuestion + 1 }} из {{ currentOption.questions.length }}
+                                </div>
+                                <div class="ui large list">
+                                    <div class="item" ng-repeat = "answer in currentQuestion.answers">
+                                        <div class="content">
+                                            <div class="ui toggle checkbox">
+                                                <input id = "{{ answer.id }}" type="checkbox" ng-model = "answer.selected">
+                                                <label for = "{{ answer.id }}">{{ answer.text }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="ui buttons">
+                                    <div class="ui left labeled icon blue button" ng-click="back()">
+                                        <i class="left arrow icon"></i>
+                                        Назад
+                                    </div>
+                                    <button class="ui basic grey button">00:00</button>
+                                    <div class="ui right labeled icon green button" ng-click = "next()" ng-show="currentIndexQuestion != currentOption.questions.length - 1">
+                                        <i class="right arrow icon"></i>
+                                        Далее
+                                    </div>
+                                </div>
+                                <button class="ui right floated red button">Закончить</button>
+                            </div>
+                        </div>
+                        <!-- конецТестирования-->
 					</div>
-					<div class="six wide column"></div>
+					<div class="one wide column"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="two wide column"></div>
 </div>
-
-{% endblock %}
-
-{% block scripts %}
-	{% load static %}
-	<script type="tmpl/underscore" id ="answer_tmpl">
-		<div class="content">
-			<div class="ui slider checkbox">
-				<input type="checkbox">
-				<label><%- text %></label>
-			</div>
-		</div>
-	</script>
-	<script type="tmpl/underscore" id = 'next_tmpl'>
-		<div class="ui grid">
-			<div class="four wide column"></div>
-			<div class="eight wide column">
-				<div class="ui fluid three item menu">
-				  <a class="item" id = 'help'>
-				    <i class="help icon"></i>
-				  </a>
-				  <a class="item" id = "timer">0:00</a>
-				  <a class="item" id ="next_quest">
-				    Дальше <i class="icon right arrow"></i>
-				  </a>
-				</div>
-			</div>
-			<div class="four wide column"></div>
-		</div>
-		
-	</script>
-
-	<script type="tmpl/underscore" id ="result_tmpl">
-		<p></p>
-		<div class="ui grid">
-			<div class="two wide column"></div>
-			<div class="twelve wide column">
-				<div class="ui huge message <%-color%>">
-					Ваша отметка : <%-test_result%> 
-				</div>
-				<table class="ui celled table">
-					<thead>
-						<th>Вопрос</th>
-						<th>Ответы</th>
-					</thead>
-					<tbody>
-						<% _.each(questions, function(question){ %>
-							<tr>
-								<td rowspan = "<%-question.answers.length + 1%>"><%-question.text%></td>
-							</tr>
-
-							<% _.each(question.answers, function(answer){%>
-								<tr>
-									<% if (answer.error && !answer.correct) { %>
-										<td class = "negative">
-											<i class="icon close"></i>
-											<%-answer.text%>
-										</td>
-									<% } else if (answer.correct && answer.selection) {%>
-										<td class = "positive">
-											<i class="icon checkmark"></i>
-											<%-answer.text%>
-										</td>
-									<% }else if (answer.correct && !answer.selection){%>
-										<td class = "positive">
-											<i class="icon circular checkmark"></i>
-											<%-answer.text%>
-										</td>
-									<% } else {%>
-										<td><%-answer.text%></td>
-									<% } %>
-								</tr>
-							<% }); %>
-
-						<% }); %>
-					</tbody>
-				</table>
-			</div>
-			<div class="two wide column"></div>
-		</div>
-	</script>
-
-	<script type="text/javascript" src = "{% static 'application/test.js' %}"></script>
-{% endblock %}
+{% endverbatim %}

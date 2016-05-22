@@ -3,10 +3,10 @@ from constructor.models import Test, Query, Answer, Category, Option
 from tests.models import Probationer
 from users.models import User
 
-class TestSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Test
-        fields = ('id', 'title', 'description', 'category', 'two_mark', 'three_mark', 'four_mark')
+        model = Category
+        fields = ('name', 'url')
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,11 +18,6 @@ class QuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Query
         fields = ('id', 'text', 'point', 'answers', 'help', 'test')
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ('name', 'url')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,3 +38,43 @@ class OptionSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(read_only=True, many=True)
     class Meta:
         model = Option
+
+class OptionSecondSerializer(serializers.ModelSerializer):
+    questions = QuerySerializer(read_only=True, many=True)
+    class Meta:
+        model = Option
+
+class TestSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    class Meta:
+        model = Test
+        fields = (
+            'id',
+            'title',
+            'description',
+            'category',
+            'two_mark',
+            'three_mark',
+            'four_mark',
+            'time_completion',
+            'helps',
+        )
+
+class TestSecondSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    options = OptionSecondSerializer(read_only=True, source="get_options", many="True")
+    class Meta:
+        model = Test
+        fields = (
+            'id',
+            'title',
+            'description',
+            'category',
+            'two_mark',
+            'three_mark',
+            'four_mark',
+            'time_completion',
+            'helps',
+            'options'
+        )
+

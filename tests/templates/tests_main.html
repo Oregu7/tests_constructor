@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block library %}
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular-route.min.js' %}"></script>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/testsApplication.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui grid" ng-app = "testsApp">
+        <div class="one wide column"></div>
+        <div class="fourteen wide column">
+            {% csrf_token %}
+            <ng-view></ng-view>
+        </div>
+        <div class="one wide column"></div>
+
+    </div>
+{% endblock %}

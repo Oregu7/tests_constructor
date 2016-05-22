@@ -24,6 +24,10 @@ class Test(models.Model):
 
     def __str__(self):
         return '%s' % self.title
+
+    def get_options(self):
+        return Option.objects.filter(test=self)
+
 class Query(models.Model):
     text = models.TextField()
     test = models.ForeignKey(Test)
