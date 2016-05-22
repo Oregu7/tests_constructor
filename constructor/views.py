@@ -237,7 +237,6 @@ def test_access(request, id):
     else:
         return Http404('Вы не имете доступа!')
 
-#@api_view(['GET', 'POST', 'DELETE'])
 def test_options(request, id):
     test = get_object_or_404(Test, id=id)
     user = check_sign_in(request)
@@ -282,6 +281,16 @@ def test_options(request, id):
                     for question in data.get('questions', ''):
                         question = get_object_or_404(Query, id=question['id'])
                         option.questions.add(question)
+                    return JsonResponse({'success': True})
+                elif action == "editOptionTime":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    option.time = data.get('time', 0)
+                    option.save()
+                    return JsonResponse({'success': True})
+                elif action == "editOptionAccess":
+                    option = get_object_or_404(Option, id=data.get('option', ''))
+                    option.public_access = data.get('access', False)
+                    option.save()
                     return JsonResponse({'success': True})
                 #действие не инициализированно
                 else:

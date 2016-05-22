@@ -26,7 +26,7 @@ class Test(models.Model):
         return '%s' % self.title
 
     def get_options(self):
-        return Option.objects.filter(test=self)
+        return Option.objects.filter(test=self, public_access=True)
 
 class Query(models.Model):
     text = models.TextField()
@@ -59,6 +59,7 @@ class Option(models.Model):
     test = models.ForeignKey(Test)
     questions = models.ManyToManyField(Query, blank=True)
     public_access = models.BooleanField(default=False)
+    time = models.IntegerField(default=0)
 
     def __str__(self):
         return "Тест#%d Вариант#%d" % (self.test.id, self.number)

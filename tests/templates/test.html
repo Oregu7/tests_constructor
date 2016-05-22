@@ -21,6 +21,18 @@
                         <div class="ui basic green button" ng-click = "startTest(option)">
                             Начать
                         </div>
+                        <div class="ui basic icon blue button" ng-if = "option.time">
+                            <i class="dashboard icon"></i>
+                            {{ option.time }} мин
+                        </div>
+                        <div class="ui basic icon blue button" ng-if = "test.time_completion && !option.time">
+                            <i class="dashboard icon"></i>
+                            {{ option.time }} мин
+                        </div>
+                        <div class="ui basic icon blue button" ng-if = "!test.time_completion && !option.time">
+                            <i class="dashboard icon"></i>
+                            Неограниченно
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,7 +73,7 @@
                             <i class="left arrow icon"></i>
                             Назад
                         </div>
-                        <button class="ui basic grey button">00:00</button>
+                        <button class="ui basic grey button">{{ time }}</button>
                         <div class="ui right labeled icon green button" ng-click = "next()" ng-show="currentIndexQuestion != currentOption.questions.length - 1">
                             <i class="right arrow icon"></i>
                             Далее

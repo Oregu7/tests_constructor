@@ -136,5 +136,26 @@ App.controller('OptionsCtr', function($scope, $http){
 
     }
 
+    $scope.changeTime = function(){
+        var option = $scope.data.options[$scope.currentOption];
+        if (option.time < 0 || typeof(option.time) != "number"){
+           option.time = 0;
+        }
+
+        $http.post('', {option: option.id, time: option.time, action: 'editOptionTime'})
+            .then(function(response){
+                console.log(response)
+            })
+    }
+
+    $scope.changeOptionAccess = function(access){
+        var option = $scope.data.options[$scope.currentOption];
+        $http.post('', {option: option.id, access: access, action: 'editOptionAccess'})
+            .then(function(response){
+                console.log(response)
+                option.public_access = access;
+            })
+    }
+
     init();
 })

@@ -47,10 +47,9 @@ App.controller('testsCtrl', function($scope, $http){
     init()
 })
 
-App.controller('testCtrl', function($scope, $http, $routeParams){
+App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $timeout){
     var init = function(){
         $scope.currentOption = false;
-
         $http.get('/tests/' + $routeParams.id + '/')
             .then(function(response){
                 console.log(response.data)
@@ -58,10 +57,47 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
             })
     }
 
+    var setTimer =function(){
+        closeTimer();
+
+        var option = $scope.currentOption;
+        if(option.time || $scope.test.time_completion){
+            var time = option.time ? option.time : $scope.test.time_completion;
+            var minutes = time - 1;
+            var seconds = 60;
+            $scope.timer = $interval(function(){
+                seconds -= 1
+                if (seconds < 0){
+                    minutes -= 1;
+                    seconds = 60;
+                }
+
+                $scope.time = minutes + " : " + seconds
+            }, 1000)
+
+            $scope.timerTimeout = $timeout(function(){
+                $interval.cancel($scope.timer);
+                $scope.checkTest();
+            }, time * 60 * 1000)
+
+        }else{
+            $scope.time = "00:00";
+        }
+    }
+
+    var closeTimer = function(){
+        if($scope.timer){
+            $interval.cancel($scope.timer);
+            $timeout.cancel($scope.timerTimeout);
+        }
+    }
+
     $scope.startTest = function(option){
         $scope.currentOption = option;
         $scope.currentIndexQuestion = 0;
         $scope.currentQuestion = option.questions[$scope.currentIndexQuestion];
+        closeTimer();
+        setTimer();
     }
 
     $scope.next = function(){
@@ -100,6 +136,7 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
     }
 
     $scope.checkTest = function(){
+        closeTimer();
         var userPoint = 0;
         var maxPoint = 0;
         //Проверка ответов и формирование балла
@@ -170,6 +207,7 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
         $scope.currentOption = false;
         $scope.currentIndexQuestion = false;
         $scope.currentQuestion = false;
+        closeTimer();
     }
 
     $scope.restart = function(){
@@ -182,6 +220,7 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
 
         $scope.currentIndexQuestion = 0;
         $scope.currentQuestion = $scope.currentOption.questions[$scope.currentIndexQuestion];
+        setTimer();
     }
 
     init()

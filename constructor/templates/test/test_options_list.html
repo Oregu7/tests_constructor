@@ -6,10 +6,32 @@
         <div class="ui label" ng-class = "{'teal': $index === currentOption}">{{ option.questions.length }}</div>
     </a>
     <div class="item" ng-show = 'currentOption !== false'>
-        <button class="fluid ui red button" ng-click = "deleteOption()">
-            <i class="minus icon"></i>
-            Удалить вариант
-        </button>
+        <div class="ui items">
+            <div class="item">
+                <div class="content">
+                    <h5 class="ui header">Ограничение по времени(мин)</h5>
+                    <div class="ui fluid input">
+                        <input type="number" placeholder="" ng-model = "data.options[currentOption].time" ng-change = "changeTime()">
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+               <button class="fluid ui olive button" ng-click = "changeOptionAccess(true)" ng-if = "!data.options[currentOption].public_access">
+                    Открыть Доступ
+                </button>
+                <button class="fluid ui orange button" ng-click = "changeOptionAccess(false)" ng-if = "data.options[currentOption].public_access">
+                    Закрыть Доступ
+                </button>
+            </div>
+            <div class="item">
+               <button class="fluid ui red button" ng-click = "deleteOption()">
+                    <i class="minus icon"></i>
+                    Удалить вариант
+                </button>
+            </div>
+        </div>
+
     </div>
     <div class="item">
         <button class="fluid ui button" ng-click="addOption()">

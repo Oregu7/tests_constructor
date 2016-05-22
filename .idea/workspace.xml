@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="ff6a3485-7018-4188-a548-27cb1a05fd4c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.sqlite3" afterPath="$PROJECT_DIR$/main.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/admin.py" afterPath="$PROJECT_DIR$/tests/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/models.py" afterPath="$PROJECT_DIR$/tests/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/serializers.py" afterPath="$PROJECT_DIR$/tests/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/main.html" afterPath="$PROJECT_DIR$/templates/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constructor/models.py" afterPath="$PROJECT_DIR$/constructor/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/templates/test.html" afterPath="$PROJECT_DIR$/tests/templates/test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/application/test_options.js" afterPath="$PROJECT_DIR$/static/application/test_options.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constructor/templates/test/test_options_list.html" afterPath="$PROJECT_DIR$/constructor/templates/test/test_options_list.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/static/js/testsApplication.js" afterPath="$PROJECT_DIR$/tests/static/js/testsApplication.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/views.py" afterPath="$PROJECT_DIR$/tests/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constructor/views.py" afterPath="$PROJECT_DIR$/constructor/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="testsConstructor.iws" />
@@ -32,24 +33,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="39" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.5861423" vertical-offset="741" max-vertical-offset="1275">
-              <folding>
-                <element signature="e#0#76#0" expanded="true" />
-              </folding>
+            <state line="62" column="39" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.0" vertical-offset="299" max-vertical-offset="1071">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/models.py">
+        <entry file="file://$PROJECT_DIR$/constructor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="32" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state line="14" column="4" selection-start="462" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="1173">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,32 +54,41 @@
       <file leaf-file-name="test.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/templates/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="19" selection-start="1221" selection-end="1221" vertical-scroll-proportion="31.384615" vertical-offset="1309" max-vertical-offset="2482">
-              <folding />
+            <state line="27" column="92" selection-start="1268" selection-end="1283" vertical-scroll-proportion="-3.9230769" vertical-offset="357" max-vertical-offset="1819">
+              <folding>
+                <element signature="tag#div#3;tag#div#1;tag#div#1;tag#div#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testsApplication.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="testsApplication.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/static/js/testsApplication.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="19" selection-start="5040" selection-end="5047" vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="2601">
+            <state line="224" column="0" selection-start="7072" selection-end="7072" vertical-scroll-proportion="1.5411985" vertical-offset="95" max-vertical-offset="1071">
               <folding>
                 <element signature="e#120#491#0" expanded="false" />
                 <element signature="e#506#901#0" expanded="false" />
                 <element signature="e#956#1305#0" expanded="false" />
+                <element signature="e#1420#1664#0" expanded="false" />
+                <element signature="e#2512#2649#0" expanded="false" />
+                <element signature="e#2690#2899#0" expanded="false" />
+                <element signature="e#2929#3381#0" expanded="false" />
+                <element signature="e#3411#3864#0" expanded="false" />
+                <element signature="e#3898#4196#0" expanded="false" />
+                <element signature="e#4231#6213#0" expanded="false" />
+                <element signature="e#6250#6639#0" expanded="false" />
+                <element signature="e#6672#7071#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/urls.py">
+      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="24" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state line="6" column="152" selection-start="266" selection-end="266" vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="1054">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,25 +136,25 @@
         <option value="$PROJECT_DIR$/constructor/templates/test/test_menu.html" />
         <option value="$PROJECT_DIR$/constructor/urls.py" />
         <option value="$PROJECT_DIR$/testsConstructor/helpers.py" />
-        <option value="$PROJECT_DIR$/constructor/templates/test/test_options_list.html" />
-        <option value="$PROJECT_DIR$/templates/main.html" />
         <option value="$PROJECT_DIR$/constructor/templates/test_options.html" />
-        <option value="$PROJECT_DIR$/constructor/views.py" />
-        <option value="$PROJECT_DIR$/static/application/test_options.js" />
         <option value="$PROJECT_DIR$/testsConstructor/settings.py" />
         <option value="$PROJECT_DIR$/tests/templates/tests_main.html" />
-        <option value="$PROJECT_DIR$/constructor/models.py" />
         <option value="$PROJECT_DIR$/tests/templates/tests.html" />
         <option value="$PROJECT_DIR$/tests/urls.py" />
         <option value="$PROJECT_DIR$/constructor/serializers.py" />
         <option value="$PROJECT_DIR$/tests/migrations/0006_probationer_option.py" />
         <option value="$PROJECT_DIR$/english_tests/static/js/app.js" />
-        <option value="$PROJECT_DIR$/tests/templates/test.html" />
-        <option value="$PROJECT_DIR$/tests/static/js/testsApplication.js" />
         <option value="$PROJECT_DIR$/tests/models.py" />
         <option value="$PROJECT_DIR$/tests/admin.py" />
         <option value="$PROJECT_DIR$/tests/serializers.py" />
         <option value="$PROJECT_DIR$/tests/views.py" />
+        <option value="$PROJECT_DIR$/constructor/templates/test/test_options_list.html" />
+        <option value="$PROJECT_DIR$/static/application/test_options.js" />
+        <option value="$PROJECT_DIR$/constructor/views.py" />
+        <option value="$PROJECT_DIR$/constructor/models.py" />
+        <option value="$PROJECT_DIR$/tests/templates/test.html" />
+        <option value="$PROJECT_DIR$/templates/main.html" />
+        <option value="$PROJECT_DIR$/tests/static/js/testsApplication.js" />
       </list>
     </option>
   </component>
@@ -213,7 +219,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -475,7 +481,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -668,11 +674,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1632" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/constructor/templates/test/test_options_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="21" selection-start="232" selection-end="232" vertical-scroll-proportion="0.1431579" vertical-offset="0" max-vertical-offset="475" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/constructor/templates/test_access.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="53" column="42" selection-start="2410" selection-end="2410" vertical-scroll-proportion="0.4047619" vertical-offset="714" max-vertical-offset="1513">
@@ -683,13 +684,6 @@
     <entry file="file://$PROJECT_DIR$/constructor/templates/settings.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="14" selection-start="534" selection-end="774" vertical-scroll-proportion="0.57060516" vertical-offset="23" max-vertical-offset="1088">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/constructor/templates/test_options.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="41" selection-start="3314" selection-end="3314" vertical-scroll-proportion="0.6273063" vertical-offset="697" max-vertical-offset="1853">
           <folding />
         </state>
       </provider>
@@ -708,23 +702,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="20" selection-start="1173" selection-end="1180" vertical-scroll-proportion="0.48850575" vertical-offset="357" max-vertical-offset="1054">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analytics/static/js/analytics.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="59" selection-start="709" selection-end="721" vertical-scroll-proportion="0.46735394" vertical-offset="119" max-vertical-offset="1972">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="3" selection-start="49" selection-end="418" vertical-scroll-proportion="-2.0592782" vertical-offset="833" max-vertical-offset="2482">
           <folding />
         </state>
       </provider>
@@ -739,13 +719,6 @@
     <entry file="file://$PROJECT_DIR$/tests/templates/tests_main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="12" selection-start="519" selection-end="519" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="476">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/constructor/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="4" selection-start="1073" selection-end="1073" vertical-scroll-proportion="-0.16838488" vertical-offset="574" max-vertical-offset="1156">
           <folding />
         </state>
       </provider>
@@ -778,24 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="24" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/constructor/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="36" selection-start="1932" selection-end="1932" vertical-scroll-proportion="0.3895131" vertical-offset="880" max-vertical-offset="1462">
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/english_tests/static/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="45" selection-start="2704" selection-end="2704" vertical-scroll-proportion="1.7958802" vertical-offset="469" max-vertical-offset="1836">
@@ -803,36 +758,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/constructor/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="250" column="16" selection-start="10002" selection-end="10049" vertical-scroll-proportion="0.0" vertical-offset="3674" max-vertical-offset="4845">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/templates/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="19" selection-start="1221" selection-end="1221" vertical-scroll-proportion="31.384615" vertical-offset="1309" max-vertical-offset="2482">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/static/js/testsApplication.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="19" selection-start="5040" selection-end="5047" vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="2601">
-          <folding>
-            <element signature="e#120#491#0" expanded="false" />
-            <element signature="e#506#901#0" expanded="false" />
-            <element signature="e#956#1305#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="33" selection-start="210" selection-end="210" vertical-scroll-proportion="0.1824687" vertical-offset="0" max-vertical-offset="559">
           <folding>
-            <element signature="e#0#50#0" expanded="true" />
+            <element signature="e#0#50#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -841,25 +771,110 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="38" selection-start="343" selection-end="343" vertical-scroll-proportion="0.27370304" vertical-offset="0" max-vertical-offset="559">
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="32" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+        <state line="14" column="32" selection-start="523" selection-end="523" vertical-scroll-proportion="0.6380697" vertical-offset="0" max-vertical-offset="561">
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="24" selection-start="159" selection-end="159" vertical-scroll-proportion="0.22788204" vertical-offset="0" max-vertical-offset="373">
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constructor/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="36" selection-start="1932" selection-end="1932" vertical-scroll-proportion="0.88951313" vertical-offset="562" max-vertical-offset="1411">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constructor/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="293" column="58" selection-start="12503" selection-end="12503" vertical-scroll-proportion="0.87265915" vertical-offset="4277" max-vertical-offset="4998">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="152" column="84" selection-start="4880" selection-end="4896" vertical-scroll-proportion="0.6329588" vertical-offset="2246" max-vertical-offset="2839">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constructor/templates/test/test_options_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="85" selection-start="1157" selection-end="1175" vertical-scroll-proportion="0.7362205" vertical-offset="0" max-vertical-offset="816">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constructor/templates/test_options.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="41" selection-start="3314" selection-end="3314" vertical-scroll-proportion="1.6141415" vertical-offset="238" max-vertical-offset="1853">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constructor/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="4" selection-start="462" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="1173">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="39" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.5861423" vertical-offset="741" max-vertical-offset="1275">
+        <state line="62" column="39" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.0" vertical-offset="537" max-vertical-offset="1071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="152" selection-start="266" selection-end="266" vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="1054">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="92" selection-start="1268" selection-end="1283" vertical-scroll-proportion="-3.9230769" vertical-offset="357" max-vertical-offset="1819">
           <folding>
-            <element signature="e#0#76#0" expanded="true" />
+            <element signature="tag#div#3;tag#div#1;tag#div#1;tag#div#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/static/js/testsApplication.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="224" column="0" selection-start="7072" selection-end="7072" vertical-scroll-proportion="1.5411985" vertical-offset="95" max-vertical-offset="1071">
+          <folding>
+            <element signature="e#120#491#0" expanded="false" />
+            <element signature="e#506#901#0" expanded="false" />
+            <element signature="e#956#1305#0" expanded="false" />
+            <element signature="e#1420#1664#0" expanded="false" />
+            <element signature="e#2512#2649#0" expanded="false" />
+            <element signature="e#2690#2899#0" expanded="false" />
+            <element signature="e#2929#3381#0" expanded="false" />
+            <element signature="e#3411#3864#0" expanded="false" />
+            <element signature="e#3898#4196#0" expanded="false" />
+            <element signature="e#4231#6213#0" expanded="false" />
+            <element signature="e#6250#6639#0" expanded="false" />
+            <element signature="e#6672#7071#0" expanded="false" />
           </folding>
         </state>
       </provider>
