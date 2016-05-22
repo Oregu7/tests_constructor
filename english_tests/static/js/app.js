@@ -83,7 +83,6 @@ App.controller('main', function($scope, $http, $routeParams){
         //Получение процента
         var percent = point * 100/ max_point;
         console.log(percent,max_point, point)
-        $scope.mark = 5;
         //получаем оценку
         if (percent >= 0 && percent < $scope.current_test.two_mark){
             $scope.mark = 2;
@@ -91,6 +90,8 @@ App.controller('main', function($scope, $http, $routeParams){
             $scope.mark = 3;
         }else if (percent >= $scope.current_test.three_mark && percent < $scope.current_test.four_mark){
             $scope.mark = 4;
+        }else{
+            $scope.mark = 5;
         };
 
         scroll(0,0)

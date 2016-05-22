@@ -1,11 +1,11 @@
 from django.db import models
 
-from constructor.models import Test, Answer
+from constructor.models import Test, Answer, Option
 from users.models import User
 
 # Create your models here.
 class Probationer(models.Model):
-    test = models.ForeignKey(Test, verbose_name="Тест")
+    option = models.ForeignKey(Option, verbose_name="Вариант")
     user = models.ForeignKey(User, verbose_name="Тестируемый")
     mark = models.IntegerField(verbose_name="Отметка")
     precent = models.FloatField(verbose_name="Процент")

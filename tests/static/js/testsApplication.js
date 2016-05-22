@@ -90,5 +90,86 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
 
     }
 
+    $scope.showHelp = function(){
+        var help = $scope.currentOption.questions[$scope.currentIndexQuestion].help;
+        if(help.length > 0 && $scope.test.helps){
+            swal('Подсказка', help , 'info')
+        }else{
+            swal('Подсказка', 'В данном тесте или вопросе не предусмотрены', 'error')
+        }
+    }
+
+    $scope.checkTest = function(){
+        var userPoint = 0;
+        var maxPoint = 0;
+        //Проверка ответов и формирование балла
+        angular.forEach($scope.currentOption.questions, function(question){
+            var correctValue = true;
+            maxPoint += question.point;
+
+            angular.forEach(question.answers, function(answer){
+                answer.error = false;
+                answer.success = false;
+
+                if (answer.selected && !answer.correct){
+                    answer.error = true;
+                    correctValue = false;
+                }else if (!answer.selected && answer.correct){
+                    correctValue = false;
+                }else if (answer.selected && answer.correct){
+                    answer.success = true;
+                }
+            })
+
+            if(correctValue){
+                userPoint += question.point;
+            }
+        })
+
+        //Выведение процента
+        var percent = userPoint * 100/ maxPoint;
+        $scope.testData = {
+            point: userPoint,
+            maxPoint: maxPoint,
+            percent: Math.round(percent)
+        }
+        //получаем оценку
+        if (percent >= 0 && percent < $scope.test.two_mark){
+            $scope.mark = 2;
+        }else if (percent >= $scope.test.two_mark && percent < $scope.test.three_mark){
+            $scope.mark = 3;
+        }else if (percent >= $scope.test.three_mark && percent < $scope.test.four_mark){
+            $scope.mark = 4;
+        }else{
+            $scope.mark = 5;
+        };
+
+    }
+
+    $scope.optionsBack = function(){
+        $scope.mark = false;
+        angular.forEach($scope.currentOption.questions, function(question){
+            angular.forEach(question.answers, function(answer){
+                answer.selected = false;
+            })
+        })
+
+        $scope.currentOption = false;
+        $scope.currentIndexQuestion = false;
+        $scope.currentQuestion = false;
+    }
+
+    $scope.restart = function(){
+        $scope.mark = false;
+        angular.forEach($scope.currentOption.questions, function(question){
+            angular.forEach(question.answers, function(answer){
+                answer.selected = false;
+            })
+        })
+
+        $scope.currentIndexQuestion = 0;
+        $scope.currentQuestion = $scope.currentOption.questions[$scope.currentIndexQuestion];
+    }
+
     init()
 })

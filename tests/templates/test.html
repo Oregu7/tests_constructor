@@ -26,7 +26,7 @@
             </div>
             <!-- конецВыбораВарианта -->
             <!-- Тестирование -->
-            <div class="ui card fluid" ng-show = "currentOption">
+            <div class="ui card fluid" ng-show = "currentOption && !mark">
                 <div class="content">
                     <div class="header">{{ currentQuestion.text }}</div>
                     <div class="meta">
@@ -55,10 +55,69 @@
                             Далее
                         </div>
                     </div>
-                    <button class="ui right floated red button">Закончить</button>
+                    <button class="ui right floated red button" ng-click = "checkTest()">
+                        Закончить
+                    </button>
+                    <button class="ui right floated teal icon button" ng-click = "showHelp()">
+                        <i class="help icon"></i>
+                    </button>
                 </div>
             </div>
             <!-- конецТестирования-->
+            <!-- Вывод результатов -->
+            <div id="result" ng-show = "mark">
+                <div class="ui attached info message">
+                    <div class="header">
+                        Ваша оценка - {{ mark }}
+                    </div>
+                    <ul class="list">
+                        <li>Вы набрали: {{ testData.point }} баллов из {{ testData.maxPoint }}</li>
+                        <li>Вы набрали: {{ testData.percent }} процентов из 100</li>
+                    </ul>
+                </div>
+                <table class="ui celled attached table">
+                    <thead>
+                        <th>Вопрос</th>
+                        <th>Ответы</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat-start = "question in currentOption.questions">
+                            <td rowspan="{{ question.answers.length + 1 }}">{{ question.text }}</td>
+                        </tr>
+                        <tr ng-repeat-end ng-repeat = "answer in question.answers">
+                            <td ng-if = "answer.error && !answer.correct" class = "negative">
+                                <i class="icon close"></i>
+                                {{ answer.text }}
+                            </td>
+                            <td ng-if = "answer.success" class="positive">
+                                <i class="icon checkmark"></i>
+                                {{ answer.text }}
+                            </td>
+                            <td ng-if = "answer.correct && !answer.selected" class = "positive">
+                                <i class="icon circular checkmark"></i>
+                                {{ answer.text }}
+                            </td>
+                            <td ng-if = "!answer.correct && !answer.error">
+                                {{ answer.text }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <th colspan="2">
+                            <div class="ui right floated small primary labeled icon button" ng-click = "restart()">
+                                <i class="undo icon"></i> Пройти снова
+                            </div>
+                            <a class="ui small button" href="#/">
+                                К тестам
+                            </a>
+                            <div class="ui small button" ng-click = "optionsBack()">
+                                К вариантам
+                            </div>
+                        </th>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- конецВыводаРезультатов -->
 		</div>
 	</div>
 	<div class="two wide column"></div>
