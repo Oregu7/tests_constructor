@@ -2,7 +2,7 @@
 <div class="ui grid">
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
-		<div class="ui vertical center aligned segment">	
+		<div class="ui vertical center aligned segment" ng-show = "!currentOption">
 			<div class="ui huge header">
 				{{test.title}}
 				<div class="sub header">{{test.description}}</div>
@@ -24,8 +24,20 @@
                     </div>
                 </div>
             </div>
+            <p></p>
+            <a class="ui left labeled icon inverted blue button" href="#/" ng-hide="currentOption">
+                <i class="left arrow icon"></i>
+                К Тестам
+            </a>
             <!-- конецВыбораВарианта -->
             <!-- Тестирование -->
+            <div class="ui breadcrumb" ng-show = "currentOption">
+                <a class="section" href="#/">Тесты</a>
+                <span class="divider">/</span>
+                <a class="section" ng-click="optionsBack()">Варианты</a>
+                <i class="right arrow icon divider"></i>
+                <div class="active section">{{ test.title }} ({{ currentOption.number }} вариант)</div>
+            </div>
             <div class="ui card fluid" ng-show = "currentOption && !mark">
                 <div class="content">
                     <div class="header">{{ currentQuestion.text }}</div>
@@ -55,9 +67,13 @@
                             Далее
                         </div>
                     </div>
+
                     <button class="ui right floated red button" ng-click = "checkTest()">
                         Закончить
                     </button>
+                    <div class="ui right floated twitter icon button" ng-click = "restart()">
+                        <i class="undo icon"></i>
+                    </div>
                     <button class="ui right floated teal icon button" ng-click = "showHelp()">
                         <i class="help icon"></i>
                     </button>
@@ -66,13 +82,13 @@
             <!-- конецТестирования-->
             <!-- Вывод результатов -->
             <div id="result" ng-show = "mark">
-                <div class="ui attached info message">
+                <div class="ui attached {{ color }} message">
                     <div class="header">
                         Ваша оценка - {{ mark }}
                     </div>
                     <ul class="list">
-                        <li>Вы набрали: {{ testData.point }} баллов из {{ testData.maxPoint }}</li>
-                        <li>Вы набрали: {{ testData.percent }} процентов из 100</li>
+                        <li>Вы набрали: <b>{{ testData.point }}</b> баллов из <b>{{ testData.maxPoint }}</b></li>
+                        <li>Вы набрали: <b>{{ testData.percent }}</b> процентов из <b>100</b></li>
                     </ul>
                 </div>
                 <table class="ui celled attached table">
@@ -93,7 +109,7 @@
                                 <i class="icon checkmark"></i>
                                 {{ answer.text }}
                             </td>
-                            <td ng-if = "answer.correct && !answer.selected" class = "positive">
+                            <td ng-if = "answer.correct && !answer.selected" class = "warning">
                                 <i class="icon circular checkmark"></i>
                                 {{ answer.text }}
                             </td>

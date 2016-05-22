@@ -1,10 +1,10 @@
-from .models import Probationer, ProbationerAnswers
+from .models import Probationer, ProbationerAnswer
 from rest_framework.serializers import ModelSerializer
 
 
 class ProbationerAnswersSerializer(ModelSerializer):
     class Meta:
-        model = ProbationerAnswers
+        model = ProbationerAnswer
 
 class ProbationerSerializer(ModelSerializer):
     answers = ProbationerAnswersSerializer(source="get_answers", read_only=True, many=True)

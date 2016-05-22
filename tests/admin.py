@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tests.models import Probationer, ProbationerAnswers
+from tests.models import Probationer, ProbationerAnswer
 
 # Register your models here.
 class ProbationerAdmin(admin.ModelAdmin):
@@ -7,4 +7,4 @@ class ProbationerAdmin(admin.ModelAdmin):
     list_filter = ('date', 'mark')
 
 admin.site.register(Probationer, ProbationerAdmin)
-admin.site.register(ProbationerAnswers)
+admin.site.register(ProbationerAnswer)

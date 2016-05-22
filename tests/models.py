@@ -12,13 +12,13 @@ class Probationer(models.Model):
     date = models.DateTimeField(verbose_name="Дата")
 
     def get_answers(self):
-        return ProbationerAnswers.objects.filter(probationer=self)
+        return ProbationerAnswer.objects.filter(probationer=self)
 
     class Meta:
         verbose_name = "Тестируемого"
         verbose_name_plural = "Тестируемые"
 
-class ProbationerAnswers(models.Model):
+class ProbationerAnswer(models.Model):
     probationer = models.ForeignKey(Probationer, verbose_name="Тестируемый")
     answer = models.ForeignKey(Answer, verbose_name="Ответ")
 

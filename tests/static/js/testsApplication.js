@@ -136,13 +136,26 @@ App.controller('testCtrl', function($scope, $http, $routeParams){
         //получаем оценку
         if (percent >= 0 && percent < $scope.test.two_mark){
             $scope.mark = 2;
+            $scope.color = "error";
         }else if (percent >= $scope.test.two_mark && percent < $scope.test.three_mark){
             $scope.mark = 3;
+            $scope.color = "warning";
         }else if (percent >= $scope.test.three_mark && percent < $scope.test.four_mark){
             $scope.mark = 4;
+            $scope.color = "info";
         }else{
             $scope.mark = 5;
+            $scope.color = "success";
         };
+
+        $http.post('/tests/' + $scope.test.id + '/', {
+            option: $scope.currentOption.id,
+            questions: $scope.currentOption.questions,
+            mark: $scope.mark,
+            percent: percent
+        }).then(function(response){
+            console.log(response)
+        })
 
     }
 

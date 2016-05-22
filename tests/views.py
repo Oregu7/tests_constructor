@@ -3,9 +3,9 @@ from rest_framework import status
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
-from django.forms.models import model_to_dict
 from testsConstructor.helpers import str_to_bool, get_number_name
-from constructor.models import Test, Query, Answer, Category
+from constructor.models import Test, Query, Answer, Category, Option
+from .models import Probationer, ProbationerAnswer
 from constructor.serializers import TestSerializer, QuerySerializer, CategorySerializer, TestSecondSerializer
 from tests.models import Probationer
 import json
@@ -36,10 +36,35 @@ def get_page(request, name):
 
 @login_required
 def test_detail(request, id):
+    user = request.user
+    test = get_object_or_404(Test, id=id, group_access=user.study_group)
+
     if request.method == "GET":
-        user = request.user
-        test = get_object_or_404(Test, id=id, group_access=user.study_group)
         test_serializer = TestSecondSerializer(test).data
         return JsonResponse({'test': test_serializer})
+    elif request.method == "POST":
+        data = json.loads(request.body.decode("utf-8"))
+        option = get_object_or_404(Option, id=data.get('option', ''), test=test)
+        probationer = Probationer(
+            option = option,
+            user = user,
+            mark = data.get('mark', ''),
+            precent = round(data.get('percent', ''), 1),
+            date = datetime.datetime.now()
+        )
+
+        probationer.save()
+        for question in data.get('questions', ''):
+            for answer in question['answers']:
+                if answer.get('selected', False):
+                    answer = get_object_or_404(Answer, id=answer['id'])
+                    probationer_answer = ProbationerAnswer(
+                        probationer = probationer,
+                        answer = answer
+                    )
+
+                    probationer_answer.save()
+
+        return HttpResponse(status=status.HTTP_201_CREATED)
     else:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
