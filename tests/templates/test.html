@@ -9,64 +9,56 @@
 			</div>
 		</div>
 		<div  id = "content">
-			<div id="test">
-				<div class="ui grid">
-					<div class="one wide column"></div>
-					<div class="fourteen wide column">
-                        <p></p>
-                        <!-- Выбор варианта -->
-                        <div class="ui cards" ng-hide="currentOption">
-                            <div class="card" ng-repeat = "option in test.options">
-                                <div class="content">
-                                    <a class="header">{{ $index + 1}} вариант</a>
-                                    <div class="met">Количество вопросов : {{ option.questions.length }}</div>
-                                </div>
-                                <div class="extra content">
-                                    <div class="ui basic green button" ng-click = "startTest(option)">
-                                        Начать
-                                    </div>
-                                </div>
-                            </div>
+            <p></p>
+            <!-- Выбор варианта -->
+            <div class="ui cards" ng-hide="currentOption">
+                <div class="card" ng-repeat = "option in test.options">
+                    <div class="content">
+                        <a class="header">{{ $index + 1}} вариант</a>
+                        <div class="met">Количество вопросов : {{ option.questions.length }}</div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui basic green button" ng-click = "startTest(option)">
+                            Начать
                         </div>
-                        <!-- конецВыбораВарианта -->
-                        <!-- Тестирование -->
-                        <div class="ui card fluid" ng-show = "currentOption">
+                    </div>
+                </div>
+            </div>
+            <!-- конецВыбораВарианта -->
+            <!-- Тестирование -->
+            <div class="ui card fluid" ng-show = "currentOption">
+                <div class="content">
+                    <div class="header">{{ currentQuestion.text }}</div>
+                    <div class="meta">
+                        {{ currentIndexQuestion + 1 }} из {{ currentOption.questions.length }}
+                    </div>
+                    <div class="ui large list">
+                        <div class="item" ng-repeat = "answer in currentQuestion.answers">
                             <div class="content">
-                                <div class="header">{{ currentQuestion.text }}</div>
-                                <div class="meta">
-                                    {{ currentIndexQuestion + 1 }} из {{ currentOption.questions.length }}
+                                <div class="ui toggle checkbox">
+                                    <input id = "{{ answer.id }}" type="checkbox" ng-model = "answer.selected">
+                                    <label for = "{{ answer.id }}">{{ answer.text }}</label>
                                 </div>
-                                <div class="ui large list">
-                                    <div class="item" ng-repeat = "answer in currentQuestion.answers">
-                                        <div class="content">
-                                            <div class="ui toggle checkbox">
-                                                <input id = "{{ answer.id }}" type="checkbox" ng-model = "answer.selected">
-                                                <label for = "{{ answer.id }}">{{ answer.text }}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <div class="ui buttons">
-                                    <div class="ui left labeled icon blue button" ng-click="back()">
-                                        <i class="left arrow icon"></i>
-                                        Назад
-                                    </div>
-                                    <button class="ui basic grey button">00:00</button>
-                                    <div class="ui right labeled icon green button" ng-click = "next()" ng-show="currentIndexQuestion != currentOption.questions.length - 1">
-                                        <i class="right arrow icon"></i>
-                                        Далее
-                                    </div>
-                                </div>
-                                <button class="ui right floated red button">Закончить</button>
                             </div>
                         </div>
-                        <!-- конецТестирования-->
-					</div>
-					<div class="one wide column"></div>
-				</div>
-			</div>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui buttons">
+                        <div class="ui left labeled icon blue button" ng-click="back()">
+                            <i class="left arrow icon"></i>
+                            Назад
+                        </div>
+                        <button class="ui basic grey button">00:00</button>
+                        <div class="ui right labeled icon green button" ng-click = "next()" ng-show="currentIndexQuestion != currentOption.questions.length - 1">
+                            <i class="right arrow icon"></i>
+                            Далее
+                        </div>
+                    </div>
+                    <button class="ui right floated red button">Закончить</button>
+                </div>
+            </div>
+            <!-- конецТестирования-->
 		</div>
 	</div>
 	<div class="two wide column"></div>
