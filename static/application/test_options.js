@@ -17,7 +17,9 @@ App.controller('OptionsCtr', function($scope, $http){
         $scope.filters = {
             inOption: '',
             text: '',
-            point:''
+            point:'',
+            sortField: false,
+            reverse: false
         }
 
         $http.get('')
@@ -155,6 +157,15 @@ App.controller('OptionsCtr', function($scope, $http){
                 console.log(response)
                 option.public_access = access;
             })
+    }
+
+    $scope.sortByField = function(fieldName){
+        if(fieldName == $scope.filters.sortField){
+            $scope.filters.reverse = !$scope.filters.reverse;
+        }else{
+            $scope.filters.sortField = fieldName;
+            $scope.revers = false;
+        }
     }
 
     init();

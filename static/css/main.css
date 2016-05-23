@@ -41,3 +41,7 @@ h5.ui.header,
 .ui.icon.header {
   font-weight: bold !important;
 }
+
+table>th>a:hover{
+    cursor: pointer;
+}

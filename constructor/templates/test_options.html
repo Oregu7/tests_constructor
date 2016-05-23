@@ -63,14 +63,24 @@
                                             Выбрано
                                         </button>
                                     </th>
-                                    <th>Баллы</th>
-                                    <th>Вопрос</th>
+                                    <th ng-click = "sortByField('point')">
+                                        <a href="">Баллы</a>
+                                        <i class="caret up icon" ng-if = "filters.sortField == 'point' && !filters.reverse"></i>
+                                        <i class="caret down icon" ng-if = "filters.sortField == 'point' && filters.reverse"></i>
+                                        <i class="filter icon"></i>
+                                    </th>
+                                    <th ng-click = "sortByField('text')">
+                                        <a href="">Вопрос</a>
+                                        <i class="caret up icon" ng-if = "filters.sortField == 'text' && !filters.reverse"></i>
+                                        <i class="caret down icon" ng-if = "filters.sortField == 'text' && filters.reverse"></i>
+                                        <i class="filter icon"></i>
+                                    </th>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat = "question in data.questions | filter : {
                                         inOption : filters.inOption,
                                         text : filters.text
-                                    }">
+                                    } | orderBy:filters.sortField:filters.reverse">
                                         <td class="collapsing">
                                             <div class="ui toggle checkbox" ng-show = 'currentOption !== false'>
                                                 <input type="checkbox" id = "{{ question.id }}" ng-model = "question.inOption" ng-change="changeQuestion(question)"/>
