@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
 from testsConstructor.helpers import check_sign_in, str_to_bool, put
+from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse, Http404, QueryDict
@@ -244,7 +245,7 @@ def test_options(request, id):
         if request.is_ajax():
             if request.method == 'GET':
                 questions = QuestionSerializer(Query.objects.filter(test=test), many=True).data
-                options = OptionSerializer(Option.objects.filter(test=test), many=True).data
+                options = OptionSerializer(Option.objects.filter(test=test).order_by('number'), many=True).data
                 return JsonResponse({'questions': questions, 'options': options})
             elif request.method == 'POST':
                 data = json.loads(request.body.decode("utf-8"))
@@ -259,6 +260,10 @@ def test_options(request, id):
                     return JsonResponse({'id': option.id})
                 elif action == "deleteOption":
                     option = get_object_or_404(Option, id=data.get('option', ''))
+                    #Изменяем номера вариантов теста, которые находятся после удаляемого
+                    options = Option.objects.filter(test=test, number__gt=option.number)
+                    options.update(number=F('number') - 1)
+                    #Удаление варианта
                     option.delete()
                     return JsonResponse({'success': True})
                 elif action == "addQuestion":

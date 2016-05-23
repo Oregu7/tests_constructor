@@ -59,6 +59,7 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
 
     var setTimer =function(){
         closeTimer();
+        $scope.time = "00:00";
 
         var option = $scope.currentOption;
         if(option.time || $scope.test.time_completion){
@@ -80,8 +81,6 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
                 $scope.checkTest();
             }, time * 60 * 1000)
 
-        }else{
-            $scope.time = "00:00";
         }
     }
 
