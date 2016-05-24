@@ -1,17 +1,10 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/backgrid.css' %}">
-<link rel="stylesheet" href="{% static 'css/backgrid-filter.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/backgrid-paginator.min.css' %}">
-{%endblock%}
 
 {%block library%}
-<script src = "{% static 'library/backgrid.js' %}"></script>
-<script src = "{% static 'library/backbone-pageable.min.js' %}"></script>
-<script src = "{% static 'library/backgrid-filter.min.js' %}"></script>
-<script src = "{% static 'library/backgrid-paginator.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+    <script src="{% static 'js/vendor/angular-route.min.js' %}"></script>
 {%endblock%}
 
 {%block content%}
@@ -22,13 +15,9 @@
 			<i class="bar chart icon"></i>
 			<div class="content">Результаты теста - "{{test.title}}" </div>
 		</h2>
-		<div class="ui breadcrumb">
-			<a class="section" href = '/profile/{{login}}/'>Профиль</a>
-			<div class="divider"> / </div>
-			<div class="active section">{{test.title}}</div>
-		</div>
-		<div id="results">
-			
+		<div id="results" ng-app = "testResults">
+            {% csrf_token %}
+			<ng-view></ng-view>
 		</div>
 	</div>
 	<div class="two wide column"></div>

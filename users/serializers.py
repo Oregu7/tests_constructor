@@ -11,5 +11,7 @@ class GroupSerializer(ModelSerializer):
         model = Group
 
 class UserSerializer(ModelSerializer):
+    study_group = GroupSerializer()
     class Meta:
         model = User
+        fields = ('id', 'first_name', 'last_name', 'study_group')

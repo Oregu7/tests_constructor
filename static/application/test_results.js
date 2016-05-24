@@ -1,72 +1,45 @@
-var Result = Backbone.Model.extend({});
-var Results = Backbone.PageableCollection.extend({
-	model: Result,
-	url: window.location.href,
-	state: {
-		pageSize: 10
-	},
-	mode: "client"
-});
-var test_results = new Results();
+var TemplateDIR = '/profile/page/'
+App = angular.module('testResults', ['ngRoute'])
+    .config(function($routeProvider){
+        $routeProvider
+            .when('/',{
+                templateUrl : TemplateDIR + 'probationers',
+                controller: 'TestedsCtr'
+            })
+            .when('/:id', {
+                templateUrl: TemplateDIR + 'probationer',
+                controller: 'TestedCtr'
+            })
 
-var columns = [
-	{
-		name: "id",
-		label: "ID",
-		editable: false,
-		cell: Backgrid.IntegerCell.extend({
-      		orderSeparator: ''
-    	})
-	},
+            .otherwise({
+                redirectTo: '/'
+            })
+    })
 
-	{
-		name: "name",
-		label: "Студент",
-		editable: false,
-		cell: "string"
-	},
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers
+                       .common['X-Requested-With'] = 'XMLHttpRequest';
 
-	{
-		name: "precent",
-		label: "Процент",
-		editable: false,
-		cell: "number"
-	},
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }]);
 
-	{
-		name: "mark",
-		label: "Оценка",
-		editable: false,
-		cell: "integer"
-	},
 
-	{
-		name: "date",
-		label: "Дата",
-		editable: false,
-		cell: "datetime"
-	}
-];
+App.controller('TestedsCtr', function($scope, $http){
+    var init = function(){
+        $scope.filters = {
+            
+        }
 
-var grid = new Backgrid.Grid({
-	columns: columns,
-	collection: test_results
-});
+        $http.get('')
+            .then(function(response){
+                $scope.testeds = response.data.probationers;
+            })
+    }
 
-$('#results').append(grid.render().el);
+    init()
+})
 
-var paginator = new Backgrid.Extension.Paginator({
-	collection: test_results
-});
+App.controller('TestedCtr', function($scope, $http, $routeParams){
 
-$('#results').after(paginator.render().el);
-
-var filter = filter = new Backgrid.Extension.ClientSideFilter({
-  collection: test_results,
-  fields: ['name']
-});
-
-$('#results').before(filter.render().el);
-$(filter.el).css({float: "right", margin: "20px"});
-
-test_results.fetch({reset:true})
+})

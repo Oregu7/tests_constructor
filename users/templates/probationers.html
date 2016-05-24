@@ -1,0 +1,31 @@
+{% verbatim %}
+<div class="ui breadcrumb">
+    <a class="section" href = '/profile/'>Профиль</a>
+    <div class="divider"> / </div>
+    <div class="active section">Тестируемые</div>
+</div>
+<table class = "ui compact celled definition table">
+    <thead class="full-width">
+        <th>Вариант</th>
+        <th>Группа</th>
+        <th>Тестируемый</th>
+        <th>Отметка</th>
+        <th>Процент(%)</th>
+        <th>Дата</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr ng-repeat = "tested in testeds">
+            <td>{{ tested.option.number }}</td>
+            <td>{{ tested.user.study_group.name }}</td>
+            <td>{{ tested.user.last_name }} {{ tested.user.first_name }}</td>
+            <td>{{ tested.mark }}</td>
+            <td>{{ tested.precent }} %</td>
+            <td>{{ tested.date | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>
+                <a class="ui small button" href="#/{{ tested.id }}">Подробнее</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endverbatim %}
