@@ -4,14 +4,16 @@ from django.http import JsonResponse
 from testsConstructor.helpers import check_sign_in
 from constructor.models import Answer, Query, Test
 from constructor.serializers import QuerySerializer, AnswerSerializer
+from django.contrib.auth.decorators import login_required
 
 import pyexcel.ext.xls
 from django_excel import make_response_from_query_sets
 from django_excel import make_response_from_array, make_response_from_records
 
+@login_required
 def home(request):
     sign_in = check_sign_in(request)
-    return render_to_response('home.html', {'login': sign_in})
+    return redirect('/profile/')
 
 def excel(request):
     test = Test.objects.get(id=1)

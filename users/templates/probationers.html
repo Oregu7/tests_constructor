@@ -1,9 +1,10 @@
-{% verbatim %}
 <div class="ui breadcrumb">
     <a class="section" href = '/profile/'>Профиль</a>
     <div class="divider"> / </div>
     <div class="active section">Тестируемые</div>
 </div>
+{% include 'includes/testeds_filter.html' %}
+{% verbatim %}
 <table class = "ui compact celled definition table">
     <thead class="full-width">
         <th>Вариант</th>
@@ -15,7 +16,12 @@
         <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat = "tested in testeds">
+        <tr ng-repeat = "tested in data.testeds
+            | filter : {
+                user : { study_group : { id : filters.group, course : filters.course, specialization : {code: filters.specialization} } },
+                option : {id : filters.option},
+                mark : filters.mark
+            }">
             <td>{{ tested.option.number }}</td>
             <td>{{ tested.user.study_group.name }}</td>
             <td>{{ tested.user.last_name }} {{ tested.user.first_name }}</td>
@@ -23,9 +29,16 @@
             <td>{{ tested.precent }} %</td>
             <td>{{ tested.date | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
             <td>
-                <a class="ui small button" href="#/{{ tested.id }}">Подробнее</a>
+                <a class="ui yellow button" href="#/{{ tested.id }}">Подробнее</a>
             </td>
         </tr>
     </tbody>
+    <tfoot class="full-width">
+        <tr>
+            <th colspan="7">
+
+            </th>
+        </tr>
+    </tfoot>
 </table>
 {% endverbatim %}

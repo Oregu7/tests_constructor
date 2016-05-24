@@ -28,12 +28,20 @@ App = angular.module('testResults', ['ngRoute'])
 App.controller('TestedsCtr', function($scope, $http){
     var init = function(){
         $scope.filters = {
-            
+            specialization: '',
+            course: '',
+            group: '',
+            option: '',
+            mark: '',
+            date: {
+                first: '',
+                last: ''
+            }
         }
 
         $http.get('')
             .then(function(response){
-                $scope.testeds = response.data.probationers;
+                $scope.data = response.data;
             })
     }
 
@@ -41,5 +49,12 @@ App.controller('TestedsCtr', function($scope, $http){
 })
 
 App.controller('TestedCtr', function($scope, $http, $routeParams){
+    var init = function(){
+        $http.get('/profile/tested/' + $routeParams.id + '/')
+            .then(function(response){
+                $scope.tested = response.data.tested
+            })
+    }
 
+    init()
 })

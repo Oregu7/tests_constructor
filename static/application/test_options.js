@@ -65,9 +65,8 @@ App.controller('OptionsCtr', function($scope, $http){
 
     $scope.setOption = function(index){
         $scope.currentOption = index;
-        $scope.allQuestion = true;
-
         var option = $scope.data.options[index];
+        $scope.allQuestion = option.questions.length == $scope.data.questions.length ? false : true;
         //Проверяем какие вопросы входят в данный вариант
         angular.forEach($scope.data.questions, function(question){
             question.inOption = searchQuestion(question, option.questions).result;
@@ -101,6 +100,7 @@ App.controller('OptionsCtr', function($scope, $http){
             option.questions.splice(result.index, 1);
         }
 
+        $scope.allQuestion = option.questions.length == $scope.data.questions.length ? false : true;
     }
 
     $scope.clearQuestions = function(){
@@ -108,6 +108,7 @@ App.controller('OptionsCtr', function($scope, $http){
         $http.post('', {option: option.id, action: 'deleteAllQuestions'})
             .then(function(response){
                 $scope.data.options[$scope.currentOption].questions = [];
+                $scope.allQuestion = true;
                 angular.forEach($scope.data.questions, function(question){
                     question.inOption = false;
                 })
@@ -152,11 +153,16 @@ App.controller('OptionsCtr', function($scope, $http){
 
     $scope.changeOptionAccess = function(access){
         var option = $scope.data.options[$scope.currentOption];
-        $http.post('', {option: option.id, access: access, action: 'editOptionAccess'})
-            .then(function(response){
-                console.log(response)
-                option.public_access = access;
-            })
+        if (option.questions.length){
+            $http.post('', {option: option.id, access: access, action: 'editOptionAccess'})
+                .then(function(response){
+                    console.log(response)
+                    option.public_access = access;
+                })
+        }else{
+            swal('Ошибка!', 'Добавьте вопросы в вариант', 'error')
+        }
+
     }
 
     $scope.sortByField = function(fieldName){

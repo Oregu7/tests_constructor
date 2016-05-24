@@ -8,6 +8,7 @@ from constructor.models import Test, Query, Answer, Category, Option
 from .models import Probationer, ProbationerAnswer
 from constructor.serializers import TestSerializer, QuerySerializer, CategorySerializer, TestSecondSerializer
 from tests.models import Probationer
+from django.utils import timezone
 import json
 import random
 import datetime
@@ -49,8 +50,8 @@ def test_detail(request, id):
             option = option,
             user = user,
             mark = data.get('mark', ''),
-            precent = round(data.get('percent', ''), 1),
-            date = datetime.datetime.now()
+            precent = round(data.get('percent', ''), 2),
+            date = timezone.now()
         )
 
         probationer.save()

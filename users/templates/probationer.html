@@ -1,0 +1,57 @@
+{% verbatim %}
+<div class="ui breadcrumb">
+    <a class="section" href = '/profile/'>Профиль</a>
+    <div class="divider"> / </div>
+    <a class="section" href = '#/'>Тестируемые</a>
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Результат#{{ tested.id }}</div>
+</div>
+<div class="ui attached info message">
+    <div class="header">
+        Студент(ка) группы <b>{{ tested.user.study_group.name }}</b> - <b>{{ tested.user.last_name }} {{ tested.user.first_name }}</b>
+    </div>
+    <ul class="list">
+        <li>Вариант: <b>{{ tested.option.number }}</b></li>
+        <li>Набрал(а): <b>{{ tested.precent }}%</b> из <b>100%</b></li>
+        <li>Отметка: <b>{{ tested.mark }}</b></li>
+    </ul>
+</div>
+<table class="ui celled attached table">
+    <thead>
+        <th>Вопрос</th>
+        <th>Ответы</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat-start = "question in tested.option.questions">
+            <td rowspan="{{ question.answers.length + 1 }}">{{ question.text }}</td>
+        </tr>
+        <tr ng-repeat-end ng-repeat = "answer in question.answers">
+            <td ng-if = "answer.selected && !answer.correct" class = "negative">
+                <i class="icon close"></i>
+                {{ answer.text }}
+            </td>
+            <td ng-if = "answer.selected && answer.correct" class="positive">
+                <i class="icon checkmark"></i>
+                {{ answer.text }}
+            </td>
+            <td ng-if = "answer.correct && !answer.selected" class = "warning">
+                <i class="icon circular checkmark"></i>
+                {{ answer.text }}
+            </td>
+            <td ng-if = "!answer.correct && !answer.selected">
+                {{ answer.text }}
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <th colspan="2">
+            <div class="ui right floated small primary labeled icon button">
+                <i class="print icon"></i> Печать
+            </div>
+            <a class="ui small button" href="#/">
+                К тестируемым
+            </a>
+        </th>
+    </tfoot>
+</table>
+{% endverbatim %}
