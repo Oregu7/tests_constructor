@@ -12,6 +12,7 @@ from .serializers import GroupSerializer, SpecializationSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from xlsxwriter.workbook import Workbook
+from django.utils import formats
 from .excel import Format
 import io
 import json
@@ -89,22 +90,90 @@ def print_results(request, id):
         workbook = Workbook(output, {'in_memory': True})
         testeds_sheet = workbook.add_worksheet("Тестируемые")
 
-        #Оформление шапки
+        #Оформление
         title = workbook.add_format(Format.title)
         sub_title = workbook.add_format(Format.sub_title)
+        thead = workbook.add_format(Format.thead)
+        item = workbook.add_format(Format.item)
+        formula = workbook.add_format(Format.formula_res)
+        formula2 = workbook.add_format(Format.formula_res2)
         #Получаем индексы тестируемых
         testeds_index = data.get('testeds').split(",")
-        testeds = ProbationerSerializer(Probationer.objects.filter(id__in=testeds_index), many=True).data
+        testeds = Probationer.objects.filter(id__in=testeds_index)
         #Поучаем тест
         test = get_object_or_404(Test, id=id)
 
         #Заполнеяем данными
+        for index in range(1,7):
+            testeds_sheet.set_column(index, index,  20)
+
         testeds_sheet.merge_range("B2:G2", "Тест на тему : "+test.title, title)
         testeds_sheet.merge_range("B3:G3", "Предмет : "+test.category.name, sub_title)
         testeds_sheet.merge_range("B4:G4", "Разработал(а) : "+test.creator.get_full_name(), sub_title)
-        for index in range(len(testeds)):
-            tested = testeds[index]
-            testeds_sheet.write(index + 5, 0, tested['user']['last_name'])
+
+        #Параметры поиска
+        testeds_sheet.merge_range("B7:G7", "Параметры Поиска", title)
+        search_ind = 8
+        for key in data.keys():
+            if key == "option":
+                if len(data[key]):
+                    option = Option.objects.get(id=data[key])
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Вариант', option.number, search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Вариант', "-", search_ind)
+            elif key == "spec":
+                if len(data[key]):
+                    spec = Specialization.objects.get(code=data[key])
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Специализация', spec.name, search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Специализация', "-", search_ind)
+            elif key == "group":
+                if len(data[key]):
+                    group = Group.objects.get(id=data[key])
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Группа', group.name, search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Группа', "-", search_ind)
+            elif key == "course":
+                if len(data[key]):
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Курс', data[key], search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Курс', "-", search_ind)
+            elif key == "mark":
+                if len(data[key]):
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Отметка', data[key], search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Отметка', "-", search_ind)
+            elif key == "dateF":
+                if len(data[key]):
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Дата От', data[key], search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Дата От', "-", search_ind)
+            elif key == "dateL":
+                if len(data[key]):
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Дата До', data[key], search_ind)
+                else:
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Дата До', "-", search_ind)
+            else:
+                continue
+
+            search_ind += 1
+
+        #Тестируемые
+        testeds_sheet.merge_range("B17:G17", "Результаты", title)
+        titles = ['Вариант', 'Группа', 'Тестируемый', 'Отметка', 'Процент', 'Дата']
+        Format().write_thead(testeds_sheet, thead, titles, 17, 1)
+        tested_inrex = 18
+        for tested in testeds:
+            testeds_sheet.write(tested_inrex, 1, tested.option.number, item)
+            testeds_sheet.write(tested_inrex, 2, tested.user.study_group.name, item)
+            testeds_sheet.write(tested_inrex, 3, tested.user.get_full_name(), item)
+            testeds_sheet.write(tested_inrex, 4, tested.mark, item)
+            testeds_sheet.write(tested_inrex, 5, tested.precent, item)
+            testeds_sheet.write(tested_inrex, 6, formats.date_format(tested.date, 'd-m-Y'), item)
+            tested_inrex += 1
+
+        testeds_sheet.write_formula('E%d' % (tested_inrex + 1), '{=AVERAGE(E18:E%d)}' % tested_inrex, formula)
+        testeds_sheet.write_formula('F%d' % (tested_inrex + 1), '{=AVERAGE(F18:F%d)}' % tested_inrex, formula)
 
         workbook.close()
         output.seek(0)
