@@ -5,6 +5,7 @@
 </div>
 {% include 'includes/testeds_filter.html' %}
 {% verbatim %}
+<h2>Найденно - {{ filteredTesteds.length }}</h2>
 <table class = "ui compact celled definition table">
     <thead class="full-width">
         <th>Вариант</th>
@@ -16,12 +17,12 @@
         <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat = "tested in data.testeds
+        <tr ng-repeat = "tested in data.testeds |filter:dateRangeFilter(filters.date.first,filters.date.last)
             | filter : {
                 user : { study_group : { id : filters.group, course : filters.course, specialization : {code: filters.specialization} } },
                 option : {id : filters.option},
                 mark : filters.mark
-            }">
+            } as filteredTesteds ">
             <td>{{ tested.option.number }}</td>
             <td>{{ tested.user.study_group.name }}</td>
             <td>{{ tested.user.last_name }} {{ tested.user.first_name }}</td>

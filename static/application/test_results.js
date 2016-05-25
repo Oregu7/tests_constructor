@@ -24,8 +24,11 @@ App = angular.module('testResults', ['ngRoute'])
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }]);
 
+App.filter('dateRangeFilter', function(){
 
-App.controller('TestedsCtr', function($scope, $http){
+})
+
+App.controller('TestedsCtr', function($scope, $http, $rootScope){
     var init = function(){
         $scope.filters = {
             specialization: '',
@@ -41,10 +44,50 @@ App.controller('TestedsCtr', function($scope, $http){
 
         $http.get('')
             .then(function(response){
+                //response.data.specializations.unshift({name: 'Все', code: ''});
+                response.data.courses.unshift({id: '', name: 'Все'});
+
                 $scope.data = response.data;
+                console.log($scope.data)
             })
+
+        $rootScope.$on('$viewContentLoaded',function(){
+            //$('.dropdown').dropdown();
+            $('.accordion').accordion();
+        });
     }
 
+    $scope.dateRangeFilter = function(dateF, dateL){
+        return function(item){
+            var item_date = moment(item.date).format("DD.MM.YYYY");
+            console.log(dateF, dateL)
+            if(dateF && !dateL){
+                var df = moment(dateF).format("DD.MM.YYYY");
+                if (item_date >= df){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (!dateF && dateL){
+                var ds = moment(dateL).format("DD.MM.YYYY");
+                if (item_date <= ds){
+                    return true
+                }else{
+                    return false
+                }
+            }else if (dateF && dateL){
+                var df = moment(dateF).format("DD.MM.YYYY");
+                var ds = moment(dateL).format("DD.MM.YYYY");
+                if (item_date >= df && item_date <= ds){
+                    return true
+                }else{
+                    return false;
+                }
+            }else{
+                return true
+            }
+        }
+    }
     init()
 })
 
