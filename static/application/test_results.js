@@ -22,6 +22,11 @@ App = angular.module('testResults', ['ngRoute'])
 
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }])
+
+    .config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
     }]);
 
 App.filter('dateRangeFilter', function(){
@@ -36,6 +41,7 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
             group: '',
             option: '',
             mark: '',
+            testeds: '',
             date: {
                 first: '',
                 last: ''
@@ -46,9 +52,7 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
             .then(function(response){
                 //response.data.specializations.unshift({name: 'Все', code: ''});
                 response.data.courses.unshift({id: '', name: 'Все'});
-
                 $scope.data = response.data;
-                console.log($scope.data)
             })
 
         $rootScope.$on('$viewContentLoaded',function(){
@@ -60,7 +64,6 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
     $scope.dateRangeFilter = function(dateF, dateL){
         return function(item){
             var item_date = moment(item.date).format("DD.MM.YYYY");
-            console.log(dateF, dateL)
             if(dateF && !dateL){
                 var df = moment(dateF).format("DD.MM.YYYY");
                 if (item_date >= df){
@@ -88,6 +91,17 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
             }
         }
     }
+
+    $scope.sendTesteds = function(){
+        var testeds = $scope.filteredTesteds.map(function(tested){
+            return tested.id
+        })
+
+        $("input[name=testeds]").val(testeds.join());
+        $('#testedsForm').attr('action', "/profile/print/results/" + $scope.data.test + "/").submit()
+
+    }
+
     init()
 })
 

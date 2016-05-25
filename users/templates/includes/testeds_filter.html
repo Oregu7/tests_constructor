@@ -1,91 +1,94 @@
 {% verbatim %}
 <p></p>
 <div class="ui styled fluid accordion">
-    <div class="title">
-        <i class="dropdown icon"></i>
-        Фильры
-    </div>
-    <div class="content">
-        <div class = "ui form">
-            <h4 class="ui red dividing header">
-                <i class="users icon"></i>
-                <div class="content">
-                    Группы и специализации
+    <form class="ui form" method="post" id ="testedsForm">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            Фильры
+        </div>
+        <div class="content">
+            <div class = "ui form">
+                <h4 class="ui red dividing header">
+                    <i class="users icon"></i>
+                    <div class="content">
+                        Группы и специализации
+                    </div>
+                </h4>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Специализация</label>
+                        <select class="ui search dropdown" ng-model = "filters.specialization" name="spec">
+                            <option ng-repeat = "spec in data.specializations" value="{{ spec.code }}">
+                                {{ spec.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Курс</label>
+                        <select class="ui search dropdown" ng-model = "filters.course" name="course">
+                            <option ng-repeat = "course in data.courses" value="{{ course.id}}">
+                                {{ course.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-            </h4>
-            <div class="two fields">
                 <div class="field">
-                    <label>Специализация</label>
-                    <select class="ui search dropdown" ng-model = "filters.specialization">
-                        <option ng-repeat = "spec in data.specializations" value="{{ spec.code }}" >
-                            {{ spec.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label>Курс</label>
-                    <select class="ui search dropdown" ng-model = "filters.course">
-                        <option ng-repeat = "course in data.courses" value="{{ course.id}}">
-                            {{ course.name }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="field">
-                <label for="">Группа</label>
-                <select class = "ui search dropdown" ng-model = "filters.group">
-                    <option value="" selected>Все</option>
-                    <option
-                            ng-repeat = "group in data.groups
-                            | filter : {course : filters.course, specialization : {code : filters.specialization} }"
-                            value="{{ group.id }}">
-                        {{ group.name }}
-                    </option>
-                </select>
-            </div>
-            <h4 class="ui blue dividing header">
-                <i class="ordered list icon"></i>
-                <div class="content">
-                    Варианты и отметки
-                </div>
-            </h4>
-            <div class="two fields">
-                <div class="field">
-                    <label>Вариант</label>
-                    <select class="ui search dropdown" ng-model = "filters.option">
+                    <label for="">Группа</label>
+                    <select class = "ui search dropdown" ng-model = "filters.group" name="group">
                         <option value="" selected>Все</option>
-                        <option ng-repeat = "option in data.options" value="{{ option.id }}" >
-                            {{ option.number }}
+                        <option
+                                ng-repeat = "group in data.groups
+                                | filter : {course : filters.course, specialization : {code : filters.specialization} }"
+                                value="{{ group.id }}">
+                            {{ group.name }}
                         </option>
                     </select>
                 </div>
-                <div class="field">
-                    <label>Отметка</label>
-                    <select class="ui search dropdown" ng-model = "filters.mark">
-                        <option value="" selected>Все</option>
-                        <option ng-repeat = "mark in data.marks" value="{{ mark.id}}">
-                            {{ mark.name }}
-                        </option>
-                    </select>
+                <h4 class="ui blue dividing header">
+                    <i class="ordered list icon"></i>
+                    <div class="content">
+                        Варианты и отметки
+                    </div>
+                </h4>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Вариант</label>
+                        <select class="ui search dropdown" ng-model = "filters.option" name="option">
+                            <option value="" selected>Все</option>
+                            <option ng-repeat = "option in data.options" value="{{ option.id }}" >
+                                {{ option.number }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Отметка</label>
+                        <select class="ui search dropdown" ng-model = "filters.mark" name="mark">
+                            <option value="" selected>Все</option>
+                            <option ng-repeat = "mark in data.marks" value="{{ mark.id}}">
+                                {{ mark.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <h4 class="ui green dividing header">
-                <i class="dashboard icon"></i>
-                <div class="content">
-                    Промежуток времени
+                <h4 class="ui green dividing header">
+                    <i class="dashboard icon"></i>
+                    <div class="content">
+                        Промежуток времени
+                    </div>
+                </h4>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Дата От</label>
+                        <input type="date" ng-model = "filters.date.first" name="dateF"/>
+                    </div>
+                    <div class="field">
+                        <label>Дата До</label>
+                        <input type="date" ng-model = "filters.date.last" name="dateL"/>
+                    </div>
                 </div>
-            </h4>
-            <div class="two fields">
-                <div class="field">
-                    <label>Дата От</label>
-                    <input type="date" ng-model = "filters.date.first"/>
-                </div>
-                <div class="field">
-                    <label>Дата До</label>
-                    <input type="date" ng-model = "filters.date.last"/>
-                </div>
+                <input type="hidden" name="testeds"/>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endverbatim %}

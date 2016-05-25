@@ -11,6 +11,9 @@ from .models import Group, Specialization
 from .serializers import GroupSerializer, SpecializationSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
+from xlsxwriter.workbook import Workbook
+from .excel import Format
+import io
 import json
 
 # Create your views here.
@@ -44,7 +47,8 @@ def test_results(request, id):
                 'groups': groups,
                 'courses': courses,
                 'options': options,
-                'marks': marks
+                'marks': marks,
+                'test': id
             })
         else:
             return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
@@ -75,5 +79,41 @@ def test_analytic(request, id):
         test = get_object_or_404(Test, id=id,creator=user)
         return render_to_response('analytics_result.html', {'user':user, 'test': test})
 
+@login_required
+@csrf_exempt
+def print_results(request, id):
+    if request.method == "POST":
+        data = request.POST
+        print(data)
+        output = io.BytesIO()
+        workbook = Workbook(output, {'in_memory': True})
+        testeds_sheet = workbook.add_worksheet("Тестируемые")
+
+        #Оформление шапки
+        title = workbook.add_format(Format.title)
+        sub_title = workbook.add_format(Format.sub_title)
+        #Получаем индексы тестируемых
+        testeds_index = data.get('testeds').split(",")
+        testeds = ProbationerSerializer(Probationer.objects.filter(id__in=testeds_index), many=True).data
+        #Поучаем тест
+        test = get_object_or_404(Test, id=id)
+
+        #Заполнеяем данными
+        testeds_sheet.merge_range("B2:G2", "Тест на тему : "+test.title, title)
+        testeds_sheet.merge_range("B3:G3", "Предмет : "+test.category.name, sub_title)
+        testeds_sheet.merge_range("B4:G4", "Разработал(а) : "+test.creator.get_full_name(), sub_title)
+        for index in range(len(testeds)):
+            tested = testeds[index]
+            testeds_sheet.write(index + 5, 0, tested['user']['last_name'])
+
+        workbook.close()
+        output.seek(0)
+        response = HttpResponse(output.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = "attachment; filename=testeds.xlsx"
+        return response
+    else:
+        return Http404(status=status.HTTP_400_BAD_REQUEST)
+
+@login_required
 def get_page(request, name):
     return render_to_response(name + '.html')
