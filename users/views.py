@@ -57,18 +57,84 @@ def test_results(request, id):
         return render_to_response('test_results.html', data)
 
 @login_required
+@csrf_exempt
 def tested_result(request, id):
     user = request.user
     tested = ProbationerSerializer(get_object_or_404(Probationer, id=id)).data
     tested['answers'] = list(map(lambda answer: answer['answer'], tested['answers']))
-
+    test = get_object_or_404(Test,id=tested['option']['test'])
     for question in tested['option']['questions']:
         for answer in question['answers']:
             if answer in tested['answers']:
                 answer['selected'] = True
             else:
                 answer['selected'] = False
-    return JsonResponse({'tested': tested})
+
+    if request.method == "GET":
+        return JsonResponse({'tested': tested})
+    else:
+        output = io.BytesIO()
+        workbook = Workbook(output, {'in_memory': True})
+        tested_sheet = workbook.add_worksheet('Тестируемый#%d' % tested['id'])
+        #Оформление
+        title = workbook.add_format(Format.title)
+        sub_title = workbook.add_format(Format.sub_title)
+        thead = workbook.add_format(Format.thead)
+        item = workbook.add_format(Format.item)
+        item_success = workbook.add_format(Format.item_success)
+        item_error = workbook.add_format(Format.item_error)
+        item_warning = workbook.add_format(Format.item_warning)
+        formula2 = workbook.add_format(Format.formula_res2)
+        merge_format = workbook.add_format(Format.merge_format)
+
+        #Заполнеяем данными
+        for index in range(1,7):
+            tested_sheet.set_column(index, index,  20)
+
+
+
+        tested_sheet.merge_range("B2:G2", "Тест на тему : "+test.title, title)
+        tested_sheet.merge_range("B3:G3", "Предмет : "+test.category.name, sub_title)
+        tested_sheet.merge_range("B4:G4", "Разработал(а) : "+test.creator.get_full_name(), sub_title)
+        tested_sheet.merge_range("B7:G7", "Информация", title)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Вариант', tested['option']['number'], 8)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Группа', tested['user']['study_group']['name'], 9)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Студент', tested['user']['last_name'] + " " + tested['user']['first_name'], 10)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Оценка', tested['mark'], 11)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Процент', tested['precent'], 12)
+        Format().write_param(tested_sheet, sub_title, formula2, 'Дата', tested['date'], 13)
+
+        tested_sheet.merge_range("B17:G17", "Результат", title)
+        tested_sheet.set_column("H:H",  40)
+        tested_sheet.set_column("I:I",  20)
+        tested_sheet.set_column("J:J",  30)
+        tested_sheet.set_column("B:G",  15)
+
+        question_index = 19
+        tested_sheet.merge_range("B18:G18", "Вопросы", thead)
+        tested_sheet.write("H18", "Ответы", thead)
+
+        for question in tested['option']['questions']:
+            answers_len = len(question['answers'])
+            tested_sheet.merge_range("B%d:G%d" % (question_index, question_index - 1 + answers_len), question['text'], merge_format)
+            for answer in question['answers']:
+                if answer['correct'] and answer['selected']:
+                    tested_sheet.write("H%d" % question_index, answer['text'], item_success)
+                elif answer['correct'] and not answer['selected']:
+                    tested_sheet.write("H%d" % question_index, answer['text'], item_warning)
+                elif not answer['correct'] and answer['selected']:
+                    tested_sheet.write("H%d" % question_index, answer['text'], item_error)
+                else:
+                    tested_sheet.write("H%d" % question_index, answer['text'], item)
+
+                question_index += 1
+
+        workbook.close()
+        output.seek(0)
+        response = HttpResponse(output.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = "attachment; filename=tested#%d.xlsx" % tested['id']
+        return response
+
 
 @login_required
 @csrf_exempt

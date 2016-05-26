@@ -113,5 +113,9 @@ App.controller('TestedCtr', function($scope, $http, $routeParams){
             })
     }
 
+    $scope.printResult = function(){
+        $('#printResult').attr('action', '/profile/tested/' + $routeParams.id + '/').submit()
+    }
+
     init()
 })

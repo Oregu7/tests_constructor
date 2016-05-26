@@ -67,6 +67,33 @@ class Format():
         'border': 1
     }
 
+    item_success = {
+        'bold': False,
+        'font_size': 14,
+        'align': 'center',
+        'valign': 'top',
+        'border': 1,
+        'bg_color' : '#98FB98'
+    }
+
+    item_error = {
+        'bold': False,
+        'font_size': 14,
+        'align': 'center',
+        'valign': 'top',
+        'border': 1,
+        'bg_color' : '#FF4040'
+    }
+
+    item_warning = {
+        'bold': False,
+        'font_size': 14,
+        'align': 'center',
+        'valign': 'top',
+        'border': 1,
+        'bg_color' : '#BCD2EE'
+    }
+
     def write_param(self, sheet, style, item_style, key, value, index):
         sheet.merge_range("B%d:C%d" % (index, index), key, style)
         sheet.merge_range("D%d:G%d" % (index, index), value, item_style)

@@ -45,9 +45,12 @@
     </tbody>
     <tfoot>
         <th colspan="2">
-            <div class="ui right floated small primary labeled icon button">
-                <i class="print icon"></i> Печать
-            </div>
+            <form method="post" id = "printResult">
+            </form>
+            <button class="ui right floated small primary labeled icon button" ng-click="printResult()">
+                    <i class="print icon"></i> Печать
+            </button>
+
             <a class="ui small button" href="#/">
                 К тестируемым
             </a>
