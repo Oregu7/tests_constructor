@@ -22,15 +22,15 @@
                             Начать
                         </div>
                         <div class="ui basic icon blue button" ng-if = "option.time">
-                            <i class="dashboard icon"></i>
+                            <i class="time icon"></i>
                             {{ option.time }} мин
                         </div>
                         <div class="ui basic icon blue button" ng-if = "test.time_completion && !option.time">
-                            <i class="dashboard icon"></i>
+                            <i class="time icon"></i>
                             {{ test.time_completion }} мин
                         </div>
                         <div class="ui basic icon blue button" ng-if = "!test.time_completion && !option.time">
-                            <i class="dashboard icon"></i>
+                            <i class="time icon"></i>
                             Неограниченно
                         </div>
                     </div>

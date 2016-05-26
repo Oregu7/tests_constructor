@@ -15,7 +15,7 @@ class Format():
     }
 
     thead = {
-        'bold': False,
+        'bold': True,
         'bg_color': '#F8F8FF',
         'font_size': 15,
         'align': 'center',
@@ -77,12 +77,13 @@ class Format():
     }
 
     item_error = {
-        'bold': False,
+        'bold': True,
         'font_size': 14,
         'align': 'center',
         'valign': 'top',
         'border': 1,
-        'bg_color' : '#FF4040'
+        'bg_color' : '#FF4040',
+        'color': 'white'
     }
 
     item_warning = {

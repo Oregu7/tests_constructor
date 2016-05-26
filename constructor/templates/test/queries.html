@@ -12,7 +12,7 @@
             {% include 'test/test_menu.html' %}
 
 			<div class="ui segment">
-				<div class="ui four cards">
+				<div class="ui five cards">
 				{% for item in queries %}
 					<div class="card">
 						<div class="image">
@@ -24,7 +24,7 @@
 							<div class="name">
 								Вопрос
 							</div>
-							{{item.query.text|slice:":30"}}...
+							{{item.query.text|slice:":20"}}...
 							{% include 'test/query_items.html' %}
 							<a href = "edit/{{item.query.id}}/" class="ui button green fluid">
 								Подробнее

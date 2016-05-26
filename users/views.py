@@ -168,6 +168,8 @@ def print_results(request, id):
         thead = workbook.add_format(Format.thead)
         item = workbook.add_format(Format.item)
         item2 = workbook.add_format(Format.item2)
+        item_success = workbook.add_format(Format.item_success)
+        item_error = workbook.add_format(Format.item_error)
         formula = workbook.add_format(Format.formula_res)
         formula2 = workbook.add_format(Format.formula_res2)
         merge_format = workbook.add_format(Format.merge_format)
@@ -309,9 +311,16 @@ def print_results(request, id):
             answers_len = len(question['answers'])
             questions_sheet.merge_range("B%d:G%d" % (question_index, question_index - 1 + answers_len), question['text'], merge_format)
             for answer in question['answers']:
-                questions_sheet.write("H%d" % question_index, answer['text'], item)
-                questions_sheet.write("I%d" % question_index, answer['correct'], item)
-                questions_sheet.write("J%d" % question_index, answer['analytics'], item)
+
+                if answer['correct']:
+                    questions_sheet.write("H%d" % question_index, answer['text'], item_success)
+                    questions_sheet.write("J%d" % question_index, answer['analytics'], item_success)
+                    questions_sheet.write("I%d" % question_index, answer['correct'], item_success)
+                else:
+                    questions_sheet.write("I%d" % question_index, answer['correct'], item_error)
+                    questions_sheet.write("H%d" % question_index, answer['text'], item_error)
+                    questions_sheet.write("J%d" % question_index, answer['analytics'], item_error)
+
                 question_index += 1
 
 

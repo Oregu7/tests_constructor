@@ -42,6 +42,12 @@ def test_detail(request, id):
 
     if request.method == "GET":
         test_serializer = TestSecondSerializer(test).data
+        #шарим данные
+        for option in test_serializer['options']:
+            random.shuffle(option['questions'])
+            for question in option['questions']:
+                random.shuffle(question['answers'])
+
         return JsonResponse({'test': test_serializer})
     elif request.method == "POST":
         data = json.loads(request.body.decode("utf-8"))
