@@ -102,6 +102,10 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
 
     }
 
+    $scope.printResultTested = function(tested){
+        $('#printResultTested').attr('action', '/profile/tested/' + tested + '/').submit()
+    }
+
     init()
 })
 

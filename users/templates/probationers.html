@@ -30,7 +30,11 @@
             <td>{{ tested.precent }} %</td>
             <td>{{ tested.date | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
             <td>
-                <a class="ui yellow button" href="#/{{ tested.id }}">Подробнее</a>
+                <button class="ui icon blue button" ng-click="printResultTested(tested.id)">
+                    <i class="print icon"></i>
+                </button>
+                <a class="ui green button" href="#/{{ tested.id }}">Подробнее</a>
+                <form method="post" id = "printResultTested"></form>
             </td>
         </tr>
     </tbody>
@@ -38,7 +42,7 @@
     <tfoot class="full-width">
         <tr>
             <th colspan="7">
-                <button class="ui button" ng-click = "sendTesteds()">Печать</button>
+                <button class="ui red inverted button" ng-click = "sendTesteds()">Отчет</button>
             </th>
         </tr>
     </tfoot>
