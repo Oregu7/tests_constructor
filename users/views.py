@@ -99,6 +99,7 @@ def print_results(request, id):
         sub_title = workbook.add_format(Format.sub_title)
         thead = workbook.add_format(Format.thead)
         item = workbook.add_format(Format.item)
+        item2 = workbook.add_format(Format.item2)
         formula = workbook.add_format(Format.formula_res)
         formula2 = workbook.add_format(Format.formula_res2)
         merge_format = workbook.add_format(Format.merge_format)
@@ -162,11 +163,11 @@ def print_results(request, id):
                     Format().write_param(questions_sheet, sub_title, formula2, 'Курс', "-", search_ind)
             elif key == "mark":
                 if len(data[key]):
-                    Format().write_param(testeds_sheet, sub_title, formula2, 'Отметка', data[key], search_ind)
-                    Format().write_param(questions_sheet, sub_title, formula2, 'Отметка', data[key], search_ind)
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Оценка', data[key], search_ind)
+                    Format().write_param(questions_sheet, sub_title, formula2, 'Оценка', data[key], search_ind)
                 else:
-                    Format().write_param(testeds_sheet, sub_title, formula2, 'Отметка', "-", search_ind)
-                    Format().write_param(questions_sheet, sub_title, formula2, 'Отметка', "-", search_ind)
+                    Format().write_param(testeds_sheet, sub_title, formula2, 'Оценка', "-", search_ind)
+                    Format().write_param(questions_sheet, sub_title, formula2, 'Оценка', "-", search_ind)
             elif key == "dateF":
                 if len(data[key]):
                     Format().write_param(testeds_sheet, sub_title, formula2, 'Дата От', data[key], search_ind)
@@ -188,7 +189,7 @@ def print_results(request, id):
 
         #Тестируемые
         testeds_sheet.merge_range("B17:G17", "Результаты", title)
-        titles = ['Вариант', 'Группа', 'Тестируемый', 'Отметка', 'Процент', 'Дата']
+        titles = ['Вариант', 'Группа', 'Тестируемый', 'Оценка', 'Процент', 'Дата']
         Format().write_thead(testeds_sheet, thead, titles, 17, 1)
         tested_inrex = 18
         for tested in testeds:
@@ -200,9 +201,18 @@ def print_results(request, id):
             testeds_sheet.write(tested_inrex, 6, formats.date_format(tested.date, 'd-m-Y'), item)
             tested_inrex += 1
 
-        testeds_sheet.write_formula('E%d' % (tested_inrex + 1), '{=AVERAGE(E18:E%d)}' % tested_inrex, formula)
-        testeds_sheet.write_formula('F%d' % (tested_inrex + 1), '{=AVERAGE(F18:F%d)}' % tested_inrex, formula)
+        testeds_sheet.merge_range("B%d:D%d" % (tested_inrex + 1, tested_inrex + 1), "Средние значения" , item2)
+        testeds_sheet.write_formula('E%d' % (tested_inrex + 1), '{=AVERAGE(E19:E%d)}' % tested_inrex, formula)
+        testeds_sheet.write_formula('F%d' % (tested_inrex + 1), '{=AVERAGE(F19:F%d)}' % tested_inrex, formula)
+        testeds_sheet.write("G%d" % (tested_inrex + 1), "", item)
 
+        testeds_sheet.set_column("F:F", 30)
+        testeds_sheet.write("F%d" % (tested_inrex + 2), "Абсолютная успеваемость", item2)
+        testeds_sheet.write("F%d" % (tested_inrex + 3), "Качественная успеваемость", item2)
+        absolute_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4)) + SUM(COUNTIF(E19:E{0},3))) / COUNT(E19:E{0})".format(tested_inrex)
+        quality_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4))) / COUNT(E19:E{0})".format(tested_inrex)
+        testeds_sheet.write_formula('G%d' % (tested_inrex + 2), absolute_formula, formula)
+        testeds_sheet.write_formula('G%d' % (tested_inrex + 3), quality_formula, formula)
         #Заполняем 2 лист
         questions_sheet.merge_range("B17:G17", "Статистика", title)
         questions_sheet.set_column("H:H",  40)

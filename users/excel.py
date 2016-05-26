@@ -27,7 +27,8 @@ class Format():
         'bold': False,
         'font_size': 14,
         'align': 'center',
-        'valign': 'top'
+        'valign': 'top',
+        'border': 1
     }
 
     formula_res = {
@@ -36,7 +37,8 @@ class Format():
         "color": "red",
         'font_size': 15,
         'align': 'right',
-        'valign': 'top'
+        'valign': 'top',
+        'border': 1
     }
 
     formula_res2 = {
@@ -55,6 +57,14 @@ class Format():
         'align': 'center',
         'valign': 'vcenter',
         'fg_color': 'yellow'
+    }
+
+    item2 = {
+        'bold': True,
+        'font_size': 13,
+        'align': 'right',
+        'valign': 'top',
+        'border': 1
     }
 
     def write_param(self, sheet, style, item_style, key, value, index):
