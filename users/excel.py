@@ -19,7 +19,8 @@ class Format():
         'bg_color': '#F8F8FF',
         'font_size': 15,
         'align': 'center',
-        'valign': 'top'
+        'valign': 'top',
+        'border': 1
     }
 
     item = {
@@ -45,6 +46,15 @@ class Format():
         'font_size': 15,
         'align': 'left',
         'valign': 'top'
+    }
+
+    merge_format = {
+        'bold': 1,
+        'border': 1,
+        'font_size': 15,
+        'align': 'center',
+        'valign': 'vcenter',
+        'fg_color': 'yellow'
     }
 
     def write_param(self, sheet, style, item_style, key, value, index):
