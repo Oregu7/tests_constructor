@@ -1,0 +1,14 @@
+{% verbatim %}
+<div class="ui large vertical menu">
+  <div class="item">
+    <div class="ui icon input">
+      <input type="text" placeholder="Поиск предмета..." ng-model="filters.name">
+      <i class="search icon"></i>
+    </div>
+  </div>
+  <a class="item" ng-repeat="subject in data.user.subjects | filter : {name: filters.name}"
+     ng-class="{active: filters.category == subject.url}" ng-click="setCategory(subject.url)">
+      {{ subject.name }}
+  </a>
+</div>
+{% endverbatim %}

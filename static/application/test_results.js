@@ -24,11 +24,6 @@ App = angular.module('testResults', ['ngRoute'])
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }])
 
-    .config(['$compileProvider',
-    function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
-    }]);
-
 App.filter('dateRangeFilter', function(){
 
 })

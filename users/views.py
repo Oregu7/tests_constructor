@@ -4,11 +4,11 @@ from testsConstructor.helpers import check_sign_in, models_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
 from constructor.models import Test, Option, Query
-from constructor.serializers import OptionSecondSerializer, OptionSerializer, QuerySerializer
+from constructor.serializers import OptionSecondSerializer, OptionSerializer, QuerySerializer, TestSerializer, CategorySerializer
 from tests.models import Probationer
-from tests.serializers import ProbationerSerializer
+from tests.serializers import ProbationerSerializer, ProbationerSecondSerializer
 from .models import Group, Specialization
-from .serializers import GroupSerializer, SpecializationSerializer
+from .serializers import GroupSerializer, SpecializationSerializer, UserSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from xlsxwriter.workbook import Workbook
@@ -21,11 +21,22 @@ import json
 @login_required
 def profile(request):
     user = request.user
-    if user.is_staff:
-        tests = Test.objects.filter(creator=user)
-        return render_to_response('profile.html', {'login': user, 'tests': tests})
+    if request.is_ajax():
+        data = {"user": UserSerializer(user).data}
+        data['user']['subjects'].insert(0,{'name': 'Все', 'url': ''})
+        if user.is_staff or user.is_superuser:
+            tests = Test.objects.filter(creator=user)
+            data['tests'] = TestSerializer(tests, many=True).data
+        else:
+            tested_results = Probationer.objects.filter(tested=user)
+            data['subjects'] = []
+            for tested_result in tested_results:
+                if tested_result.option.test.category not in data['subjects']:
+                    data['subjects'].append(CategorySerializer(tested_result.option.test.category).data)
+            data['tested_results'] = ProbationerSecondSerializer(tested_results, many=True).data
+        return JsonResponse(data)
     else:
-        raise Http404('Это не ваш профиль')
+        return render_to_response('profile.html', {'login': user})
 
 @login_required
 def test_results(request, id):

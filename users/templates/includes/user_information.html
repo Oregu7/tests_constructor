@@ -1,31 +1,54 @@
+{% verbatim %}
 <div class="ui card">
   <div class="image">
-    <img src="/media/images/_318-61897.jpg/">
+      <img src="/media/images/_318-61897.jpg" ng-if="!data.user.is_staff && !data.user.is_superuser"/>
+      <img src="/media/images/_318-62221.jpg" ng-if="data.user.is_staff && !data.user.is_superuser"/>
+      <img src="/media/images/one-punch-man-chelovek-v-odin.jpg" ng-if="data.user.is_superuser"/>
   </div>
   <div class="content">
-    <a class="header">{{ login.get_full_name }}</a>
-    <div class="meta">
-      <span class="date">Последний вход: {{ login.last_login }}</span>
+    <a class="header">{{ data.user.last_name }} {{ data.user.first_name }}</a>
+    <div class="meta" ng-if="data.user.is_staff && data.user.subjects">
+        Преподаваемые предметы:
     </div>
     <div class="description">
-        {% for group in login.groups.all %}
-            {% if group.name == "Студент" %}
-            <div class="ui list">
-                <div class="item">Группа: {{ login.study_group }}</div>
-                <div class="item">Курс: {{ login.study_group.course }}</div>
-                <div class="item">Специализация: {{ login.study_group.specialization }}</div>
+
+        <div class="ui list" ng-if="data.user.subjects">
+            <div class="item" ng-repeat = "subject in data.user.subjects" ng-if="subject.url != ''">
+                <a>
+                    <i class="book icon"></i>
+                    {{ subject.name }}
+                </a>
             </div>
-            {% endif %}
-        {% endfor %}
+        </div>
+
+        <div class="ui list" ng-if="data.user.study_group">
+            <div class="item">Группа: {{ data.user.study_group.name }}</div>
+            <div class="item">Курс: {{ data.user.study_group.course }}</div>
+            <div class="item">Специализация: {{ data.user.study_group.specialization.name }}</div>
+        </div>
     </div>
   </div>
   <div class="extra content">
     <div class="ui list">
-    {% for group in login.groups.all %}
-        <div class="item">
-            <a><i class="selected radio icon"></i>{{ group }}</a>
+        <div class="item" ng-if="!data.user.is_staff">
+            <a>
+                <i class="selected radio icon"></i>
+                Студент
+            </a>
         </div>
-    {% endfor %}
+        <div class="item" ng-if="data.user.is_staff">
+            <a>
+                <i class="selected radio icon"></i>
+                Преподаватель
+            </a>
+        </div>
+        <div class="item" ng-if="data.user.is_superuser">
+            <a>
+                <i class="selected radio icon"></i>
+                Администратор
+            </a>
+        </div>
     </div>
   </div>
 </div>
+{% endverbatim %}

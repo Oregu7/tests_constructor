@@ -1,15 +1,27 @@
 {% extends 'main.html' %}
+{% load static %}
+
+{% block scripts %}
+    <script src="{% static 'js/vendor/angular.min.js' %}"></script>
+    <script src="{% static 'application/profile.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-<div class="ui grid">
-	<div class="two wide column"></div>
+<div class="ui grid" ng-app = "profileApp" ng-controller="ProfileCntr">
+	<div class="one wide column"></div>
     <div class="four wide column">
         {% include 'includes/user_information.html' %}
     </div>
-	<div class="eight wide column">
+	<div class="seven wide column">
+        <div class="ui fluid icon input">
+            <input type="text" placeholder="Найти тест..." ng-model="filters.title">
+            <i class="search icon"></i>
+        </div>
+        {% verbatim %}
 		<div class="ui divided items">
-		{% for test in tests %}
-			<div class="item">
+			<div class="item" ng-repeat = "test in data.tests | filter : {title : filters.title, category: { url: filters.category}}
+            | filter : paginationFilter(pagination.currentPage) as filteredData"
+             ng-if="data.user.is_staff || data.user.is_superuser">
 				<div class="content">
 					<a href="/tests/{{test.id}}/" class="header">{{test.title}}</a>
 					<div class="description">
@@ -18,34 +30,38 @@
 						</p>
 					</div>
 					<div class="extra">
-						<div class="ui basic right floated teal  buttons">
+						<div class="ui inverted right floated olive buttons">
 							<a href ="/constructor/test/{{test.id}}/settings/" class = "ui button">
 								<i class="settings chevron icon"></i>
 								Опции
 							</a>
-                            {% if test.category.url == 'analytics' %}
-                            <a href ="analytics/{{test.id}}/" class = "ui button">
+                            <a href ="analytics/{{test.id}}/" class = "ui button" ng-if="test.category.url == 'analytics'">
 								Аналитика
 								<i class="right chevron icon"></i>
 							</a>
-                            {% else %}
-                            <a href ="results/{{test.id}}/" class = "ui button">
+                            <a href ="results/{{test.id}}/" class = "ui button" ng-if="test.category.url != 'analytics'">
 								Результаты
 								<i class="right chevron icon"></i>
 							</a>
-                            {% endif %}
 						</div>
 						
-						<div class="ui label">{{test.category}}</div>
+						<div class="ui label">{{test.category.name}}</div>
 					</div>
 				</div>
 			</div>
-		{% endfor %}
 		</div>
-	</div>
-	<div class="two wide column"></div>
-</div>
-{% endblock %}
+        <div class="ui pagination menu">
+            <a class="item" ng-repeat = "page in pagination.pages"
+               ng-class="{active: page == pagination.currentPage}" ng-click="setPage(page)">
+            {{ page }}
+            </a>
+        </div>
+        {% endverbatim %}
 
-{% block scripts %}
+	</div>
+    <div class="three wide column">
+        {% include 'includes/sub_categories.html' %}
+    </div>
+	<div class="one wide column"></div>
+</div>
 {% endblock %}
