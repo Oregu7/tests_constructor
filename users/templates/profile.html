@@ -18,10 +18,9 @@
             <i class="search icon"></i>
         </div>
         {% verbatim %}
-		<div class="ui divided items">
+		<div class="ui divided items" ng-if="data.user.is_staff || data.user.is_superuser" ng-cloak>
 			<div class="item" ng-repeat = "test in data.tests | filter : {title : filters.title, category: { url: filters.category}}
-            | filter : paginationFilter(pagination.currentPage) as filteredData"
-             ng-if="data.user.is_staff || data.user.is_superuser">
+            | filter : paginationFilter(pagination.currentPage) as filteredData">
 				<div class="content">
 					<a href="/tests/{{test.id}}/" class="header">{{test.title}}</a>
 					<div class="description">
@@ -50,10 +49,68 @@
 				</div>
 			</div>
 		</div>
-        <div class="ui pagination menu">
+        <table class="ui celled table" ng-if="!data.user.is_staff && !data.user.is_superuser">
+            <thead>
+                <tr>
+                    <th>Тест</th>
+                    <th>Вариант</th>
+                    <th>Оценка</th>
+                    <th>Дата</th>
+                    <th>Опции</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "tested in data.tested_results | filter : {
+                    option : { test : {title : filters.title, category : {url : filters.category} } }
+                } | filter : paginationFilter(pagination.currentPage) as filteredData">
+                    <td>{{ tested.option.test.title }}</td>
+                    <td>{{ tested.option.number }}</td>
+                    <td>{{ tested.mark }}</td>
+                    <td>
+                        <a class="ui small blue label">{{ tested.date | date : 'dd.mm.yyyy HH:mm' }}</a>
+                    </td>
+                    <td>
+                        <div class="ui icon buttons">
+                          <button class="ui olive button" ng-click="downloadResult(tested.id)">
+                            <i class="file excel outline icon"></i>
+                          </button>
+                          <a class="ui yellow button" href="/profile/tested/{{ tested.id }}/" target="_blank">
+                            <i class="folder open icon"></i>
+                          </a>
+                        </div>
+                    </td>
+                </tr>
+                <form method="post" id="downloadResultForm"></form>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">
+                        <div class="ui right floated pagination menu" ng-show="pagination.countPages" ng-cloak>
+                            <a class="icon item">
+                              <i class="left chevron icon"></i>
+                            </a>
+                            <a class="item" ng-repeat = "page in pagination.pages"
+                               ng-class="{active: page == pagination.currentPage}" ng-click="setPage(page)">
+                            {{ page }}
+                            </a>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="ui pagination menu" ng-if="data.user.is_staff || data.user.is_superuser" ng-show="pagination.countPages" ng-cloak>
+            <a class="icon item">
+              <i class="left chevron icon"></i>
+            </a>
             <a class="item" ng-repeat = "page in pagination.pages"
                ng-class="{active: page == pagination.currentPage}" ng-click="setPage(page)">
             {{ page }}
+            </a>
+            <a class="icon item">
+                <i class="right chevron icon"></i>
             </a>
         </div>
         {% endverbatim %}

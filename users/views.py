@@ -28,11 +28,12 @@ def profile(request):
             tests = Test.objects.filter(creator=user)
             data['tests'] = TestSerializer(tests, many=True).data
         else:
-            tested_results = Probationer.objects.filter(tested=user)
+            tested_results = Probationer.objects.filter(user=user)
             data['subjects'] = []
             for tested_result in tested_results:
-                if tested_result.option.test.category not in data['subjects']:
-                    data['subjects'].append(CategorySerializer(tested_result.option.test.category).data)
+                subject = CategorySerializer(tested_result.option.test.category).data
+                if subject not in data['subjects']:
+                    data['subjects'].append(subject)
             data['tested_results'] = ProbationerSecondSerializer(tested_results, many=True).data
         return JsonResponse(data)
     else:
@@ -82,7 +83,11 @@ def tested_result(request, id):
                 answer['selected'] = False
 
     if request.method == "GET":
-        return JsonResponse({'tested': tested})
+        if request.is_ajax():
+            return JsonResponse({'tested': tested})
+        else:
+            test = get_object_or_404(Probationer, id=id, user=user)
+            return render_to_response('tested_result.html', {'tested': tested, 'test': test})
     else:
         output = io.BytesIO()
         workbook = Workbook(output, {'in_memory': True})

@@ -7,7 +7,13 @@
     </div>
   </div>
   <a class="item" ng-repeat="subject in data.user.subjects | filter : {name: filters.name}"
-     ng-class="{active: filters.category == subject.url}" ng-click="setCategory(subject.url)">
+     ng-class="{active: filters.category == subject.url}" ng-click="setCategory(subject.url)"
+     ng-if = "data.user.subjects">
+      {{ subject.name }}
+  </a>
+  <a class="item" ng-repeat="subject in data.subjects | filter : {name: filters.name}"
+     ng-class="{active: filters.category == subject.url}" ng-click="setCategory(subject.url)"
+     ng-if = "data.subjects">
       {{ subject.name }}
   </a>
 </div>

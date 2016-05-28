@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from testsConstructor.views import home, excel
+from english_tests.views import index,get_page
 from django.views import static
 from .settings import MEDIA_ROOT, MEDIA_URL
 
 urlpatterns = [
 	url(r'^$', home),
     url(r'^excel/$', excel),
-    url(r'^english/$', 'english_tests.views.index'),
-    url(r'^english_tests/(?P<page>\S+)/$', 'english_tests.views.get_page'),
+    url(r'^english/$', index),
+    url(r'^english_tests/(?P<page>\S+)/$', get_page),
     url(r'^analytics/', include('analytics.urls')),
 	url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),

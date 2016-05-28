@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результат#{{ tested.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}"/>
+    <script src="{% static 'js/vendor/jquery-2.1.4.min.js' %}"></script>
+</head>
+<body>
+<div class="ui attached default message">
+    <h2 class="ui header">
+        Тест по предмету {{ test.option.test.category }} на тему : "{{ test.option.test.title }}"
+    </h2>
+    <p></p>
+    <div class="header">
+         Преподаватель: {{ test.option.test.creator.get_full_name }}
+    </div>
+    <ul class="list">
+        <li>Студент(ка): <b>{{ tested.user.last_name }} {{ tested.user.first_name }}</b></li>
+        <li>Группа: <b>{{ tested.user.study_group.name }}</b></li>
+        <li>Вариант: <b>{{ tested.option.number }}</b></li>
+        <li>Набрал(а): <b>{{ tested.precent }}%</b> из <b>100%</b></li>
+        <li>Оценка: <b>{{ tested.mark }}</b></li>
+        <li>Дата: <b>{{ test.date}}</b></li>
+    </ul>
+</div>
+<table class="ui celled attached table">
+    <thead>
+        <th>Вопрос</th>
+        <th>Ответы</th>
+    </thead>
+    <tbody>
+        {% for  question in tested.option.questions %}
+        <tr>
+            <td rowspan="{{ question.answers|length|add:1}}">{{ question.text }}</td>
+        </tr>
+        {% for  answer in question.answers%}
+        <tr>
+            {% if  answer.selected and not answer.correct %}
+            <td class = "negative">
+                <i class="icon close"></i>
+                {{ answer.text }}
+            </td>
+            {% elif answer.selected and answer.correct %}
+            <td class="positive">
+                <i class="icon checkmark"></i>
+                {{ answer.text }}
+            </td>
+            {% elif  answer.correct and not answer.selected%}
+            <td class = "warning">
+                <i class="icon circular checkmark"></i>
+                {{ answer.text }}
+            </td>
+            {% else %}
+            <td>
+                {{ answer.text }}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <th colspan="2">
+            <form method="post" id = "printResult">
+            </form>
+            <button class="ui right floated small primary labeled icon button" id = "printResultButton">
+                    <i class="print icon"></i> Печать
+            </button>
+        </th>
+    </tfoot>
+</table>
+<script>
+    $(document).ready(function(){
+        $("#printResultButton").on('click', function(){
+            $('#printResult').submit()
+        })
+    })
+</script>
+</body>
+</html>

@@ -25,7 +25,14 @@ App.controller('ProfileCntr', function($scope, $http){
         $http.get('')
             .then(function(response){
                 $scope.data = response.data;
-                $scope.pagination.countPages = Math.ceil($scope.data.tests.length / $scope.pagination.countItems);
+                if ($scope.data.user.is_staff || $scope.data.user.is_superuser){
+                    $scope.pagination.countItems = 15;
+                    $scope.pagination.countPages = Math.ceil($scope.data.tests.length / $scope.pagination.countItems);
+                }else{
+                    $scope.pagination.countItems = 30;
+                    $scope.pagination.countPages = Math.ceil($scope.data.tested_results.length / $scope.pagination.countItems);
+                }
+
                 for(i=1; i<= $scope.pagination.countPages; i++){
                     $scope.pagination.pages.push(i)
                 }
@@ -34,6 +41,7 @@ App.controller('ProfileCntr', function($scope, $http){
         $scope.$watch('filteredData', function() {
             if ($scope.filteredData) {
                 console.log($scope.filteredData);
+                $scope.filteredData.slice(0,1)
             }
         });
 
@@ -59,6 +67,10 @@ App.controller('ProfileCntr', function($scope, $http){
                 return false
             }
         }
+    }
+
+    $scope.downloadResult = function(id){
+        $('#downloadResultForm').attr('action', '/profile/tested/'+id+'/').submit()
     }
 
     init()

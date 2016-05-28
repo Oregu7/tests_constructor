@@ -1,5 +1,5 @@
 from .models import Probationer, ProbationerAnswer
-from constructor.serializers import OptionSerializer, OptionSecondSerializer, AnswerSerializer
+from constructor.serializers import OptionSerializer, OptionSecondSerializer, AnswerSerializer, CategorySerializer
 from users.serializers import UserSerializer
 from constructor.models import Test, Option
 from rest_framework.serializers import ModelSerializer
@@ -19,9 +19,10 @@ class ProbationerSerializer(ModelSerializer):
         fields = ('id', 'user', 'mark', 'precent', 'date', 'answers', 'option')
 
 class TestProbSer(ModelSerializer):
+    category = CategorySerializer()
     class Meta:
         model = Test
-        fields = 'title'
+        fields = ('title', 'category')
 
 class OptionProbSer(ModelSerializer):
     test = TestProbSer()

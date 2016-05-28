@@ -18,10 +18,11 @@ class GroupAdmin(admin.ModelAdmin):
 class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
+    raw_id_fields = ('study_group', )
     filter_horizontal = ('subjects', 'groups')
     add_fieldsets = (
         (None, {
-            'fields': ('username', 'password1', 'password2', 'study_group', 'groups', 'subjects')}
+            'fields': ('username', 'password1', 'password2', 'study_group', 'subjects')}
         ),
     )
     fieldsets = (
@@ -31,7 +32,6 @@ class UserAdmin(BaseUserAdmin):
             'last_name',
             'email',
             'study_group',
-            'groups',
             'subjects'
         )}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
