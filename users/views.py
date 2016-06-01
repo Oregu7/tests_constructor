@@ -28,7 +28,7 @@ def profile(request):
             tests = Test.objects.filter(creator=user)
             data['tests'] = TestSerializer(tests, many=True).data
         else:
-            tested_results = Probationer.objects.filter(user=user)
+            tested_results = Probationer.objects.filter(user=user).order_by('-date')
             data['subjects'] = []
             for tested_result in tested_results:
                 subject = CategorySerializer(tested_result.option.test.category).data
@@ -108,11 +108,17 @@ def tested_result(request, id):
             tested_sheet.set_column(index, index,  20)
 
 
-
+        #Информация о тесте
         tested_sheet.merge_range("B2:G2", "Тест на тему : "+test.title, title)
         tested_sheet.merge_range("B3:G3", "Предмет : "+test.category.name, sub_title)
         tested_sheet.merge_range("B4:G4", "Разработал(а) : "+test.creator.get_full_name(), sub_title)
-        tested_sheet.merge_range("B7:G7", "Информация", title)
+        tested_sheet.merge_range("B7:G7", "Информация о тестируемом", title)
+        tested_sheet.write("H7", "Информация о цветовых обозначениях", title)
+        #информация о цветах
+        tested_sheet.write("H8", "Неправильный ответ(выбранный студентом)", item_error)
+        tested_sheet.write("H9", "Правильный ответ(выбранный студентом)", item_success)
+        tested_sheet.write("H10", "Правльный ответ(не выбранный студентом)", item_warning)
+        #информация о студенте
         Format().write_param(tested_sheet, sub_title, formula2, 'Вариант', tested['option']['number'], 8)
         Format().write_param(tested_sheet, sub_title, formula2, 'Специализация', tested['user']['study_group']['specialization']['name'], 9)
         Format().write_param(tested_sheet, sub_title, formula2, 'Курс', tested['user']['study_group']['course'], 10)
@@ -121,9 +127,9 @@ def tested_result(request, id):
         Format().write_param(tested_sheet, sub_title, formula2, 'Оценка', tested['mark'], 13)
         Format().write_param(tested_sheet, sub_title, formula2, 'Процент', tested['precent'], 14)
         Format().write_param(tested_sheet, sub_title, formula2, 'Дата', tested['date'], 15)
-
+        #Формируем таблицу ответов
         tested_sheet.merge_range("B17:G17", "Результат", title)
-        tested_sheet.set_column("H:H",  40)
+        tested_sheet.set_column("H:H",  55)
         tested_sheet.set_column("I:I",  20)
         tested_sheet.set_column("J:J",  30)
         tested_sheet.set_column("B:G",  15)
@@ -295,8 +301,8 @@ def print_results(request, id):
         testeds_sheet.set_column("F:F", 30)
         testeds_sheet.write("F%d" % (tested_inrex + 2), "Абсолютная успеваемость", item2)
         testeds_sheet.write("F%d" % (tested_inrex + 3), "Качественная успеваемость", item2)
-        absolute_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4)) + SUM(COUNTIF(E19:E{0},3))) / COUNT(E19:E{0})".format(tested_inrex)
-        quality_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4))) / COUNT(E19:E{0})".format(tested_inrex)
+        absolute_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4)) + SUM(COUNTIF(E19:E{0},3))) / COUNT(E19:E{0}) * 100".format(tested_inrex)
+        quality_formula = "=(SUM(COUNTIF(E19:E{0},5)) + SUM(COUNTIF(E19:E{0},4))) / COUNT(E19:E{0}) * 100".format(tested_inrex)
         testeds_sheet.write_formula('G%d' % (tested_inrex + 2), absolute_formula, formula)
         testeds_sheet.write_formula('G%d' % (tested_inrex + 3), quality_formula, formula)
         #Заполняем 2 лист

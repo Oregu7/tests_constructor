@@ -18,22 +18,26 @@
 </div>
 
 <div class="ui inverted left vertical sidebar labeled icon menu">
-  <a class = "item" href="/profile/">
+    {% if login.is_authenticated %}
+    <a class = "item" href="/profile/">
     <i class="user icon"></i>
     Профиль
-  </a>
-  <a class="item" href = '/tests/'>
+    </a>
+    {% if not login.is_staff and not login.is_superuser%}
+    <a class="item" href = '/tests/'>
     <i class="list icon"></i>
     Тесты
-  </a>
-  <a class="item" href = '/analytics/'>
+    </a>
+    {% endif %}
+    {% endif %}
+    <a class="item" href = '/analytics/'>
     <i class="area chart icon"></i>
     Анкеты
-  </a>
-  {% if login.is_authenticated %}
-  <a class="item" href = '/constructor/'>
+    </a>
+    {% if login.is_staff or  login.is_superuser %}
+    <a class="item" href = '/constructor/'>
     <i class="settings icon"></i>
     Констуктор
-  </a>
-  {% endif %}
+    </a>
+    {% endif %}
 </div>

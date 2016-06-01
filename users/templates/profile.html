@@ -22,7 +22,7 @@
 			<div class="item" ng-repeat = "test in data.tests | filter : {title : filters.title, category: { url: filters.category}}
             | filter : paginationFilter(pagination.currentPage) as filteredData">
 				<div class="content">
-					<a href="/tests/{{test.id}}/" class="header">{{test.title}}</a>
+					<a class="header">{{test.title}}</a>
 					<div class="description">
 						<p>
 							{{test.description}}
@@ -67,7 +67,7 @@
                     <td>{{ tested.option.number }}</td>
                     <td>{{ tested.mark }}</td>
                     <td>
-                        <a class="ui small blue label">{{ tested.date | date : 'dd.mm.yyyy HH:mm' }}</a>
+                        <a class="ui small blue label">{{ tested.date | date : 'dd.MM.yyyy г. HH:mm' }}</a>
                     </td>
                     <td>
                         <div class="ui icon buttons">

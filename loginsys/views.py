@@ -8,27 +8,28 @@ import json
 
 # Create your views here.
 def login(request):
-	args = {}
-	args.update(csrf(request))
+    args = {}
+    args.update(csrf(request))
 
-	if request.POST:
-		username = request.POST.get('login','')
-		password = request.POST.get('password','')
-		user = auth.authenticate(username=username, password=password)
-		if user is not None:
-			auth.login(request, user)
-			return redirect('/')
-		else:
-			args['error'] = 'Не верный логин или пароль'
-			return render_to_response('login.html', args)
-	else:
-		return render_to_response('login.html', args)
+    if request.POST:
+        username = request.POST.get('login','')
+        password = request.POST.get('password','')
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            args['error'] = 'Не верный логин или пароль'
+            args['username'] = username
+            return render_to_response('login.html', args)
+    else:
+        return render_to_response('login.html', args)
 
 def logout(request):
-	auth.logout(request)
-	if 'test' in request.session:
-		del request.session['test']
-	return redirect('/')
+    auth.logout(request)
+    if 'test' in request.session:
+        del request.session['test']
+    return redirect('/')
 
 def check(request):
-	return HttpResponse(auth.get_user(request).username)
+    return HttpResponse(auth.get_user(request).username)

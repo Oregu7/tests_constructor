@@ -58,24 +58,25 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
 
     $scope.dateRangeFilter = function(dateF, dateL){
         return function(item){
-            var item_date = moment(item.date).format("DD.MM.YYYY");
+            var item_date = moment(item.date).format("YYYY-MM-DD");
+            console.log(item_date)
             if(dateF && !dateL){
-                var df = moment(dateF).format("DD.MM.YYYY");
+                var df = moment(dateF).format("YYYY-MM-DD");
                 if (item_date >= df){
                     return true;
                 }else{
                     return false;
                 }
             }else if (!dateF && dateL){
-                var ds = moment(dateL).format("DD.MM.YYYY");
+                var ds = moment(dateL).format("YYYY-MM-DD");
                 if (item_date <= ds){
                     return true
                 }else{
                     return false
                 }
             }else if (dateF && dateL){
-                var df = moment(dateF).format("DD.MM.YYYY");
-                var ds = moment(dateL).format("DD.MM.YYYY");
+                var df = moment(dateF).format("YYYY-MM-DD");
+                var ds = moment(dateL).format("YYYY-MM-DD");
                 if (item_date >= df && item_date <= ds){
                     return true
                 }else{
