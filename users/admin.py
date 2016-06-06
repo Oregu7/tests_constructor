@@ -17,7 +17,7 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'specialization', 'course', 'secret_key')
     search_fields = ('name',)
 
-    actions = ['send_files']
+    actions = ['set_secret_keys', 'send_files']
 
     def send_files(self, request, queryset):
         response = []
@@ -31,8 +31,14 @@ class GroupAdmin(admin.ModelAdmin):
             })
         return make_response_from_records(response, file_type='xlsx', file_name="groups")
 
-    send_files.short_description = "Скачать данные в формате *.xlsx"
+    def set_secret_keys(self, request, queryset):
+        for group in queryset:
+            group.secret_key = Group.generate_secret_code()
+            group.save()
 
+    send_files.short_description = "Скачать данные в формате *.xlsx"
+    set_secret_keys.short_description = "Изменить секретный код"
+    
 class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
