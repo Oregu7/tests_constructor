@@ -32,6 +32,7 @@ LOGIN_URL = '/auth/login/'
 
 INSTALLED_APPS = [
     'suit',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,3 +149,13 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR + '/media/'
 MEDIA_URL = '/media/'
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Конструктор Тестов',
+    'MENU_ICONS': {
+        'constructor': 'icon-cog',
+        'tests': 'icon-tasks',
+        'users': 'icon-user',
+        'analytics': 'icon-leaf'
+    }
+}

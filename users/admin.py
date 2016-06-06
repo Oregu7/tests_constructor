@@ -38,7 +38,7 @@ class GroupAdmin(admin.ModelAdmin):
 
     send_files.short_description = "Скачать данные в формате *.xlsx"
     set_secret_keys.short_description = "Изменить секретный код"
-    
+
 class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
@@ -47,7 +47,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ('subjects', 'groups')
     add_fieldsets = (
         (None, {
-            'fields': ('username', 'password1', 'password2', 'study_group', 'subjects')}
+            'fields': ('username', 'password1', 'password2', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'study_group', 'subjects')}
         ),
     )
     fieldsets = (
