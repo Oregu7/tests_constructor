@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 import pyexcel.ext.xls
 from django_excel import make_response_from_query_sets
 from django_excel import make_response_from_array, make_response_from_records
+from users.models import Group
+from django.db.models import F
 
 @login_required
 def home(request):

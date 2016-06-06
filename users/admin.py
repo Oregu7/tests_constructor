@@ -14,7 +14,7 @@ class SpecializationAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     list_filter = ('specialization', 'course')
-    list_display = ('name', 'specialization', 'course')
+    list_display = ('name', 'specialization', 'course', 'secret_key')
     search_fields = ('name',)
 
     actions = ['send_files']
@@ -26,7 +26,8 @@ class GroupAdmin(admin.ModelAdmin):
             response.append({
                 'Название': group['name'],
                 'Специализация': group['specialization']['name'],
-                'Курс': group['course']
+                'Курс': group['course'],
+                'Секретный код': group['secret_key']
             })
         return make_response_from_records(response, file_type='xlsx', file_name="groups")
 
@@ -35,6 +36,7 @@ class GroupAdmin(admin.ModelAdmin):
 class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
+    list_filter = ('study_group__course', 'study_group__specialization', 'study_group', 'is_staff')
     raw_id_fields = ('study_group', )
     filter_horizontal = ('subjects', 'groups')
     add_fieldsets = (
