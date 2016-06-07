@@ -157,5 +157,6 @@ SUIT_CONFIG = {
         'tests': 'icon-tasks',
         'users': 'icon-user',
         'analytics': 'icon-leaf'
-    }
+    },
+    'MENU_EXCLUDE': ('auth', )
 }

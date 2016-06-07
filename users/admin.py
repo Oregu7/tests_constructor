@@ -11,6 +11,7 @@ import pyexcel.ext.xlsx
 # Register your models here.
 class SpecializationAdmin(admin.ModelAdmin):
     list_display = ('code', 'name')
+    search_fields = ['name']
 
 class GroupAdmin(admin.ModelAdmin):
     list_filter = ('specialization', 'course')
@@ -43,6 +44,8 @@ class UserAdmin(BaseUserAdmin):
     form = AdminUserChangeForm
     add_form = AdminUserAddForm
     list_filter = ('study_group__course', 'study_group__specialization', 'study_group', 'is_staff')
+    list_display = ('last_name', 'first_name', 'study_group', 'get_specialization', 'get_course', 'is_staff', 'is_superuser')
+    search_fields = ['last_name']
     raw_id_fields = ('study_group', )
     filter_horizontal = ('subjects', 'groups')
     add_fieldsets = (
@@ -63,6 +66,25 @@ class UserAdmin(BaseUserAdmin):
                                        'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
+
+    def get_specialization(self, obj):
+        group = obj.study_group
+        if group is not None:
+            return group.specialization.name
+        else:
+            return "-"
+
+    def get_course(self, obj):
+        group = obj.study_group
+        if group is not None:
+            return group.course
+        else:
+            return "-"
+
+    get_specialization.short_description = "Специализация"
+    get_course.short_description = "Курс"
+    get_specialization.admin_order_field = "study_group__specialization__name"
+    get_course.admin_order_field = "study_group__course"
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Specialization, SpecializationAdmin)

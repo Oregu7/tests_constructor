@@ -48,13 +48,12 @@
                     </div>
                     <div class="center aligned column">
                         <h3 class="ui header aligned center">Регистрация</h3>
-                        <div class="ui action input" ng-class = "{ error: check.error }">
+                        <div class="ui fluid action input" ng-class = "{ error: check.error }">
                             <input type="text" placeholder="Код вашей группы..." autocomplete="off" ng-model="secret_key">
-                            <button class="ui right labeled icon button"
+                            <button class="ui right icon button"
                                     ng-click="searchGroup()"
                                     ng-class = "{teal: !check.error, red: check.error}">
-                                <i class="check icon"></i>
-                                Проверить
+                                <i class="search icon"></i>
                             </button>
                         </div>
                         <div class="ui error message" ng-show="check.error">

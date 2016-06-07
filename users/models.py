@@ -4,11 +4,15 @@ import string
 import random
 
 class Specialization(models.Model):
-    name = models.CharField(max_length=200)
-    code = models.CharField(max_length=200, primary_key=True, unique=True)
+    name = models.CharField(max_length=200, verbose_name="Название")
+    code = models.CharField(max_length=200, primary_key=True, unique=True, verbose_name="Код")
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Специализацию"
+        verbose_name_plural = "Специализации"
 
 class Group(models.Model):
 
