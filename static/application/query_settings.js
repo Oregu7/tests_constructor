@@ -66,10 +66,12 @@ App.Views.Query = Backbone.View.extend({
 		this.collection.on('add', this.addItem, this);
 		this.collection.on('reset', this.tbodyEmpty, this);
         this.test = this.$el.find('#save_query').attr('data-testID');
+        this.$el.find('input[name="point"]').val(this.model.get('point'))
 	},
 
 	events: {
 		'click #add_answ' : 'addAnswer',
+        'click #delete_answers': 'deleteAnswers',
 		'click #save_query' : 'saveQuery',
         'click #back' : 'back_to_test',
 		'change textarea[name="text_query"]' : 'setQueryText',
@@ -80,6 +82,13 @@ App.Views.Query = Backbone.View.extend({
 	addAnswer: function(){
 		this.collection.add(new App.Models.Answer())
 	},
+
+    deleteAnswers: function(){
+        var answers_array = this.collection.models.slice();
+        _.each(answers_array, function(answer){
+            answer.destroy();
+        })
+    },
 
 	addItem: function(answer){
 		this.$el.find('tbody').append(new App.Views.Answer({model: answer}).el)
@@ -98,7 +107,14 @@ App.Views.Query = Backbone.View.extend({
 	},
 
 	setPoint: function(){
-		this.model.set({point: this.$el.find('input[name="point"]').val()})
+        var point = this.$el.find('input[name="point"]');
+        if(point.val() <= 0){
+            swal('Ошибка!',"Балл не может быть меньше или равен 0", 'error');
+            point.val(this.model.get('point'));
+        }else{
+            this.model.set({point: point.val()});
+        }
+
 	},
 
     back_to_test:function(){
@@ -107,23 +123,53 @@ App.Views.Query = Backbone.View.extend({
 
 	saveQuery: function(){
 		var url = '/constructor/test/' + this.test + '/questions/add/';
+        var correct_answer = false;
+        var empry_text_answer = false;
 		data = this.model.toJSON();
-		data['answers'] = JSON.stringify(this.collection.toJSON());
+		data['answers'] = this.collection.toJSON();
 
-		$.post(url, data, $.proxy(function(response){
-			if (response.complite){
-				swal('Сохранено!', 'Данный вопрос был успешно сохранен', 'success');
-				this.collection.reset();
-				this.model.set({
-					text: '',
-					help: '',
-					point: 1
-				});
+        _.each(data.answers, function(answer){
+            if(answer.text.length){
+                empry_text_answer = true;
+            }
 
-				this.$el.find('textarea').val('');
-				this.$el.find('input').val('');
-			}
-		},this))
+            if(answer.correct){
+                correct_answer = true;
+            }
+        })
+
+        if(data.text.length < 5){
+            swal('Ошибка', 'Минимальное количество символов в тексте вопроса - 5', 'error');
+        }else if(data.answers.length == 0){
+            swal('Ошибка', 'Вы не добавиил ни одного ответа', 'error');
+        }else if(data.answers.length < 2){
+            swal('Ошибка', 'Минимальное количество ответов - 2', 'error');
+        }else if(!empry_text_answer){
+            swal('Ошибка', 'Вы не заполнили текст овета в одном из ответов', 'error');
+        }else if(!correct_answer){
+            swal('Ошибка', 'Вы не выбрали ни одного правильного ответа', 'error');
+        }else{
+           data['answers'] = JSON.stringify(data['answers']);
+           $.post(url, data, $.proxy(function(response){
+                if (response.complite){
+                    swal('Сохранено!', 'Данный вопрос был успешно сохранен', 'success');
+                    this.collection.reset();
+                    this.model.set({
+                        text: '',
+                        help: '',
+                        point: 1
+                    });
+
+                    this.$el.find('textarea').val('');
+                    this.$el.find('input').val('');
+                }
+		    },this))
+        }
+
+
+
+
+
 	}
 });
 
