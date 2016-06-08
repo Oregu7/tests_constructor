@@ -1,1 +1,0 @@
-default_app_config = "english_tests.apps.EnglishConfig"

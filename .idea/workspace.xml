@@ -2,8 +2,67 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff6a3485-7018-4188-a548-27cb1a05fd4c" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\admin.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\apps.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\0002_auto_20160406_0744.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\models.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\serializers.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\css\materialize.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\LICENSE.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.woff2" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\Britan.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\USA.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\australia.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\kanada.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\sydney-opera-house-sunset.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\app.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\entities\test.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\tests\list\test_controller.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\tests\list\test_view.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\angular-route.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\jquery-2.1.4.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\materialize.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\underscore-min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_questions.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_test.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_tests.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\english.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\tests.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\urls.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\views.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.sqlite3" afterPath="$PROJECT_DIR$/main.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/application/test_options.js" afterPath="$PROJECT_DIR$/static/application/test_options.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testsConstructor/settings.py" afterPath="$PROJECT_DIR$/testsConstructor/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/urls.py" afterPath="$PROJECT_DIR$/api/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testsConstructor/urls.py" afterPath="$PROJECT_DIR$/testsConstructor/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/views.py" afterPath="$PROJECT_DIR$/api/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="testsConstructor.iws" />
@@ -28,27 +87,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/constructor/models.py">
+      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testsConstructor/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="40" selection-start="3199" selection-end="3199" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
+            <state line="47" column="18" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="2822">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="53" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/testsConstructor/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.74017465" vertical-offset="222" max-vertical-offset="680">
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
-                <element signature="e#128#410#0" expanded="false" />
-                <element signature="e#442#1506#0" expanded="false" />
-                <element signature="e#1539#2148#0" expanded="false" />
-                <element signature="e#2182#2617#0" expanded="false" />
-                <element signature="e#2651#3199#0" expanded="false" />
+                <element signature="e#625#666#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_options.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="105" column="26" selection-start="3580" selection-end="3580" vertical-scroll-proportion="0.6310044" vertical-offset="1496" max-vertical-offset="3366">
-              <folding />
+            <state line="138" column="0" selection-start="5049" selection-end="5049" vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="2737">
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,7 +160,6 @@
         <option value="$PROJECT_DIR$/analytics/__init__.py" />
         <option value="$PROJECT_DIR$/analytics/models.py" />
         <option value="$PROJECT_DIR$/users/models.py" />
-        <option value="$PROJECT_DIR$/testsConstructor/settings.py" />
         <option value="$PROJECT_DIR$/tests/admin.py" />
         <option value="$PROJECT_DIR$/users/admin.py" />
         <option value="$PROJECT_DIR$/constructor/templates/settings.html" />
@@ -101,6 +174,10 @@
         <option value="$PROJECT_DIR$/static/application/edit_question.js" />
         <option value="$PROJECT_DIR$/static/application/query_settings.js" />
         <option value="$PROJECT_DIR$/static/application/test_options.js" />
+        <option value="$PROJECT_DIR$/api/urls.py" />
+        <option value="$PROJECT_DIR$/api/views.py" />
+        <option value="$PROJECT_DIR$/testsConstructor/settings.py" />
+        <option value="$PROJECT_DIR$/testsConstructor/urls.py" />
       </list>
     </option>
   </component>
@@ -156,38 +233,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testsConstructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testsConstructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -453,7 +498,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28380188" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -515,21 +560,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/users/templates/includes/sub_categories.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/application/profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.8150685" vertical-offset="357" max-vertical-offset="2193" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/templates/probationers.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="969" />
@@ -729,13 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testsConstructor/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="29" selection-start="4354" selection-end="4354" vertical-scroll-proportion="0.6940874" vertical-offset="2450" max-vertical-offset="2839">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/constructor/templates/test_options.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.859375" vertical-offset="952" max-vertical-offset="2023">
@@ -835,9 +858,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="26" selection-start="3580" selection-end="3580" vertical-scroll-proportion="0.6310044" vertical-offset="1496" max-vertical-offset="3366">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/constructor/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="40" selection-start="3199" selection-end="3199" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
+        <state line="82" column="40" selection-start="3199" selection-end="3199" vertical-scroll-proportion="0.6200608" vertical-offset="0" max-vertical-offset="329">
           <folding>
             <element signature="e#0#28#0" expanded="true" />
             <element signature="e#128#410#0" expanded="false" />
@@ -849,10 +879,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
+    <entry file="file://$PROJECT_DIR$/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="26" selection-start="3580" selection-end="3580" vertical-scroll-proportion="0.6310044" vertical-offset="1496" max-vertical-offset="3366">
+        <state line="138" column="0" selection-start="5049" selection-end="5049" vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="2737">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testsConstructor/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="18" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="2822">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="53" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testsConstructor/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.74017465" vertical-offset="222" max-vertical-offset="680">
+          <folding>
+            <element signature="e#625#666#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

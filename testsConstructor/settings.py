@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'users',
     'tests',
     'constructor',
-    'english_tests',
     'analytics',
     'loginsys'
 ]

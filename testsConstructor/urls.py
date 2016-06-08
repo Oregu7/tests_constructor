@@ -16,22 +16,19 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from testsConstructor.views import home, excel
-from english_tests.views import index,get_page
 from django.views import static
 from .settings import MEDIA_ROOT, MEDIA_URL
 
 urlpatterns = [
-	url(r'^$', home),
+    url(r'^$', home),
     url(r'^excel/$', excel),
-    url(r'^english/$', index),
-    url(r'^english_tests/(?P<page>\S+)/$', get_page),
     url(r'^analytics/', include('analytics.urls')),
-	url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
-	url(r'^profile/', include('users.urls')),
-	url(r'^constructor/', include('constructor.urls')),
-	url(r'^tests/', include('tests.urls')),
-	url(r'^auth/', include('loginsys.urls'))
+    url(r'^profile/', include('users.urls')),
+    url(r'^constructor/', include('constructor.urls')),
+    url(r'^tests/', include('tests.urls')),
+    url(r'^auth/', include('loginsys.urls'))
 ]
 
 urlpatterns.append(url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}))

@@ -8,8 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib import auth
 
 from constructor.models import Test, Category, Query
-from english_tests.models import Country
-from english_tests.serializers import CountrySerializer
 from analytics.models import Role, Tested, Specialization
 from analytics.serializers import RoleSerializer, SpecializationSerializer, TestedSerializer
 from tests.models import Probationer
@@ -138,12 +136,6 @@ def question_detail(request, test_id, quest_id):
         return Response(status=status.HTTP_200_OK)
     if request.method == 'PUT':
         pass
-
-@api_view(['GET'])
-def country_list(request):
-    countries = Country.objects.all()
-    serializer = CountrySerializer(countries, many=True)
-    return Response(serializer.data)
 
 @api_view(['GET'])
 def role_list(request):
