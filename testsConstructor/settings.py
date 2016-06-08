@@ -87,7 +87,6 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'users/templates'),
             os.path.join(BASE_DIR, 'constructor/templates'),
             os.path.join(BASE_DIR, 'tests/templates'),
-            os.path.join(BASE_DIR, 'english_tests/templates'),
             os.path.join(BASE_DIR, 'analytics/templates')
         ],
         'APP_DIRS': True,
@@ -141,7 +140,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'english_tests/static'),
     os.path.join(BASE_DIR, 'analytics/static'),
     os.path.join(BASE_DIR, 'tests/static')
 ]
