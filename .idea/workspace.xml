@@ -2,67 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff6a3485-7018-4188-a548-27cb1a05fd4c" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\admin.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\apps.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\0002_auto_20160406_0744.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\migrations\__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\models.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\serializers.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\css\materialize.min.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.svg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\material-design-icons\Material-Design-Icons.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Bold.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Light.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Medium.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.eot" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.ttf" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.woff" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\font\roboto\Roboto-Thin.woff2" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\Britan.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\USA.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\australia.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\kanada.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\images\sydney-opera-house-sunset.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\app.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\entities\test.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\tests\list\test_controller.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\tests\list\test_view.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\angular-route.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\jquery-2.1.4.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\materialize.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\static\js\vendor\underscore-min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_questions.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_test.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\eng_tests.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\templates\english.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\tests.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\urls.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Олег\DjangoProj\tests_constructor\english_tests\views.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.sqlite3" afterPath="$PROJECT_DIR$/main.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testsConstructor/settings.py" afterPath="$PROJECT_DIR$/testsConstructor/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/urls.py" afterPath="$PROJECT_DIR$/api/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testsConstructor/urls.py" afterPath="$PROJECT_DIR$/testsConstructor/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/views.py" afterPath="$PROJECT_DIR$/api/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="testsConstructor.iws" />
@@ -96,33 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/urls.py">
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="53" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+            <state line="1" column="6" selection-start="53" selection-end="53" vertical-scroll-proportion="0.044736844" vertical-offset="0" max-vertical-offset="380">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/testsConstructor/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.74017465" vertical-offset="222" max-vertical-offset="680">
-              <folding>
-                <element signature="e#625#666#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="0" selection-start="5049" selection-end="5049" vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="2737">
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -178,6 +96,7 @@
         <option value="$PROJECT_DIR$/api/views.py" />
         <option value="$PROJECT_DIR$/testsConstructor/settings.py" />
         <option value="$PROJECT_DIR$/testsConstructor/urls.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -187,10 +106,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="x" value="205" />
+    <option name="y" value="130" />
+    <option name="width" value="1251" />
+    <option name="height" value="747" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -497,19 +416,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="205" y="130" width="1251" height="747" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28380188" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34304208" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32838285" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2925398" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35207498" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35207498" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931727" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -560,11 +479,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/users/templates/probationers.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="969" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="119" column="73" selection-start="5704" selection-end="5704" vertical-scroll-proportion="0.0" vertical-offset="1734" max-vertical-offset="2924">
@@ -879,15 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="0" selection-start="5049" selection-end="5049" vertical-scroll-proportion="0.0" vertical-offset="1989" max-vertical-offset="2737">
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testsConstructor/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="18" selection-start="1282" selection-end="1282" vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="2822">
@@ -904,10 +809,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testsConstructor/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.74017465" vertical-offset="222" max-vertical-offset="680">
+        <state line="33" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
           <folding>
             <element signature="e#625#666#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="138" column="0" selection-start="5049" selection-end="5049" vertical-scroll-proportion="0.70137525" vertical-offset="1989" max-vertical-offset="2737">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="6" selection-start="53" selection-end="53" vertical-scroll-proportion="0.044736844" vertical-offset="0" max-vertical-offset="380">
+          <folding />
         </state>
       </provider>
     </entry>
