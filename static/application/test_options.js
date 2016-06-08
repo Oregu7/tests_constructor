@@ -98,6 +98,13 @@ App.controller('OptionsCtr', function($scope, $http){
 
             var result = searchQuestion(question, option.questions);
             option.questions.splice(result.index, 1);
+            if(!option.questions.length && option.public_access){
+                //закрываем доступ
+                $http.post('', {option: option.id, access: false, action: 'editOptionAccess'})
+                        .then(function(response){
+                            option.public_access = false;
+                        })
+            }
         }
 
         $scope.allQuestion = option.questions.length == $scope.data.questions.length ? false : true;
@@ -113,6 +120,13 @@ App.controller('OptionsCtr', function($scope, $http){
                     question.inOption = false;
                 })
             })
+
+        //закрываем доступ
+        $http.post('', {option: option.id, access: false, action: 'editOptionAccess'})
+                .then(function(response){
+                    console.log(response)
+                    option.public_access = false;
+                })
 
     }
 
