@@ -32,7 +32,6 @@ LOGIN_URL = '/auth/login/'
 
 INSTALLED_APPS = [
     'suit',
-    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
