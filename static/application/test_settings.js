@@ -9,7 +9,6 @@ App.Models.Settings = Backbone.Model.extend({
 		title: '',
 		description: '',
 		category: '',
-		quest_count: 10,
 		helps: false,
 		timeCompl: 0,
 		two_mark: 25,
@@ -28,7 +27,6 @@ App.Views.Settings = Backbone.View.extend({
 			timeCompl: this.$el.find('input[name="time"]'),
 			description: this.$el.find('textarea[name="description"]'),
 			category: this.$el.find('select[name="category"]'),
-			quest_count: this.$el.find('input[name="quest_count"]'),
 			marks: {
 				two: this.$el.find('input[name="two_mark"]'),
 				three: [this.$el.find('input[name="three_mark_b"]'), this.$el.find('input[name="three_mark"]')],
@@ -48,7 +46,7 @@ App.Views.Settings = Backbone.View.extend({
 		'change input[name="three_mark"]': 'changeThreeMark',
 		'change input[name="four_mark"]': 'changeFourMark',
 		'click #edit_test' : 'edit_test',
-		'change input[name="quest_count"]': 'setQuestCount',
+        'click #delete_test': 'delete_test',
         'change input[name="time"]': 'setTime'
 	},
 
@@ -123,8 +121,7 @@ App.Views.Settings = Backbone.View.extend({
 				two_mark: this.fields.marks.two.val(),
 				three_mark: this.fields.marks.three[1].val(),
 				four_mark: this.fields.marks.four[1].val(),
-				category: this.fields.category.val(),
-                quest_count: this.fields.quest_count.val()
+				category: this.fields.category.val()
 			});
 
 			$.post('', this.model.toJSON(), function(data){
@@ -133,15 +130,28 @@ App.Views.Settings = Backbone.View.extend({
 		}	
 	},
 
-	setQuestCount: function(){
-		var that = this;
-		if (that.fields.quest_count.val() < 1){
-			swal('Ошибка!', "Количество вопросов должно быть больше 0!", "error")
-			that.fields.quest_count.val(that.model.get('quest_count'))
-		}else{
-			that.model.set('quest_count', that.fields.quest_count.val())
-		}
-	},
+    delete_test: function(){
+        var testId = $('#delete_test').attr('data-testID');
+        swal({
+			title: 'Удаление теста',
+			text: 'Вы точно хотите удалить данный тест?',
+			type: 'error',
+			showCancelButton: true,
+			confirmButtonColor: "#EE3B3B",
+			confirmButtonText: 'Да, удалить его!',
+			cancelButtonText: 'Нет, не надо!',
+			closeOnConfirm: false,
+			closeOnCancel: false
+			},
+
+			function(isConfirm){
+				if(isConfirm){
+					window.location.assign('/constructor/test/' + testId + '/delete/');
+				}else{
+					swal("Отмена", "Данный тест не будет удален :)", "success");
+				}
+			});
+    },
 
     setTime: function(){
         var that = this;

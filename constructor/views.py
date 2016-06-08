@@ -12,6 +12,7 @@ from .serializers import OptionSerializer, QuestionSerializer
 from users.models import Specialization, Group
 from users.serializers import SpecializationSerializer, GroupSerializer
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from rest_framework import status
 import json
 
@@ -42,7 +43,6 @@ def create_test(request):
                 time_completion = str_to_bool(request.POST['timeCompl']),
                 creator = auth.get_user(request),
                 category = category,
-                questions_count = request.POST['quest_count'],
                 two_mark = request.POST['two_mark'],
                 three_mark = request.POST['three_mark'],
                 four_mark = request.POST['four_mark']
@@ -71,7 +71,6 @@ def settings_test(request, id):
             test.three_mark = request.POST['three_mark']
             test.four_mark = request.POST['four_mark']
             test.category = category
-            test.questions_count = request.POST['quest_count']
             test.save()
 
             return JsonResponse({'success': 'Данные сохранены!'})
@@ -306,3 +305,12 @@ def test_options(request, id):
             return render_to_response('test_options.html', data)
     else:
         return Http404('Вы не имете доступа!')
+
+@login_required
+def delete_test(request, id):
+    test = get_object_or_404(Test, id=id)
+    if request.user == test.creator:
+        test.delete()
+        return redirect('/profile/')
+    else:
+        raise Http404('Вы не являетесь создателем теста!')

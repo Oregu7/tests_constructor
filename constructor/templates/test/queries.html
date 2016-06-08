@@ -52,11 +52,11 @@
 	$('.like.corner').on('click', function(){
 		var queryID = $(this).attr('data-id');
 		swal({
-			title: 'Удалить вопрос',
+			title: 'Удаление вопроса',
 			text: 'Вы точно хотите удалить данный вопрос?',
-			type: 'warning',
+			type: 'error',
 			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
+			confirmButtonColor: "#EE3B3B",
 			confirmButtonText: 'Да, удалить его!',
 			cancelButtonText: 'Нет, не надо!',
 			closeOnConfirm: false,   
@@ -67,7 +67,7 @@
 				if(isConfirm){
 					window.location.assign('delete/' + queryID + '/')
 				}else{
-					swal("Отмена", "Данный вопрос не будет удален :)", "error");
+					swal("Отмена", "Данный вопрос не будет удален :)", "success");
 				}
 			});
 	});

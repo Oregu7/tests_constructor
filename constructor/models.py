@@ -19,7 +19,6 @@ class Test(models.Model):
     time_completion = models.IntegerField(default=20, verbose_name="Ограничение по времени")
     creator = models.ForeignKey(User, verbose_name="Создатель")
     category = models.ForeignKey(Category, blank=True, null=True, verbose_name="Категория")
-    questions_count = models.IntegerField(blank=True, null=True)
     date = models.DateTimeField(auto_now=True, verbose_name="Дата создания")
     group_access = models.ManyToManyField(Group, blank=True, verbose_name="Групповой доступ")
     two_mark = models.IntegerField(verbose_name="Двойка (до %)")
@@ -68,7 +67,6 @@ class Answer(models.Model):
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"
-
 
 class Option(models.Model):
     number = models.IntegerField(default=1, verbose_name="Номер")

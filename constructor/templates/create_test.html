@@ -20,9 +20,10 @@
 			
 			{% include 'settings.html' %}
 			{% if test %}
-			<button class="ui button" id = 'edit_test' data-testID = "{{test.id}}">Сохранить</button>
+			<button class="ui green button" id = 'edit_test' data-testID = "{{test.id}}">Сохранить</button>
+            <button class="ui red button" id = 'delete_test' data-testID = "{{test.id}}">Удалить</button>
 			{% else %}
-			<button class="ui button" id = 'create_test'>Создать</button>
+			<button class="ui blue button" id = 'create_test'>Создать</button>
 			{% endif %}
 			
 		</div>
