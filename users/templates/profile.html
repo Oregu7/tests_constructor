@@ -8,6 +8,9 @@
 
 {% block content %}
 <div class="ui grid" ng-app = "profileApp" ng-controller="ProfileCntr">
+    <div class="ui active dimmer" ng-if="loader">
+        <div class="ui large text loader">Загрузка</div>
+    </div>
 	<div class="one wide column"></div>
     <div class="four wide column">
         {% include 'includes/user_information.html' %}
@@ -18,9 +21,8 @@
             <i class="search icon"></i>
         </div>
         {% verbatim %}
-		<div class="ui divided items" ng-if="data.user.is_staff || data.user.is_superuser" ng-cloak>
-			<div class="item" ng-repeat = "test in data.tests | filter : {title : filters.title, category: { url: filters.category}}
-            | filter : paginationFilter(pagination.currentPage) as filteredData">
+		<div class="ui divided items" ng-show="data.user.is_staff || data.user.is_superuser" ng-cloak>
+			<div class="item" ng-repeat = "test in data.tests | filter : {title : filters.title, category: { url: filters.category}} as filteredData">
 				<div class="content">
 					<a class="header">{{test.title}}</a>
 					<div class="description">
@@ -49,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-        <table class="ui celled table" ng-if="!data.user.is_staff && !data.user.is_superuser">
+        <table class="ui celled table" ng-show="!data.user.is_staff && !data.user.is_superuser">
             <thead>
                 <tr>
                     <th>Тест</th>
@@ -101,7 +103,12 @@
                 </tr>
             </tfoot>
         </table>
-        <div class="ui pagination menu" ng-if="data.user.is_staff || data.user.is_superuser" ng-show="pagination.countPages" ng-cloak>
+        <h2 class="ui header aligned center" ng-if="!filteredData.length">
+            Данные отсутствуют
+        </h2>
+        <div class="ui pagination menu"
+             ng-if="data.user.is_staff || data.user.is_superuser"
+             ng-show="pagination.countPages && filteredData.length" ng-cloak>
             <a class="icon item">
               <i class="left chevron icon"></i>
             </a>

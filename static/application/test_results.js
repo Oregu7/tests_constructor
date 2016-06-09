@@ -26,8 +26,6 @@ App = angular.module('testResults', ['ngRoute'])
 
 App.controller('TestedsCtr', function($scope, $http, $rootScope){
     var init = function(){
-        $scope.loader = true;
-
         $scope.filters = {
             sortField: false,
             reverse: false,

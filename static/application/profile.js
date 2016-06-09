@@ -7,9 +7,27 @@ App = angular.module('profileApp', [])
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         }])
 
-App.controller('ProfileCntr', function($scope, $http){
+
+App.filter('paginationFilter', function(){
+        return function(page, pagination, items){
+            var response = [];
+            previousPage = page-1;
+            previousLastIndex = pagination.countItems * previousPage;
+            currentLastIndex = (pagination.countItems * page) - 1;
+            for (i=0;i<items.length;i++){
+                if (i >= previousLastIndex && i <= currentLastIndex){
+                    response.push(items[i])
+                }
+            }
+
+            return response;
+
+        }
+})
+
+App.controller('ProfileCntr', function($scope, $http, $filter){
     var init = function(){
-        $scope.image = "";
+        $scope.loader = true;
 
         $scope.filters = {
             title: '',
@@ -28,7 +46,7 @@ App.controller('ProfileCntr', function($scope, $http){
             .then(function(response){
                 $scope.data = response.data;
                 if ($scope.data.user.is_staff || $scope.data.user.is_superuser){
-                    $scope.pagination.countItems = 15;
+                    $scope.pagination.countItems = 1;
                     $scope.pagination.countPages = Math.ceil($scope.data.tests.length / $scope.pagination.countItems);
                 }else{
                     $scope.pagination.countItems = 30;
@@ -39,19 +57,28 @@ App.controller('ProfileCntr', function($scope, $http){
                     $scope.pagination.pages.push(i)
                 }
 
-                if(!$scope.data.user.is_staff && !$scope.data.user.is_superuser){
-                    $scope.image = "/media/images/_318-61897.jpg";
-                }else if($scope.data.user.is_staff && !$scope.data.user.is_superuser){
-                    $scope.image = "/media/images/_318-62221.jpg";
-                }else{
-                    $scope.image = "/media/images/one-punch-man-chelovek-v-odin.jpg";
-                }
+
+                $scope.loader = false;
             })
 
         $scope.$watch('filteredData', function() {
             if ($scope.filteredData) {
                 console.log($scope.filteredData);
-                $scope.filteredData.slice(0,1)
+                $scope.pagination.countPages = Math.ceil($scope.filteredData.length / $scope.pagination.countItems);
+                if($scope.pagination.countPages){
+                    $scope.pagination.pages.splice(0, $scope.pagination.pages.length);
+
+                    for(i=1; i<= $scope.pagination.countPages; i++){
+                        $scope.pagination.pages.push(i)
+                    }
+
+                    $scope.pagination.currentPage = 1;
+                    //filters in controller
+                    $filter('paginationFilter')(2,$scope.pagination,$scope.filteredData);
+                    var data = $filter('filter')($scope.data.tests, {title : $scope.filters.title, category: { url: $scope.filters.category}});
+                    console.log(data);
+                    //end
+                }
             }
         });
 
@@ -64,19 +91,6 @@ App.controller('ProfileCntr', function($scope, $http){
 
     $scope.setPage = function(page){
         $scope.pagination.currentPage = page;
-    }
-
-    $scope.paginationFilter = function(page){
-        return function(item, index){
-            previousPage = page-1;
-            previousLastIndex = $scope.pagination.countItems * previousPage;
-            currentLastIndex = ($scope.pagination.countItems * page) - 1;
-            if (index >= previousLastIndex && index <= currentLastIndex){
-                return true
-            }else{
-                return false
-            }
-        }
     }
 
     $scope.downloadResult = function(id){
