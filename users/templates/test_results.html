@@ -9,14 +9,17 @@
 {%endblock%}
 
 {%block content%}
-<div class="ui grid">
+<div class="ui grid" ng-app = "testResults" ng-controller="TestedsCtr">
+    <div class="ui active dimmer" ng-if="loader">
+        <div class="ui large text loader">Загрузка</div>
+    </div>
 	<div class="two wide column"></div>
 	<div class="twelve wide column">
 		<h2 class="ui header">
 			<i class="bar chart icon"></i>
 			<div class="content">Результаты теста - "{{test.title}}" </div>
 		</h2>
-		<div id="results" ng-app = "testResults">
+		<div id="results">
             {% csrf_token %}
 			<ng-view></ng-view>
 		</div>

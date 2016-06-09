@@ -24,12 +24,10 @@ App = angular.module('testResults', ['ngRoute'])
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }])
 
-App.filter('dateRangeFilter', function(){
-
-})
-
 App.controller('TestedsCtr', function($scope, $http, $rootScope){
     var init = function(){
+        $scope.loader = true;
+
         $scope.filters = {
             sortField: false,
             reverse: false,
@@ -51,6 +49,7 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
                 //response.data.specializations.unshift({name: 'Все', code: ''});
                 response.data.courses.unshift({id: '', name: 'Все'});
                 $scope.data = response.data;
+                $scope.loader = false;
             })
 
         $rootScope.$on('$viewContentLoaded',function(){
@@ -62,7 +61,6 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
     $scope.dateRangeFilter = function(dateF, dateL){
         return function(item){
             var item_date = moment(item.date).format("YYYY-MM-DD");
-            console.log(item_date)
             if(dateF && !dateL){
                 var df = moment(dateF).format("YYYY-MM-DD");
                 if (item_date >= df){
