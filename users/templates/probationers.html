@@ -6,36 +6,78 @@
 {% include 'includes/testeds_filter.html' %}
 {% verbatim %}
 <h2>Найденно - {{ filteredTesteds.length }}</h2>
+<div class="ui right floated icon input">
+  <input type="text" placeholder="Поиск по фамилии" ng-model="filters.lastName">
+  <i class="search icon"></i>
+</div>
 <table class = "ui compact celled definition table">
     <thead class="full-width">
-        <th>Вариант</th>
-        <th>Группа</th>
-        <th>Тестируемый</th>
-        <th>Оценка</th>
-        <th>Процент(%)</th>
-        <th>Дата</th>
+        <th ng-click = "sortByField('option.number')">
+            <a href="">Вариант</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'option.number' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'option.number' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
+        <th ng-click = "sortByField('user.study_group.name')">
+            <a href="">Группа</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'user.study_group.name' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'user.study_group.name' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
+        <th ng-click = "sortByField('user.last_name')">
+            <a href="">Тестируемый</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'user.last_name' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'user.last_name' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
+        <th ng-click = "sortByField('mark')">
+            <a href="">Оценка</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'mark' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'mark' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
+        <th ng-click = "sortByField('precent')">
+            <a href="">Процент(%)</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'precent' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'precent' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
+        <th ng-click = "sortByField('date')">
+            <a href="">Дата</a>
+            <i class="caret up icon" ng-if = "filters.sortField == 'date' && !filters.reverse"></i>
+            <i class="caret down icon" ng-if = "filters.sortField == 'date' && filters.reverse"></i>
+            <i class="filter icon"></i>
+        </th>
         <th></th>
     </thead>
     <tbody>
         <tr ng-repeat = "tested in data.testeds |filter:dateRangeFilter(filters.date.first,filters.date.last)
             | filter : {
-                user : { study_group : { id : filters.group, course : filters.course, specialization : {code: filters.specialization} } },
+                user : { last_name: filters.lastName, study_group : { id : filters.group, course : filters.course, specialization : {code: filters.specialization} } },
                 option : {id : filters.option},
                 mark : filters.mark
-            } as filteredTesteds ">
+            } |orderBy:filters.sortField:filters.reverse as filteredTesteds">
             <td>{{ tested.option.number }}</td>
             <td>{{ tested.user.study_group.name }}</td>
             <td>{{ tested.user.last_name }} {{ tested.user.first_name }}</td>
             <td>{{ tested.mark }}</td>
             <td>{{ tested.precent }} %</td>
-            <td>{{ tested.date | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
             <td>
-                <button class="ui icon blue button" ng-click="printResultTested(tested.id)">
-                    <i class="print icon"></i>
-                </button>
-                <a class="ui green button" href="#/{{ tested.id }}">
-                    Подробнее
+                <a class="ui teal label">
+                    {{ tested.date | date : 'dd.MM.yyyy'}}
+                    <div class="detail">{{ tested.date | date : 'HH:mm:ss'}}</div>
                 </a>
+            </td>
+            <td>
+                <div class="ui buttons">
+                    <a class="ui icon button" ng-click="printResultTested(tested.id)">
+                        <i class="print icon"></i>
+                    </a>
+                    <a class="ui twitter button" href="#/{{ tested.id }}">
+                        Подробнее
+                    </a>
+                </div>
+
                 <form method="post" id = "printResultTested"></form>
             </td>
         </tr>
@@ -44,7 +86,7 @@
     <tfoot class="full-width">
         <tr>
             <th colspan="7">
-                <button class="ui red inverted button" ng-click = "sendTesteds()">Отчет</button>
+                <button class="ui google plus button" ng-click = "sendTesteds()">Отчет</button>
             </th>
         </tr>
     </tfoot>

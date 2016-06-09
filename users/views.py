@@ -4,9 +4,9 @@ from testsConstructor.helpers import check_sign_in, models_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
 from constructor.models import Test, Option, Query
-from constructor.serializers import OptionSecondSerializer, OptionSerializer, QuerySerializer, TestSerializer, CategorySerializer
+from constructor.serializers import OptionSecondSerializer, OptionSerializer, QuerySerializer, TestSerializer, CategorySerializer, OptionThreedSerializer
 from tests.models import Probationer
-from tests.serializers import ProbationerSerializer, ProbationerSecondSerializer
+from tests.serializers import ProbationerSerializer, ProbationerSecondSerializer, TestedSerializer
 from .models import Group, Specialization
 from .serializers import GroupSerializer, SpecializationSerializer, UserSerializer
 from django.contrib.auth.decorators import login_required
@@ -52,8 +52,8 @@ def test_results(request, id):
             groups = GroupSerializer(Group.objects.all().order_by('course','name'), many=True).data
             courses = list(map(lambda x: {'id': x, 'name': str(x)}, range(1, 5)))
             marks = list(map(lambda x: {'id': x, 'name': str(x)}, range(2, 6)))
-            probationers = ProbationerSerializer(Probationer.objects.filter(option__test=test).order_by('-date'), many=True)
-            options = OptionSerializer(Option.objects.filter(test=test), many=True).data
+            probationers = TestedSerializer(Probationer.objects.filter(option__test=test).order_by('-date'), many=True)
+            options = OptionThreedSerializer(Option.objects.filter(test=test), many=True).data
             return JsonResponse({
                 'testeds': probationers.data,
                 'specializations': specializations,

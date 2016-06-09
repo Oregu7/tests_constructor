@@ -9,6 +9,8 @@ App = angular.module('profileApp', [])
 
 App.controller('ProfileCntr', function($scope, $http){
     var init = function(){
+        $scope.image = "";
+
         $scope.filters = {
             title: '',
             category: '',
@@ -35,6 +37,14 @@ App.controller('ProfileCntr', function($scope, $http){
 
                 for(i=1; i<= $scope.pagination.countPages; i++){
                     $scope.pagination.pages.push(i)
+                }
+
+                if(!$scope.data.user.is_staff && !$scope.data.user.is_superuser){
+                    $scope.image = "/media/images/_318-61897.jpg";
+                }else if($scope.data.user.is_staff && !$scope.data.user.is_superuser){
+                    $scope.image = "/media/images/_318-62221.jpg";
+                }else{
+                    $scope.image = "/media/images/one-punch-man-chelovek-v-odin.jpg";
                 }
             })
 

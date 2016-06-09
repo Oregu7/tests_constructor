@@ -1,9 +1,7 @@
 {% verbatim %}
 <div class="ui card">
   <div class="image">
-      <img src="/media/images/_318-61897.jpg" ng-if="!data.user.is_staff && !data.user.is_superuser"/>
-      <img src="/media/images/_318-62221.jpg" ng-if="data.user.is_staff && !data.user.is_superuser"/>
-      <img src="/media/images/one-punch-man-chelovek-v-odin.jpg" ng-if="data.user.is_superuser"/>
+      <img src="{{ image }}" ng-show="image" alt="Пользователь"/>
   </div>
   <div class="content">
     <a class="header">{{ data.user.last_name }} {{ data.user.first_name }}</a>

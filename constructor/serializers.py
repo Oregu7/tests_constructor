@@ -44,6 +44,11 @@ class OptionSecondSerializer(serializers.ModelSerializer):
     class Meta:
         model = Option
 
+class OptionThreedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
+        fields = ('id', 'number')
+
 class TestSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     class Meta:

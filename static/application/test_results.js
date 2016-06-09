@@ -31,11 +31,14 @@ App.filter('dateRangeFilter', function(){
 App.controller('TestedsCtr', function($scope, $http, $rootScope){
     var init = function(){
         $scope.filters = {
+            sortField: false,
+            reverse: false,
             specialization: '',
             course: '',
             group: '',
             option: '',
             mark: '',
+            lastName:'',
             testeds: '',
             date: {
                 first: '',
@@ -100,6 +103,15 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope){
 
     $scope.printResultTested = function(tested){
         $('#printResultTested').attr('action', '/profile/tested/' + tested + '/').submit()
+    }
+
+    $scope.sortByField = function(fieldName){
+        if(fieldName == $scope.filters.sortField){
+            $scope.filters.reverse = !$scope.filters.reverse;
+        }else{
+            $scope.filters.sortField = fieldName;
+            $scope.revers = false;
+        }
     }
 
     init()
