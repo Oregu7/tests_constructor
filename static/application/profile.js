@@ -46,55 +46,80 @@ App.controller('ProfileCntr', function($scope, $http, $filter){
             .then(function(response){
                 $scope.data = response.data;
                 if ($scope.data.user.is_staff || $scope.data.user.is_superuser){
-                    $scope.pagination.countItems = 1;
-                    $scope.pagination.countPages = Math.ceil($scope.data.tests.length / $scope.pagination.countItems);
+                    $scope.pagination.countItems = 5;
                 }else{
-                    $scope.pagination.countItems = 30;
-                    $scope.pagination.countPages = Math.ceil($scope.data.tested_results.length / $scope.pagination.countItems);
+                    $scope.pagination.countItems = 20;
                 }
+
+                filterAll(1);
+                $scope.loader = false;
+            })
+    }
+
+    var filterAll = function(page){
+        if(!$scope.data.user.is_staff && !$scope.data.user.is_superuser){
+           var filteredData = $filter('filter')($scope.data.tested_results, {
+              option : { test : {title : $scope.filters.title, category : {url : $scope.filters.category} } }
+           })
+        }else{
+           var filteredData = $filter('filter')($scope.data.tests, {title : $scope.filters.title, category: { url: $scope.filters.category}});
+        }
+        $scope.pagination.countPages = Math.ceil(filteredData.length / $scope.pagination.countItems);
+        if($scope.pagination.countPages){
+                $scope.pagination.pages.splice(0, $scope.pagination.pages.length);
 
                 for(i=1; i<= $scope.pagination.countPages; i++){
                     $scope.pagination.pages.push(i)
                 }
 
-
-                $scope.loader = false;
-            })
-
-        $scope.$watch('filteredData', function() {
-            if ($scope.filteredData) {
-                console.log($scope.filteredData);
-                $scope.pagination.countPages = Math.ceil($scope.filteredData.length / $scope.pagination.countItems);
-                if($scope.pagination.countPages){
-                    $scope.pagination.pages.splice(0, $scope.pagination.pages.length);
-
-                    for(i=1; i<= $scope.pagination.countPages; i++){
-                        $scope.pagination.pages.push(i)
-                    }
-
-                    $scope.pagination.currentPage = 1;
-                    //filters in controller
-                    $filter('paginationFilter')(2,$scope.pagination,$scope.filteredData);
-                    var data = $filter('filter')($scope.data.tests, {title : $scope.filters.title, category: { url: $scope.filters.category}});
-                    console.log(data);
-                    //end
-                }
-            }
-        });
+                //filters in controller
+                $scope.filteredData = $filter('paginationFilter')(page ,$scope.pagination,filteredData);
+        }else{
+            $scope.filteredData.splice(0,$scope.filteredData.length);
+        }
 
     }
 
     $scope.setCategory = function(category){
         $scope.pagination.currentPage = 1;
         $scope.filters.category = category;
+        filterAll(1);
     }
 
     $scope.setPage = function(page){
         $scope.pagination.currentPage = page;
+        filterAll(page);
+    }
+
+    $scope.searchTitle = function(){
+        $scope.pagination.currentPage = 1;
+        filterAll(1);
     }
 
     $scope.downloadResult = function(id){
         $('#downloadResultForm').attr('action', '/profile/tested/'+id+'/').submit()
+    }
+
+    $scope.next = function(){
+        var nextPage = $scope.pagination.currentPage + 1;
+        if(nextPage <= $scope.pagination.countPages){
+            $scope.pagination.currentPage = nextPage;
+            filterAll(nextPage);
+        }else{
+            $scope.pagination.currentPage = 1;
+            filterAll(1);
+        }
+    }
+
+    $scope.back = function(){
+        var previousPage = $scope.pagination.currentPage - 1;
+        if (previousPage != 0){
+            $scope.pagination.currentPage = previousPage;
+            filterAll(previousPage);
+        }else{
+            $scope.pagination.currentPage = $scope.pagination.countPages;
+            filterAll($scope.pagination.countPages);
+        }
     }
 
     init()
