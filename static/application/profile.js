@@ -75,7 +75,7 @@ App.controller('ProfileCntr', function($scope, $http, $filter){
                 //filters in controller
                 $scope.filteredData = $filter('paginationFilter')(page ,$scope.pagination,filteredData);
         }else{
-            $scope.filteredData.splice(0,$scope.filteredData.length);
+            $scope.filteredData = [];
         }
 
     }
