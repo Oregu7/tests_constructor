@@ -24,7 +24,8 @@ App = angular.module('testResults', ['ngRoute'])
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }])
 
-App.controller('TestedsCtr', function($scope, $http, $rootScope){
+App.controller('TestedsCtr', function($scope, $http, $rootScope, $timeout){
+    $scope.loader = true;
     var init = function(){
         $scope.filters = {
             sortField: false,

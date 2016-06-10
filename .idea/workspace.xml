@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff6a3485-7018-4188-a548-27cb1a05fd4c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.sqlite3" afterPath="$PROJECT_DIR$/main.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/profile.html" afterPath="$PROJECT_DIR$/users/templates/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/application/profile.js" afterPath="$PROJECT_DIR$/static/application/profile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/probationers.html" afterPath="$PROJECT_DIR$/users/templates/probationers.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/application/test_results.js" afterPath="$PROJECT_DIR$/static/application/test_results.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/includes/testeds_filter.html" afterPath="$PROJECT_DIR$/users/templates/includes/testeds_filter.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="testsConstructor.iws" />
@@ -41,31 +41,30 @@
       <file leaf-file-name="probationers.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/users/templates/probationers.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="16" selection-start="3468" selection-end="3656" vertical-scroll-proportion="2.8076923" vertical-offset="1178" max-vertical-offset="1683">
+            <state line="7" column="22" selection-start="256" selection-end="256" vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="1632">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/templates/profile.html">
+      <file leaf-file-name="testeds_filter.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/users/templates/includes/testeds_filter.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="93" selection-start="1980" selection-end="1980" vertical-scroll-proportion="-10.153846" vertical-offset="144" max-vertical-offset="952">
-              <folding>
-                <element signature="tag#div#1;tag#div#3;tag#div#0" expanded="false" />
-                <element signature="tag#table#0;tag#div#3;tag#div#0" expanded="false" />
-              </folding>
+            <state line="2" column="22" selection-start="45" selection-end="45" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="1853">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/application/profile.js">
+      <file leaf-file-name="test_results.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/application/test_results.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="52" selection-start="1582" selection-end="1582" vertical-scroll-proportion="0.66019416" vertical-offset="323" max-vertical-offset="1615">
+            <state line="50" column="38" selection-start="1589" selection-end="1589" vertical-scroll-proportion="0.6286408" vertical-offset="591" max-vertical-offset="1513">
               <folding>
-                <element signature="e#402#887#0" expanded="false" />
-                <element signature="e#1729#2785#0" expanded="false" />
+                <element signature="e#1814#2801#0" expanded="false" />
+                <element signature="e#2838#3110#0" expanded="false" />
+                <element signature="e#3159#3257#0" expanded="false" />
+                <element signature="e#3303#3533#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -123,13 +122,14 @@
         <option value="$PROJECT_DIR$/tests/serializers.py" />
         <option value="$PROJECT_DIR$/users/views.py" />
         <option value="$PROJECT_DIR$/templates/includes/header.html" />
-        <option value="$PROJECT_DIR$/users/templates/probationers.html" />
         <option value="$PROJECT_DIR$/constructor/templates/settings.html" />
         <option value="$PROJECT_DIR$/users/templates/test_results.html" />
-        <option value="$PROJECT_DIR$/static/application/test_results.js" />
         <option value="$PROJECT_DIR$/users/templates/includes/user_information.html" />
         <option value="$PROJECT_DIR$/users/templates/profile.html" />
         <option value="$PROJECT_DIR$/static/application/profile.js" />
+        <option value="$PROJECT_DIR$/users/templates/includes/testeds_filter.html" />
+        <option value="$PROJECT_DIR$/users/templates/probationers.html" />
+        <option value="$PROJECT_DIR$/static/application/test_results.js" />
       </list>
     </option>
   </component>
@@ -186,38 +186,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testsConstructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testsConstructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests_constructor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -544,11 +512,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/loginsys/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="48" selection-start="2771" selection-end="2771" vertical-scroll-proportion="0.46401986" vertical-offset="748" max-vertical-offset="2380" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/loginsys/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="23" selection-start="192" selection-end="204" vertical-scroll-proportion="0.1923077" vertical-offset="0" max-vertical-offset="442" />
@@ -736,7 +699,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/users/templates/tested_result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.7354167" vertical-offset="833" max-vertical-offset="1462" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.7354167" vertical-offset="833" max-vertical-offset="1462">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/application/test_options.js">
@@ -772,16 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/application/test_results.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="26" selection-start="900" selection-end="900" vertical-scroll-proportion="-0.60714287" vertical-offset="663" max-vertical-offset="2108">
-          <folding>
-            <element signature="e#2802#3074#0" expanded="false" />
-            <element signature="e#3123#3221#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/users/templates/includes/user_information.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="43" selection-start="102" selection-end="102" vertical-scroll-proportion="-0.6361746" vertical-offset="357" max-vertical-offset="969" />
@@ -801,29 +756,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/probationers.html">
+    <entry file="file://$PROJECT_DIR$/static/application/profile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="16" selection-start="3468" selection-end="3656" vertical-scroll-proportion="2.8076923" vertical-offset="1178" max-vertical-offset="1683">
-          <folding />
+        <state line="50" column="52" selection-start="1582" selection-end="1582" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1615">
+          <folding>
+            <element signature="e#402#887#0" expanded="false" />
+            <element signature="e#1729#2785#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/templates/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="93" selection-start="1980" selection-end="1980" vertical-scroll-proportion="-10.153846" vertical-offset="144" max-vertical-offset="952">
-          <folding>
-            <element signature="tag#div#1;tag#div#3;tag#div#0" expanded="false" />
-            <element signature="tag#table#0;tag#div#3;tag#div#0" expanded="false" />
-          </folding>
+        <state line="53" column="93" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.68393785" vertical-offset="144" max-vertical-offset="952">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/application/profile.js">
+    <entry file="file://$PROJECT_DIR$/users/templates/includes/testeds_filter.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="52" selection-start="1582" selection-end="1582" vertical-scroll-proportion="0.66019416" vertical-offset="323" max-vertical-offset="1615">
+        <state line="2" column="22" selection-start="45" selection-end="45" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="1853">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/templates/probationers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="22" selection-start="256" selection-end="256" vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="1632">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/application/test_results.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="38" selection-start="1589" selection-end="1589" vertical-scroll-proportion="0.6286408" vertical-offset="591" max-vertical-offset="1513">
           <folding>
-            <element signature="e#402#887#0" expanded="false" />
-            <element signature="e#1729#2785#0" expanded="false" />
+            <element signature="e#1814#2801#0" expanded="false" />
+            <element signature="e#2838#3110#0" expanded="false" />
+            <element signature="e#3159#3257#0" expanded="false" />
+            <element signature="e#3303#3533#0" expanded="false" />
           </folding>
         </state>
       </provider>
