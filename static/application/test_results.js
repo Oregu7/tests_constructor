@@ -24,8 +24,67 @@ App = angular.module('testResults', ['ngRoute'])
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }])
 
-App.controller('TestedsCtr', function($scope, $http, $rootScope, $timeout){
-    $scope.loader = true;
+
+App.factory('loaderFactory', function(){
+    return {
+        active: true
+    }
+})
+
+App.filter('paginationFilter', function(){
+    return function(page, pagination, items){
+        var response = [];
+        previousPage = page-1;
+        previousLastIndex = pagination.countItems * previousPage;
+        currentLastIndex = (pagination.countItems * page) - 1;
+        for (i=0;i<items.length;i++){
+            if (i >= previousLastIndex && i <= currentLastIndex){
+                response.push(items[i])
+            }
+        }
+
+        return response;
+
+    }
+})
+
+App.filter('dateFilter', function(){
+    return function(dateF, dateL, items){
+        var response = [];
+        for (i=0; i<items.length; i++){
+            var item_date = moment(items[i].date).format("YYYY-MM-DD");
+
+            if(dateF && !dateL){
+                var df = moment(dateF).format("YYYY-MM-DD");
+                if (item_date >= df){
+                    response.push(items[i])
+                }
+            }else if (!dateF && dateL){
+                var ds = moment(dateL).format("YYYY-MM-DD");
+                if (item_date <= ds){
+                    response.push(items[i])
+                }
+            }else if (dateF && dateL){
+                var df = moment(dateF).format("YYYY-MM-DD");
+                var ds = moment(dateL).format("YYYY-MM-DD");
+                if (item_date >= df && item_date <= ds){
+                    response.push(items[i])
+                }
+            }else{
+                response.push(items[i])
+            }
+        }
+
+        return response
+    }
+})
+
+
+App.controller('LoaderCtr', function($scope, loaderFactory){
+    $scope.loader = loaderFactory;
+})
+
+App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, $filter){
     var init = function(){
         $scope.filters = {
             sortField: false,
@@ -43,18 +102,65 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, $timeout){
             }
         }
 
+        $scope.pagination = {
+            countItemsAll: [10, 20, 30, 50, 100],
+            countItems: 10,
+            countPages: 1,
+            currentPage: 1,
+            pages: []
+        };
+
         $http.get('')
             .then(function(response){
-                //response.data.specializations.unshift({name: 'Все', code: ''});
-                response.data.courses.unshift({id: '', name: 'Все'});
                 $scope.data = response.data;
-                $scope.loader = false;
+                loaderFactory.active = false;
+                filterAll(1);
             })
 
         $rootScope.$on('$viewContentLoaded',function(){
             //$('.dropdown').dropdown();
             $('.accordion').accordion();
         });
+    }
+
+    //фильтрация
+    var filterAll = function(page){
+        var filteredData = $filter('filter')($scope.data.testeds,
+            {
+                user : {
+                    last_name: $scope.filters.lastName,
+                    study_group : {
+                        id : $scope.filters.group, course : $scope.filters.course,
+                        specialization : {
+                            code: $scope.filters.specialization
+                        }
+                    }
+                },
+                option : {id : $scope.filters.option},
+                mark : $scope.filters.mark
+            }
+        );
+
+        filteredData = $filter('dateFilter')($scope.filters.date.first, $scope.filters.date.last, filteredData);
+        filteredData = $filter('orderBy')(filteredData, $scope.filters.sortField, $scope.filters.reverse);
+        //количество найденных данных
+        $scope.FilteredDataAll = filteredData;
+        //пагинация
+        $scope.pagination.countPages = Math.ceil(filteredData.length / $scope.pagination.countItems);
+        if($scope.pagination.countPages){
+                $scope.pagination.pages.splice(0, $scope.pagination.pages.length);
+
+                for(i=1; i<= $scope.pagination.countPages; i++){
+                    $scope.pagination.pages.push(i)
+                }
+
+                $scope.pagination.currentPage = page;
+                //filters in controller
+                $scope.filteredData = $filter('paginationFilter')(page ,$scope.pagination,filteredData);
+        }else{
+            $scope.filteredData = [];
+        }
+
     }
 
     $scope.dateRangeFilter = function(dateF, dateL){
@@ -89,7 +195,7 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, $timeout){
     }
 
     $scope.sendTesteds = function(){
-        var testeds = $scope.filteredTesteds.map(function(tested){
+        var testeds = $scope.FilteredDataAll.map(function(tested){
             return tested.id
         })
 
@@ -108,6 +214,43 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, $timeout){
         }else{
             $scope.filters.sortField = fieldName;
             $scope.revers = false;
+        }
+
+        filterAll(1);
+    }
+
+    $scope.changeCountItems = function(){
+        filterAll(1);
+    }
+
+    $scope.changeFilters = function(){
+        filterAll(1);
+    }
+
+    $scope.setPage = function(page){
+        $scope.pagination.currentPage = page;
+        filterAll(page);
+    }
+
+    $scope.next = function(){
+        var nextPage = $scope.pagination.currentPage + 1;
+        if(nextPage <= $scope.pagination.countPages){
+            $scope.pagination.currentPage = nextPage;
+            filterAll(nextPage);
+        }else{
+            $scope.pagination.currentPage = 1;
+            filterAll(1);
+        }
+    }
+
+    $scope.back = function(){
+        var previousPage = $scope.pagination.currentPage - 1;
+        if (previousPage != 0){
+            $scope.pagination.currentPage = previousPage;
+            filterAll(previousPage);
+        }else{
+            $scope.pagination.currentPage = $scope.pagination.countPages;
+            filterAll($scope.pagination.countPages);
         }
     }
 

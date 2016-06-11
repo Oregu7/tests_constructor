@@ -8,13 +8,20 @@
 <div class="ui grid">
     <div class="row"><p></p></div>
     <div class="row">
-        <div class="seven wide column">
-            <h2>Найденно - {{ filteredTesteds.length }}</h2>
+        <div class="two wide column">
+            <div class="ui form">
+                <div class="field">
+                    <select ng-model="pagination.countItems" ng-change="changeCountItems()" ng-options="count as count for count in pagination.countItemsAll">
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="two wide column"></div>
+        <div class="seven wide column">
+            <h2>Найденно - {{ FilteredDataAll.length }}</h2>
+        </div>
         <div class="seven wide column">
             <div class="ui fluid icon input">
-              <input type="text" placeholder="Поиск по фамилии" ng-model="filters.lastName">
+              <input type="text" placeholder="Поиск по фамилии" ng-model="filters.lastName" ng-change="changeFilters()">
               <i class="search icon"></i>
             </div>
         </div>
@@ -61,12 +68,7 @@
         <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat = "tested in data.testeds |filter:dateRangeFilter(filters.date.first,filters.date.last)
-            | filter : {
-                user : { last_name: filters.lastName, study_group : { id : filters.group, course : filters.course, specialization : {code: filters.specialization} } },
-                option : {id : filters.option},
-                mark : filters.mark
-            } |orderBy:filters.sortField:filters.reverse as filteredTesteds">
+        <tr ng-repeat = "tested in filteredData">
             <td>{{ tested.option.number }}</td>
             <td>{{ tested.user.study_group.name }}</td>
             <td>{{ tested.user.last_name }} {{ tested.user.first_name }}</td>
@@ -92,12 +94,27 @@
             </td>
         </tr>
     </tbody>
-{% endverbatim %}
     <tfoot class="full-width">
         <tr>
             <th colspan="7">
                 <button class="ui google plus button" ng-click = "sendTesteds()">Отчет</button>
+                <div class="ui right floated pagination menu"
+                    ng-show="pagination.countPages && filteredData.length" ng-cloak>
+
+                    <a class="icon item" ng-click = "back()">
+                      <i class="left chevron icon"></i>
+                    </a>
+                    <a class="item" ng-repeat = "page in pagination.pages"
+                       ng-class="{active: page == pagination.currentPage, disabled: page == '..'}" ng-click="setPage(page)">
+                    {{ page }}
+                    </a>
+                    <a class="icon item" ng-click="next()">
+                        <i class="right chevron icon"></i>
+                    </a>
+
+                </div>
             </th>
         </tr>
     </tfoot>
 </table>
+{% endverbatim %}

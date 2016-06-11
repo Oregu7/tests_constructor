@@ -5,16 +5,17 @@
     <script src="{% static 'js/vendor/angular.min.js' %}"></script>
     <script src="{% static 'js/vendor/angular-route.min.js' %}"></script>
     <script src="{% static 'js/vendor/moment.js' %}"></script>
-    <script src="{% static 'library/jquery.scrolltable.js' %}"></script>
 {%endblock%}
 
 {% block css %}
 {% endblock %}
 
 {%block content%}
-<div class="ui grid" ng-app = "testResults" ng-controller="TestedsCtr">
-    <div class="ui active dimmer" ng-if="loader">
-        <div class="ui large text loader">Загрузка</div>
+<div class="ui grid" ng-app = "testResults">
+    <div ng-controller="LoaderCtr" >
+        <div class="ui active dimmer" ng-if="loader.active">
+            <div class="ui large text loader">Загрузка</div>
+        </div>
     </div>
 	<div class="two wide column"></div>
 	<div class="twelve wide column">

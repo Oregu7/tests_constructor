@@ -50,7 +50,6 @@ def test_results(request, id):
     if request.is_ajax():
         if request.method == "GET":
             specializations = SpecializationSerializer(Specialization.objects.all(), many=True).data
-            specializations.insert(0, {'code': '', 'name': 'Все'})
             groups = GroupSerializer(Group.objects.all().order_by('course','name'), many=True).data
             courses = list(map(lambda x: {'id': x, 'name': str(x)}, range(1, 5)))
             marks = list(map(lambda x: {'id': x, 'name': str(x)}, range(2, 6)))

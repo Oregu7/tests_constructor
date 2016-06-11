@@ -17,7 +17,8 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Специализация</label>
-                        <select class="ui search dropdown" ng-model = "filters.specialization" name="spec">
+                        <select class="ui search dropdown" ng-model = "filters.specialization" name="spec" ng-change = "changeFilters()">
+                            <option value="" selected>Все</option>
                             <option ng-repeat = "spec in data.specializations" value="{{ spec.code }}">
                                 {{ spec.name }}
                             </option>
@@ -25,7 +26,8 @@
                     </div>
                     <div class="field">
                         <label>Курс</label>
-                        <select class="ui search dropdown" ng-model = "filters.course" name="course">
+                        <select class="ui search dropdown" ng-model = "filters.course" name="course" ng-change = "changeFilters()">
+                            <option value="" selected>Все</option>
                             <option ng-repeat = "course in data.courses" value="{{ course.id}}">
                                 {{ course.name }}
                             </option>
@@ -34,7 +36,7 @@
                 </div>
                 <div class="field">
                     <label for="">Группа</label>
-                    <select class = "ui search dropdown" ng-model = "filters.group" name="group">
+                    <select class = "ui search dropdown" ng-model = "filters.group" name="group" ng-change = "changeFilters()">
                         <option value="" selected>Все</option>
                         <option
                                 ng-repeat = "group in data.groups
@@ -53,7 +55,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Вариант</label>
-                        <select class="ui search dropdown" ng-model = "filters.option" name="option">
+                        <select class="ui search dropdown" ng-model = "filters.option" name="option" ng-change = "changeFilters()">
                             <option value="" selected>Все</option>
                             <option ng-repeat = "option in data.options" value="{{ option.id }}" >
                                 {{ option.number }}
@@ -62,7 +64,7 @@
                     </div>
                     <div class="field">
                         <label>Оценка</label>
-                        <select class="ui search dropdown" ng-model = "filters.mark" name="mark">
+                        <select class="ui search dropdown" ng-model = "filters.mark" name="mark" ng-change = "changeFilters()">
                             <option value="" selected>Все</option>
                             <option ng-repeat = "mark in data.marks" value="{{ mark.id}}">
                                 {{ mark.name }}
@@ -79,11 +81,11 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Дата От</label>
-                        <input type="date" ng-model = "filters.date.first" name="dateF"/>
+                        <input type="date" ng-model = "filters.date.first" name="dateF" ng-change = "changeFilters()"/>
                     </div>
                     <div class="field">
                         <label>Дата До</label>
-                        <input type="date" ng-model = "filters.date.last" name="dateL"/>
+                        <input type="date" ng-model = "filters.date.last" name="dateL" ng-change = "changeFilters()"/>
                     </div>
                 </div>
                 <input type="hidden" name="testeds"/>
