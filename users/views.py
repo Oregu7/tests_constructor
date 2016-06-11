@@ -21,23 +21,25 @@ import json
 @login_required
 def profile(request):
     user = request.user
-    if request.is_ajax():
-        data = {"user": UserSerializer(user).data}
-        data['user']['subjects'].insert(0,{'name': 'Все', 'url': ''})
-        if user.is_staff or user.is_superuser:
-            tests = Test.objects.filter(creator=user)
-            data['tests'] = TestSerializer(tests, many=True).data
-        else:
-            tested_results = Probationer.objects.filter(user=user).order_by('-date')
-            data['subjects'] = []
-            for tested_result in tested_results:
-                subject = CategorySerializer(tested_result.option.test.category).data
-                if subject not in data['subjects']:
-                    data['subjects'].append(subject)
-            data['tested_results'] = ProbationerSecondSerializer(tested_results, many=True).data
-        return JsonResponse(data)
+    return render_to_response('profile.html', {'login': user})
+
+@login_required
+def profile_data(request):
+    user = request.user
+    data = {"user": UserSerializer(user).data}
+    data['user']['subjects'].insert(0,{'name': 'Все', 'url': ''})
+    if user.is_staff or user.is_superuser:
+        tests = Test.objects.filter(creator=user)
+        data['tests'] = TestSerializer(tests, many=True).data
     else:
-        return render_to_response('profile.html', {'login': user})
+        tested_results = Probationer.objects.filter(user=user).order_by('-date')
+        data['subjects'] = []
+        for tested_result in tested_results:
+            subject = CategorySerializer(tested_result.option.test.category).data
+            if subject not in data['subjects']:
+                data['subjects'].append(subject)
+        data['tested_results'] = ProbationerSecondSerializer(tested_results, many=True).data
+    return JsonResponse(data)
 
 @login_required
 def test_results(request, id):

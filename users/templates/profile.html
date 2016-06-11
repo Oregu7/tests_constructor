@@ -31,16 +31,16 @@
 						</p>
 					</div>
 					<div class="extra">
-						<div class="ui inverted right floated olive buttons">
+						<div class="ui right floated buttons">
 							<a href ="/constructor/test/{{test.id}}/settings/" class = "ui button">
 								<i class="settings chevron icon"></i>
 								Опции
 							</a>
-                            <a href ="analytics/{{test.id}}/" class = "ui button" ng-if="test.category.url == 'analytics'">
+                            <a href ="analytics/{{test.id}}/" class = "ui violet button" ng-if="test.category.url == 'analytics'">
 								Аналитика
 								<i class="right chevron icon"></i>
 							</a>
-                            <a href ="results/{{test.id}}/" class = "ui button" ng-if="test.category.url != 'analytics'">
+                            <a href ="results/{{test.id}}/" class = "ui violet button" ng-if="test.category.url != 'analytics'">
 								Результаты
 								<i class="right chevron icon"></i>
 							</a>

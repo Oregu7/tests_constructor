@@ -42,7 +42,7 @@ App.controller('ProfileCntr', function($scope, $http, $filter){
             pages: []
         };
 
-        $http.get('')
+        $http.get('/profile/data/')
             .then(function(response){
                 $scope.data = response.data;
                 if ($scope.data.user.is_staff || $scope.data.user.is_superuser){
