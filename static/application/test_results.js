@@ -103,7 +103,7 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, 
         }
 
         $scope.pagination = {
-            countItemsAll: [10, 20, 30, 50, 100],
+            countItemsAll: [2, 3, 5, 10, 20, 30, 50, 100],
             countItems: 10,
             countPages: 1,
             currentPage: 1,
@@ -146,15 +146,42 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, 
         //количество найденных данных
         $scope.FilteredDataAll = filteredData;
         //пагинация
+
         $scope.pagination.countPages = Math.ceil(filteredData.length / $scope.pagination.countItems);
         if($scope.pagination.countPages){
                 $scope.pagination.pages.splice(0, $scope.pagination.pages.length);
+                $scope.pagination.currentPage = page;
 
-                for(i=1; i<= $scope.pagination.countPages; i++){
-                    $scope.pagination.pages.push(i)
+                if($scope.pagination.countPages > 10){
+                    if(($scope.pagination.countPages - $scope.pagination.currentPage) <= 9){
+                        $scope.pagination.pages.push(1);
+                        $scope.pagination.pages.push("..");
+                        for(i=$scope.pagination.countPages - 9; i<= $scope.pagination.countPages; i++){
+                            $scope.pagination.pages.push(i)
+                        }
+                    }else if($scope.pagination.currentPage > 10){
+                        var tenth = Math.floor($scope.pagination.currentPage/10) * 10;
+                        $scope.pagination.pages.push(1);
+                        $scope.pagination.pages.push("..");
+                        for(i=tenth; i<= tenth + 9; i++){
+                            $scope.pagination.pages.push(i)
+                        }
+                        $scope.pagination.pages.push("...")
+                        $scope.pagination.pages.push($scope.pagination.countPages)
+                    }else{
+                        for(i=1; i<= 10; i++){
+                            $scope.pagination.pages.push(i)
+                        }
+                        $scope.pagination.pages.push("..")
+                        $scope.pagination.pages.push($scope.pagination.countPages)
+                    }
+
+                }else{
+                    for(i=1; i<= $scope.pagination.countPages; i++){
+                        $scope.pagination.pages.push(i)
+                    }
                 }
 
-                $scope.pagination.currentPage = page;
                 //filters in controller
                 $scope.filteredData = $filter('paginationFilter')(page ,$scope.pagination,filteredData);
         }else{
@@ -228,8 +255,10 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, 
     }
 
     $scope.setPage = function(page){
-        $scope.pagination.currentPage = page;
-        filterAll(page);
+        if(page != '..' && page != '...'){
+           $scope.pagination.currentPage = page;
+           filterAll(page);
+        }
     }
 
     $scope.next = function(){
