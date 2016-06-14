@@ -86,6 +86,7 @@ App.controller('LoaderCtr', function($scope, loaderFactory){
 
 App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, $filter){
     var init = function(){
+        loaderFactory.active = true;
         $scope.filters = {
             sortField: false,
             reverse: false,
@@ -226,8 +227,13 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, 
             return tested.id
         })
 
-        $("input[name=testeds]").val(testeds.join());
-        $('#testedsForm').attr('action', "/profile/print/results/" + $scope.data.test + "/").submit()
+        if(testeds.length){
+          $("input[name=testeds]").val(testeds.join());
+          $('#testedsForm').attr('action', "/profile/print/results/" + $scope.data.test + "/").submit()
+        }else{
+            swal('Ошибка!', 'Количество найденных данных равно 0', 'error');
+        }
+
 
     }
 
@@ -286,11 +292,13 @@ App.controller('TestedsCtr', function($scope, $http, $rootScope, loaderFactory, 
     init()
 })
 
-App.controller('TestedCtr', function($scope, $http, $routeParams){
+App.controller('TestedCtr', function($scope, $http, $routeParams, loaderFactory){
     var init = function(){
+        loaderFactory.active = true;
         $http.get('/profile/tested/' + $routeParams.id + '/')
             .then(function(response){
-                $scope.tested = response.data.tested
+                $scope.tested = response.data.tested;
+                loaderFactory.active = false;
             })
     }
 
