@@ -32,7 +32,7 @@ def get_answers(query):
 @csrf_exempt
 def create_test(request):
     login = check_sign_in(request)
-    if login:
+    if login and (login.is_staff or login.is_superuser):
         if request.is_ajax():
             category = get_object_or_404(Category,id=int(request.POST['category']))
 
@@ -54,7 +54,7 @@ def create_test(request):
             categories = Category.objects.all()
             return render_to_response('create_test.html', {'login': login, 'categories': categories})
     else:
-        return redirect('/')
+        raise Http404('Вы не имете доступа!')
 
 @csrf_exempt
 def settings_test(request, id):
@@ -160,7 +160,7 @@ def edit_question(request, t_id, q_id):
                 }
             )
     else:
-        return Http404('Вы не являетесь создателем данного теста!')
+        raise Http404('Вы не являетесь создателем данного теста!')
 
 @csrf_exempt
 def question_actions(request, qid, aid):
@@ -202,7 +202,7 @@ def question_actions(request, qid, aid):
             #возвращаем модели в JSON формате
             return HttpResponse(json.dumps(response))
     else:
-        return Http404('Вы не являетесь создателем данного теста!')
+        raise Http404('Вы не являетесь создателем данного теста!')
 
 @csrf_exempt
 def test_access(request, id):
@@ -235,7 +235,7 @@ def test_access(request, id):
         else:
             return render_to_response('test_access.html',{'login': login, 'test': test, 'optionName': 'access'})
     else:
-        return Http404('Вы не имете доступа!')
+        raise Http404('Вы не имете доступа!')
 
 def test_options(request, id):
     test = get_object_or_404(Test, id=id)
@@ -304,7 +304,7 @@ def test_options(request, id):
             data.update(csrf(request))
             return render_to_response('test_options.html', data)
     else:
-        return Http404('Вы не имете доступа!')
+        raise Http404('Вы не имете доступа!')
 
 @login_required
 def delete_test(request, id):
