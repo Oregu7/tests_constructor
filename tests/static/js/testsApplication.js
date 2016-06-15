@@ -92,7 +92,20 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
     }
 
     $scope.startTest = function(option){
+        function shuffle(a) {
+            var j, x, i;
+            for (i = a.length; i; i -= 1) {
+                j = Math.floor(Math.random() * i);
+                x = a[i - 1];
+                a[i - 1] = a[j];
+                a[j] = x;
+            }
+        }
         $scope.currentOption = option;
+        shuffle($scope.currentOption.questions);
+        angular.forEach($scope.currentOption.questions, function(question){
+            shuffle(question.answers);
+        })
         $scope.currentIndexQuestion = 0;
         $scope.currentQuestion = option.questions[$scope.currentIndexQuestion];
         closeTimer();
@@ -211,7 +224,18 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
 
     $scope.restart = function(){
         $scope.mark = false;
+        function shuffle(a) {
+            var j, x, i;
+            for (i = a.length; i; i -= 1) {
+                j = Math.floor(Math.random() * i);
+                x = a[i - 1];
+                a[i - 1] = a[j];
+                a[j] = x;
+            }
+        }
+        shuffle($scope.currentOption.questions);
         angular.forEach($scope.currentOption.questions, function(question){
+            shuffle(question.answers);
             angular.forEach(question.answers, function(answer){
                 answer.selected = false;
             })

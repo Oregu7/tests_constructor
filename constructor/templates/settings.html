@@ -9,7 +9,7 @@
     <div class="item">
       <div class="header">Категория</div>
       <div class="field">
-          <select name="category" class="ui search dropdown">
+          <select name="category">
             {% for category in login.subjects.all %}
               {% if category == test.category %}
               <option value="{{category.id}}" selected>{{category.name}}</option>

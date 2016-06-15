@@ -10,7 +10,9 @@ import json
 
 # Create your views here.
 def login(request):
-    args = {}
+    args = {
+        'close_header': True
+    }
     args.update(csrf(request))
 
     if request.method == "POST":

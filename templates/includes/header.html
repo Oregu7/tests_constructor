@@ -12,7 +12,6 @@
     <a class="item" href = "/profile/">
         {{login.username|title}}
     </a>
-    <a class="item" href = "/auth/logout/">Выход</a>
     {% else %}
     <a class="item" href = "/auth/login/">Вход</a>
     {% endif %}
@@ -31,21 +30,22 @@
     {% endif %}
         Профиль
     </a>
-    {% if not login.is_staff and not login.is_superuser%}
-    <a class="item" href = '/tests/'>
-    <i class="list icon"></i>
-    Тесты
-    </a>
-    {% endif %}
-    {% endif %}
-    <a class="item" href = '/analytics/'>
-    <i class="area chart icon"></i>
-    Анкеты
-    </a>
     {% if login.is_staff or  login.is_superuser %}
     <a class="item" href = '/constructor/'>
     <i class="settings icon"></i>
     Констуктор
     </a>
     {% endif %}
+    {% if not login.is_staff and not login.is_superuser%}
+    <a class="item" href = '/tests/'>
+    <i class="list icon"></i>
+    Тесты
+    </a>
+    {% endif %}
+    <a class="item" href="/auth/logout/">
+        <i class="sign out icon"></i>
+        Выход
+    </a>
+    {% endif %}
+
 </div>

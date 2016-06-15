@@ -78,9 +78,12 @@
                             <i class="right arrow icon"></i>
                             Далее
                         </div>
+                        <button class="ui red button" ng-click = "checkTest()" ng-hide="currentIndexQuestion != currentOption.questions.length - 1">
+                            Закончить
+                        </button>
                     </div>
 
-                    <button class="ui right floated red button" ng-click = "checkTest()">
+                    <button class="ui right floated red button" ng-click = "checkTest()" ng-show="currentIndexQuestion != currentOption.questions.length - 1">
                         Закончить
                     </button>
                     <div class="ui right floated twitter icon button" ng-click = "restart()">
