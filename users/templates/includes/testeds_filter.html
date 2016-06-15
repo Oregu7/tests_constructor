@@ -81,11 +81,11 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Дата От</label>
-                        <input type="date" ng-model = "filters.date.first" name="dateF" ng-change = "changeFilters()"/>
+                        <input type="date" max = "{{ filters.date.last | date: 'yyyy-MM-dd'}}" ng-model = "filters.date.first" name="dateF" ng-change = "changeFilters()"/>
                     </div>
                     <div class="field">
                         <label>Дата До</label>
-                        <input type="date" ng-model = "filters.date.last" name="dateL" ng-change = "changeFilters()"/>
+                        <input type="date" min = "{{ filters.date.first | date: 'yyyy-MM-dd'}}" ng-model = "filters.date.last" name="dateL" ng-change = "changeFilters()"/>
                     </div>
                 </div>
                 <input type="hidden" name="testeds"/>

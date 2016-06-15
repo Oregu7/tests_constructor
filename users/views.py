@@ -200,7 +200,7 @@ def print_results(request, id):
         testeds_index = data.get('testeds','')
         if testeds_index:
             testeds_index = testeds_index.split(",")
-            testeds = Probationer.objects.filter(id__in=testeds_index)
+            testeds = Probationer.objects.filter(id__in=testeds_index).order_by('-date')
         else:
             testeds = []
         #Поучаем тест
