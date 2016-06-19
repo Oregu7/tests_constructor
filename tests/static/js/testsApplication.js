@@ -73,7 +73,10 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
                     seconds = 59;
                 }
 
-                $scope.time = minutes + " : " + seconds
+                var timeStr = minutes < 10 ? "0" + minutes : minutes;
+                timeStr += " : ";
+                timeStr += seconds < 10 ? "0" + seconds : seconds;
+                $scope.time = timeStr;
             }, 1000)
 
             $scope.timerTimeout = $timeout(function(){
