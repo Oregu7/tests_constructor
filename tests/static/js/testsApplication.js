@@ -65,12 +65,12 @@ App.controller('testCtrl', function($scope, $http, $routeParams, $interval, $tim
         if(option.time || $scope.test.time_completion){
             var time = option.time ? option.time : $scope.test.time_completion;
             var minutes = time - 1;
-            var seconds = 60;
+            var seconds = 59;
             $scope.timer = $interval(function(){
                 seconds -= 1
                 if (seconds < 0){
                     minutes -= 1;
-                    seconds = 60;
+                    seconds = 59;
                 }
 
                 $scope.time = minutes + " : " + seconds
